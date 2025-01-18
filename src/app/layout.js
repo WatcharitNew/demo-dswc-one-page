@@ -6,6 +6,8 @@ import {
   mantineHtmlProps,
 } from "@mantine/core";
 
+import { QueryProvider } from "@/lib/providers";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -33,7 +35,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MantineProvider>{children}</MantineProvider>
+        <QueryProvider>
+          <MantineProvider>{children}</MantineProvider>
+        </QueryProvider>
       </body>
     </html>
   );
