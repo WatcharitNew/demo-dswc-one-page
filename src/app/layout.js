@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
         <ColorSchemeScript />
       </head>
       <body
-        className={`${kanit.className} min-w-[90rem] font-normal text-base`}
+        className={`${kanit.className} min-w-[90rem] font-normal text-base bg-gray-100`}
       >
         <div className="w-full h-20 bg-white  flex items-center px-4 pr-8 relative z-50">
           <div className="flex-grow">
