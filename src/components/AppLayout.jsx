@@ -14,7 +14,7 @@ export function AppLayout() {
               src="/termtem-logo.svg"
             />
             <div className="flex flex-col">
-              <p className="font-medium text-gray-600 text-lg">
+              <p className="font-medium text-gray-600 text-2xl tracking-[0.01rem]">
                 กรมป้องกันและบรรเทาสาธารณภัย กระทรวงมหาดไทย
               </p>
               <p className="text-gray-400 text-sm">
@@ -27,11 +27,11 @@ export function AppLayout() {
 
         <div className="flex-none">
           <div className="flex flex-row gap-4 items-center">
-            <Image alt="bell" className="size-8" src="/bell.svg" />
-            <Image alt="profile" className="size-14" src="/profile.svg" />
+            <Image alt="bell" className="size-7" src="/bell.svg" />
+            <Image alt="profile" className="size-10" src="/profile.svg" />
             <div className="flex flex-col text-black">
-              <p>Admin</p>
-              <p>ผู้ว่าราชการจังหวัด</p>
+              <p>เจ้าหน้าที่ส่วนกลาง</p>
+              <p className="text-sm font-light">เจ้าหน้าที่ส่วนกลาง</p>
             </div>
           </div>
         </div>

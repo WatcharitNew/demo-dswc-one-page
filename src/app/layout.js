@@ -14,7 +14,7 @@ import "./globals.css";
 
 const kanit = Kanit({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["300", "400", "500"],
 });
 
 export const metadata = {
