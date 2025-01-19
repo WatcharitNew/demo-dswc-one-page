@@ -7,18 +7,14 @@ import {
 } from "@mantine/core";
 
 import { QueryProvider } from "@/lib/providers";
+import { AppLayout } from "@/components";
 
-import { Geist, Geist_Mono } from "next/font/google";
+import { Kanit } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const kanit = Kanit({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500"],
 });
 
 export const metadata = {
@@ -33,10 +29,12 @@ export default function RootLayout({ children }) {
         <ColorSchemeScript />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${kanit.className} min-w-[90rem] font-normal text-base bg-gray-100`}
       >
         <QueryProvider>
-          <MantineProvider>{children}</MantineProvider>
+          <MantineProvider>
+            <AppLayout>{children}</AppLayout>
+          </MantineProvider>
         </QueryProvider>
       </body>
     </html>
