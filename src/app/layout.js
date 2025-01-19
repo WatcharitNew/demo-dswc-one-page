@@ -43,8 +43,7 @@ export default function RootLayout({ children }) {
               />
               <div className="flex flex-col">
                 <p className="font-medium text-gray-600 text-lg">
-                  ระบบข้อมูลแผนที่สำหรับการบริหารจัดการภัยพิบัติ
-                  เพื่อสนับสนุนการใช้ข้อมูลห้องศูนย์บัญชาการเหตุการณ์ (EOC)
+                  กรมป้องกันและบรรเทาสาธารณภัย กระทรวงมหาดไทย
                 </p>
                 <p className="text-gray-400 text-sm">
                   Department of Disaster Prevention and Mitigation. Ministry of
