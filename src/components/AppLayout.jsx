@@ -2,9 +2,9 @@
 
 import { Image } from "@mantine/core";
 
-export function AppLayout() {
+export function AppLayout({ children }) {
   return (
-    <>
+    <div>
       <div className="w-full h-20 bg-white  flex items-center px-4 pr-8 relative z-50">
         <div className="flex-grow">
           <div className="flex flex-row items-center gap-2">
@@ -36,6 +36,7 @@ export function AppLayout() {
           </div>
         </div>
       </div>
-    </>
+      {children}
+    </div>
   );
 }
