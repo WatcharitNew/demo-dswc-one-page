@@ -9,6 +9,7 @@ export default createTheme({
     Input: Input.extend({
       styles: {
         input: {
+          fontSize: '1rem',
           borderRadius: "0.5rem",
           height: "2.75rem",
         }
