@@ -1,6 +1,3 @@
-import { DisasterFilter } from "@/components/DisasterFilter";
-import { DISASTERS } from "@/constants";
-
 export default function Home() {
-  return <DisasterFilter disasters={DISASTERS} />;
+  return <div className="px-[90px]"></div>;
 }
