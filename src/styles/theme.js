@@ -1,11 +1,15 @@
 
 'use client'
 
-import { createTheme, Input } from "@mantine/core";
+import { createTheme, Button, Input } from "@mantine/core";
+import buttonClass from "./Button.module.css";
 
 export default createTheme({
   fontFamily: 'Kanit',
   components: {
+    Button: Button.extend({
+      classNames: buttonClass,
+    }),
     Input: Input.extend({
       styles: {
         input: {
