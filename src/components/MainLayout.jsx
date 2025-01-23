@@ -14,7 +14,7 @@ export default function MainLayout({ children }) {
   useEffect(() => {
     if (!isLoading) {
       if (!isAuth) {
-        router.push("/login");
+        router.push("/");
       }
 
       if (data.role === "ผู้รับผิดชอบรูปแบบรายงาน" && !pathname.includes("/templater")) {
