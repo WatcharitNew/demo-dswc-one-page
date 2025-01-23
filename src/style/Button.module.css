@@ -1,0 +1,22 @@
+.root {
+  background-color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+
+  &[data-variant="primary"] {
+    background-color: theme("colors.blue.400");
+    color: white;
+  }
+
+  &[data-variant="primary"]:disabled {
+    background-color: #f1f3f4;
+    color: #999da6;
+  }
+
+  &[data-variant="outline"] {
+    background-color: "transparent";
+    color: black;
+    border-color: #e2e5ea;
+  }
+}

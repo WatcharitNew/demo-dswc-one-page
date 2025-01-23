@@ -1,15 +1,13 @@
 import "@mantine/core/styles.css";
-
+import { Kanit } from "next/font/google";
 import {
   ColorSchemeScript,
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
-
 import { QueryProvider } from "@/lib/providers";
 import { AppLayout } from "@/components";
-
-import { Kanit } from "next/font/google";
+import theme from "@/style/theme";
 import "./globals.css";
 
 const kanit = Kanit({
@@ -32,7 +30,7 @@ export default function RootLayout({ children }) {
         className={`${kanit.className} min-w-[90rem] font-normal text-base bg-gray-100`}
       >
         <QueryProvider>
-          <MantineProvider>
+          <MantineProvider theme={theme}>
             <AppLayout>{children}</AppLayout>
           </MantineProvider>
         </QueryProvider>

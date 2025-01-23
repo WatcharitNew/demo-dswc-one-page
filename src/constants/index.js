@@ -1,3 +1,5 @@
+import { CentralizedReportIcon, NewReportIcon } from "../icons";
+
 export const DISASTERS = [
   {
     srcName: "disaster-flood",
@@ -35,5 +37,23 @@ export const DISASTERS = [
     srcName: "disaster-forest-fire",
     text: "ไฟป่า",
     value: "forest-fire",
+  },
+];
+
+export const CREAT_REPORT_OPTIONS = [
+  {
+    icon: CentralizedReportIcon,
+    label: (
+      <p className="font-medium">
+        สร้างรูปแบบรายงาน <br /> จากส่วนกลาง
+      </p>
+    ),
+    value: "centralized",
+    disable: true,
+  },
+  {
+    icon: NewReportIcon,
+    label: <p className="font-medium">สร้างใหม่</p>,
+    value: "new",
   },
 ];
