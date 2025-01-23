@@ -8,7 +8,7 @@ import { AddIcon, SearchIcon } from "@/icons";
 export default function Home() {
   const [opened, { open, close }] = useDisclosure(false);
   return (
-    <div className="px-[90px]">
+    <div className="px-24">
       <DisasterFilter disasters={DISASTERS} />
       <div className="row justify-between my-6">
         <Input
@@ -18,7 +18,7 @@ export default function Home() {
           size="md"
         />
         <Button
-          className="w-[160px] h-[44px]"
+          className="w-40 h-11"
           variant="primary"
           leftSection={<AddIcon />}
           onClick={open}
@@ -26,8 +26,7 @@ export default function Home() {
           สร้างใหม่
         </Button>
       </div>
-
-      {opened && <TemplateModal opened={opened} close={close} />}
+      <TemplateModal opened={opened} close={close} />
     </div>
   );
 }
