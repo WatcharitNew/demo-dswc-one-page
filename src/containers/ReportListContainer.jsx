@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Input, Image } from "@mantine/core";
+import { Button, Input, Image } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 import { MOCK_REPORT, MOCK_REPORT_CENTER } from "@/constants";
 
-import { ReportScaleUpModal } from "@/components";
-import { Search } from "@/icons";
+import { ReportScaleUpModal, TemplateModal } from "@/components";
+import { AddIcon, Search } from "@/icons";
 
 export const ReportListContainer = () => {
   const [selectedReport, setSelectedReport] = useState({
@@ -15,6 +15,8 @@ export const ReportListContainer = () => {
     templateName: "",
   });
   const [opened, { open, close }] = useDisclosure(false);
+  const [createModal, { open: openCreateModal, close: closeCreateModal }] =
+    useDisclosure(false);
 
   const handleOnClickReport = useCallback(
     (selected) => {
@@ -36,6 +38,14 @@ export const ReportListContainer = () => {
             input: { paddingInlineStart: "2.8rem" },
           }}
         />
+        <Button
+          className="w-40 h-11"
+          variant="primary"
+          leftSection={<AddIcon />}
+          onClick={openCreateModal}
+        >
+          สร้างใหม่
+        </Button>
       </div>
       <div className="flex flex-col gap-2">
         <p className="font-medium text-xl">
@@ -94,6 +104,7 @@ export const ReportListContainer = () => {
         opened={opened}
         onClose={close}
       />
+      <TemplateModal opened={createModal} close={closeCreateModal} />
     </div>
   );
 };
