@@ -162,4 +162,4 @@ export const PROVINCES = [
   "บึงกาฬ",
 ];
 
-export const TYPE_USER = ["ผู้รับผิดชอบรูปแบบรายงาน", "ผู้สร้างรายงาน "];
+export const TYPE_USER = ["ผู้รับผิดชอบรูปแบบรายงาน", "ผู้สร้างรายงาน"];

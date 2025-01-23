@@ -17,8 +17,18 @@ import clsx from "clsx";
 
 dayjs.extend(buddhistEra);
 
+function redirectToPage(router, role) {
+  if (role === "ผู้รับผิดชอบรูปแบบรายงาน") {
+    router.push("/templater");
+  }
+
+  if (role === "ผู้สร้างรายงาน") {
+    router.push("/reporter");
+  }
+}
+
 function LoginPage() {
-  const { isAuth, isLoading, signIn } = useAuthContext();
+  const { isAuth, isLoading, data, signIn } = useAuthContext();
   const router = useRouter();
   const { control, handleSubmit } = useForm();
   const iconChevronDown = <IconChevronDown size={16} />;
@@ -26,8 +36,8 @@ function LoginPage() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (isAuth && !isLoading) {
-      router.push("/");
+    if (!isLoading && isAuth) {
+      redirectToPage(router, data.role)
     }
   }, [isAuth, isLoading, router]);
 
@@ -39,7 +49,7 @@ function LoginPage() {
 
     setError(false);
     signIn(JSON.stringify({ province, date, role }));
-    router.push("/");
+    redirectToPage(router, role)
   };
 
   return (

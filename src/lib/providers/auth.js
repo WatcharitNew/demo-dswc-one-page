@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
 
   const [isAuth, setIsAuth] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  // Example Data -> { province: "กรุงเทพมหานคร", date: new Date(), role: "ผู้รับผิดชอบรูปแบบรายงาน" }
   const [data, setData] = useState({});
   const signIn = useCallback((token) => setUserData(token), []);
 

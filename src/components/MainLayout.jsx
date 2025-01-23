@@ -1,18 +1,29 @@
 "use client";
 
 import { AppLayout } from "@/components";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import { useAuthContext } from "@/lib/providers/auth";
 
 export default function MainLayout({ children }) {
-  const { isAuth, isLoading } = useAuthContext();
+  const { isAuth, isLoading, data } = useAuthContext();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (!isAuth && !isLoading) {
-      router.push("/login");
+    if (!isLoading) {
+      if (!isAuth) {
+        router.push("/login");
+      }
+
+      if (data.role === "ผู้รับผิดชอบรูปแบบรายงาน" && !pathname.includes("/templater")) {
+        router.push("/templater");
+      }
+
+      if (data.role === "ผู้สร้างรายงาน" && !pathname.includes("/reporter")) {
+        router.push("/reporter");
+      }
     }
   }, [isAuth, isLoading, router]);
 
