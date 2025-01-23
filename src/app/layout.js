@@ -1,13 +1,15 @@
-import "@mantine/core/styles.css";
-import { Kanit } from "next/font/google";
 import {
   ColorSchemeScript,
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
+
 import { QueryProvider } from "@/lib/providers";
 import { AppLayout } from "@/components";
-import theme from "@/style/theme";
+
+import { Kanit } from "next/font/google";
+import theme from "@/styles/theme";
+import "@mantine/core/styles.css";
 import "./globals.css";
 
 const kanit = Kanit({

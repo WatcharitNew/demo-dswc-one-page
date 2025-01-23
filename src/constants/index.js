@@ -57,3 +57,27 @@ export const CREAT_REPORT_OPTIONS = [
     value: "new",
   },
 ];
+
+export const MOCK_REPORT = [
+  {
+    title: "รอตรวจสอบ (1)",
+    src: "https://placehold.co/200x400?text=Placeholder003",
+    name: "TEM_DDPM_003"
+  },
+  {
+    title: "ฉบับร่าง (1)",
+    src: "https://placehold.co/200x400?text=PlaceholderDraft",
+    name: "V01_Draft"
+  }
+]
+
+export const MOCK_REPORT_CENTER = [
+  {
+    src: "https://placehold.co/200x400?text=Placeholder002",
+    name: "TEM_DDPM_002"
+  },
+  {
+    src: "https://placehold.co/200x400?text=Placeholder001",
+    name: "TEM_DDPM_001"
+  }
+]
