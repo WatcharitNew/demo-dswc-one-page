@@ -1,12 +1,19 @@
 "use client";
 import { Modal, Button, Flex, Divider } from "@mantine/core";
-import { useState } from "react";
+import { useState, useState } from "react";
+import { Modal, Button, Flex, Divider } from "@mantine/core";
 import colors from "@/style/colors";
 import clsx from "clsx";
 import { CREAT_REPORT_OPTIONS } from "@/constants";
 
 export const TemplateModal = ({ opened, close }) => {
   const [selectedType, setSelectedType] = useState();
+
+  useEffect(() => {
+    if (!opened) {
+      setSelectedType(undefined);
+    }
+  }, [opened]);
 
   return (
     <Modal.Root opened={opened} onClose={close} size="lg" centered>
@@ -18,18 +25,18 @@ export const TemplateModal = ({ opened, close }) => {
           </Modal.Title>
           <Divider my="sm" color="black" />
         </div>
-        <Flex className="col mt-[50px] mb-[40px]">
+        <Flex className="col mt-12 mb-10">
           <h3 className="text-center font-medium text-2xl">
             เลือกรูปแบบรายงาน
           </h3>
-          <Flex className="row items-center my-[30px] gap-[30px] justify-center">
+          <Flex className="row items-center my-8 gap-8 justify-center">
             {CREAT_REPORT_OPTIONS.map((item) => {
               const isActive = selectedType === item.value;
               return (
                 <Flex
                   key={item.value}
                   className={clsx(
-                    "col w-[200px] h-[200px] items-center justify-center gap-4 text-center rounded-lg border-[6px] transition duration-150 ease-in-out",
+                    "col w-60 h-60 items-center justify-center gap-4 text-center rounded-lg border-[6px] transition duration-150 ease-in-out",
                     {
                       "border-blue-400 text-blue-400": isActive,
                       "border-none text-gray-400": !isActive,
@@ -50,20 +57,11 @@ export const TemplateModal = ({ opened, close }) => {
               );
             })}
           </Flex>
-
-          <Flex className="gap-[20px] justify-center">
-            <Button
-              variant="outline"
-              className="w-[128px]"
-              onClick={() => close()}
-            >
+          <Flex className="gap-5 justify-center">
+            <Button variant="outline" className="w-32" onClick={() => close()}>
               ปิด
             </Button>
-            <Button
-              variant="primary"
-              className="w-[128px]"
-              disabled={!selectedType}
-            >
+            <Button variant="primary" className="w-32" disabled={!selectedType}>
               เลือก
             </Button>
           </Flex>
