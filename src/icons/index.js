@@ -10,3 +10,4 @@ export * from "./VerticalIcon";
 export * from "./HorizontalIcon";
 export * from "./BackIcon";
 export * from "./NextIcon";
+export * from "./Search";

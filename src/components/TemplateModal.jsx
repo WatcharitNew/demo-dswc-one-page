@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Modal, Button, Flex, Divider } from "@mantine/core";
+import colors from "@/styles/colors";
 import clsx from "clsx";
 import { CREAT_REPORT_OPTIONS } from "@/constants";
 import colors from "@/style/colors";
