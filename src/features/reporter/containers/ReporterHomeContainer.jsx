@@ -1,6 +1,8 @@
 "use client";
 
 import { Center, Input, UnstyledButton } from "@mantine/core";
+
+import { ReportTable } from "../components/ReportTable";
 import { Filter, Search, Sort } from "@/icons";
 
 export const ReporterHomeContainer = () => {
@@ -36,9 +38,8 @@ export const ReporterHomeContainer = () => {
                 จัดเรียงตาม
               </UnstyledButton>
             </div>
-            <Center className="bg-gray-300" h={320}>
-              Table Here
-            </Center>
+
+            <ReportTable />
           </div>
         </div>
       </div>
