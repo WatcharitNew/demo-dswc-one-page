@@ -1,11 +1,17 @@
 "use client";
 
-import { Center, Input, UnstyledButton } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { Button, Center, Input, UnstyledButton } from "@mantine/core";
 
-import { ReportTable } from "../components/ReportTable";
-import { Filter, Search, Sort } from "@/icons";
+import { CreateReportModal, ReportTable } from "../components";
+import { AddIcon, Filter, Search, Sort } from "@/icons";
 
 export const ReporterHomeContainer = () => {
+  const [
+    createReportOpened,
+    { open: openCreateReport, close: closeCreateReport },
+  ] = useDisclosure(false);
+
   return (
     <div className="max-w-[78.875rem] mx-auto">
       <div className="col gap-8">
@@ -27,6 +33,14 @@ export const ReporterHomeContainer = () => {
               <Filter className="size-6 text-gray-600" />
               ค้นหาแบบละเอียด
             </UnstyledButton>
+            <Button
+              className="h-11 ml-auto"
+              variant="primary"
+              leftSection={<AddIcon />}
+              onClick={openCreateReport}
+            >
+              สร้างรายงานประจำวัน
+            </Button>
           </div>
           <div className="col gap-4">
             <div className="row items-center justify-between">
@@ -43,6 +57,11 @@ export const ReporterHomeContainer = () => {
           </div>
         </div>
       </div>
+
+      <CreateReportModal
+        opened={createReportOpened}
+        onClose={closeCreateReport}
+      />
     </div>
   );
 };
