@@ -1,0 +1,20 @@
+.list {
+  position: relative;
+}
+
+.indicator {
+  background-color: var(--mantine-color-gray-2);
+  border-radius: var(--mantine-radius-md);
+}
+
+.tab {
+  z-index: 1;
+  font-weight: 500;
+  min-width: 16rem;
+  transition: color 100ms ease;
+  color: var(--mantine-color-gray-7);
+
+  &[data-active] {
+    color: var(--mantine-color-black);
+  }
+}
