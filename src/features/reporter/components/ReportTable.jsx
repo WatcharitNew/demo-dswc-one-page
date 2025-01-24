@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { MOCK_REPORT_LIST } from "../constants";
 
-import { Badge, Table } from "@mantine/core";
+import { Badge, Table, UnstyledButton } from "@mantine/core";
+import { Report } from "@/icons";
 
 const getBadgeStatus = (status) => {
   switch (status) {
@@ -29,12 +31,21 @@ export const ReportTable = () => {
           variant="light"
           color={getBadgeStatus(report.status)}
           size="lg"
-          style={{fontWeight: 400}}
+          style={{ fontWeight: 400 }}
         >
           {report.status}
         </Badge>
       </Table.Td>
-      <Table.Td>Action</Table.Td>
+      <Table.Td>
+        <UnstyledButton
+          component={Link}
+          className="col mx-auto items-center text-xs"
+          href={`#${report.id}`}
+        >
+          <Report className="size-5" />
+          ดูรายงาน
+        </UnstyledButton>
+      </Table.Td>
     </Table.Tr>
   ));
 

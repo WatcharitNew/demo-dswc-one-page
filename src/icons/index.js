@@ -5,6 +5,7 @@ export * from './Filter'
 export * from "./newReportIcon";
 export * from "./pendingIcon";
 export * from "./rejectedIcon";
-export * from './Search'
-export * from './Sort'
+export * from './Report';
+export * from './Search';
+export * from './Sort';
 export * from "./totalIcon";
