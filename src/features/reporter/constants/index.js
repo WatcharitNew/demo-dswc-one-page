@@ -5,7 +5,7 @@ export const MOCK_REPORT_LIST = [
     count: '2',
     times: '8:10น.',
     name: 'SUP_OP_PO03',
-    status: 'pending',
+    status: 'รอการอนุมัติ',
   },
   {
     id: '2',
@@ -13,7 +13,7 @@ export const MOCK_REPORT_LIST = [
     count: '1',
     times: '8:10น.',
     name: 'SUP_OP_PO03',
-    status: 'reject',
+    status: 'ไม่อนุมัติ',
   },
   {
     id: '3',
@@ -21,7 +21,7 @@ export const MOCK_REPORT_LIST = [
     count: '1',
     times: '8:10น.',
     name: 'SUP_OP_PO02',
-    status: 'approve',
+    status: 'อนุมัติ',
   },
   {
     id: '4',
@@ -29,6 +29,6 @@ export const MOCK_REPORT_LIST = [
     count: '1',
     times: '8:10น.',
     name: 'SUP_OP_PO01',
-    status: 'approve',
+    status: 'อนุมัติ',
   },
 ]

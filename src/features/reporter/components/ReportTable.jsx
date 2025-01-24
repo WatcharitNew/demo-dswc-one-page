@@ -2,7 +2,20 @@
 
 import { MOCK_REPORT_LIST } from "../constants";
 
-import { Table } from "@mantine/core";
+import { Badge, Table } from "@mantine/core";
+
+const getBadgeStatus = (status) => {
+  switch (status) {
+    case "รอการอนุมัติ":
+      return "yellow";
+    case "ไม่อนุมัติ":
+      return "red";
+    case "อนุมัติ":
+      return "green";
+    default:
+      return "gray";
+  }
+};
 
 export const ReportTable = () => {
   const rows = MOCK_REPORT_LIST.map((report) => (
@@ -11,7 +24,16 @@ export const ReportTable = () => {
       <Table.Td>{report.count}</Table.Td>
       <Table.Td>{report.times}</Table.Td>
       <Table.Td>{report.name}</Table.Td>
-      <Table.Td>{report.status}</Table.Td>
+      <Table.Td>
+        <Badge
+          variant="light"
+          color={getBadgeStatus(report.status)}
+          size="lg"
+          style={{fontWeight: 400}}
+        >
+          {report.status}
+        </Badge>
+      </Table.Td>
       <Table.Td>Action</Table.Td>
     </Table.Tr>
   ));
