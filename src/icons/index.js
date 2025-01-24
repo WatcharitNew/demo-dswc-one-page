@@ -1,6 +1,5 @@
 export * from "./CentralizeReportIcon";
 export * from "./NewReportIcon";
-export * from "./SearchIcon";
 export * from "./AddIcon";
 export * from "./HomeIcon";
 export * from "./HomeIcon";

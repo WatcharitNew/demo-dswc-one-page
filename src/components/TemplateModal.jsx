@@ -1,13 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import clsx from "clsx";
 import { Modal, Button, Flex, Divider } from "@mantine/core";
 import colors from "@/styles/colors";
-import clsx from "clsx";
 import { CREAT_REPORT_OPTIONS } from "@/constants";
-import colors from "@/style/colors";
 
 export const TemplateModal = ({ opened, close }) => {
   const [selectedType, setSelectedType] = useState();
+  const router = useRouter();
 
   useEffect(() => {
     if (!opened) {
@@ -61,7 +62,12 @@ export const TemplateModal = ({ opened, close }) => {
             <Button variant="outline" className="w-32" onClick={() => close()}>
               ปิด
             </Button>
-            <Button variant="primary" className="w-32" disabled={!selectedType}>
+            <Button
+              variant="primary"
+              className="w-32"
+              disabled={!selectedType}
+              onClick={() => router.push("/create-layout/outline")}
+            >
               เลือก
             </Button>
           </Flex>

@@ -1,14 +1,16 @@
 "use client";
-import { Flex, Image } from "@mantine/core";
-import { BackIcon, NextIcon } from "@/icons";
-import Menu from "./components/Menu";
 import { useContext } from "react";
-import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import clsx from "clsx";
+import { Flex, Image, Button } from "@mantine/core";
+import { useRouter } from "next/navigation";
+import { BackIcon, NextIcon } from "@/icons";
+import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
+import Menu from "./components/Menu";
 
 const SelectOutline = () => {
   const { selectedTemplate, setSelectedTemplate } =
     useContext(CreateLayoutContext);
+  const router = useRouter();
 
   return (
     <Flex className="w-full">
@@ -31,6 +33,22 @@ const SelectOutline = () => {
           ) : (
             <p className="text-gray-400 m-auto">กรุณาเลือกรูปแบบ</p>
           )}
+        </Flex>
+        <Flex className="md:w-[25rem] 2xl:w-[32rem] row gap-2 top-2 m-auto absolute bottom-[10px] items-end z-10 justify-end">
+          <Button
+            variant="outline"
+            className="w-[8.6rem]"
+            onClick={() => router.push("/templater")}
+          >
+            ยกเลิก
+          </Button>
+          <Button
+            disabled={!selectedTemplate}
+            variant="primary"
+            className="w-[8.6rem]"
+          >
+            ดำเนินการต่อ
+          </Button>
         </Flex>
       </div>
     </Flex>

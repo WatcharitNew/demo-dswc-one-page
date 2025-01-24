@@ -1,10 +1,9 @@
-import { CREATE_LAYOUT_MENU } from "@/constants";
-import { HomeIcon, LayoutIcon, TemplateIcon } from "@/icons";
-import colors from "@/style/colors";
-import { Button, Flex } from "@mantine/core";
 import clsx from "clsx";
+import { Flex } from "@mantine/core";
+import { CREATE_LAYOUT_MENU } from "@/constants";
+import colors from "@/styles/colors";
 
-const CreateLayout = ({ children }) => {
+const CreateLayout = () => {
   const currentStep = 1;
   return (
     <div className="row">
@@ -12,8 +11,6 @@ const CreateLayout = ({ children }) => {
         <nav className="col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
           {CREATE_LAYOUT_MENU.map((item) => {
             const isActive = currentStep === item.value;
-
-            console.log("this", item.value, isActive && item.value === 3);
             return (
               <Flex
                 role="button"
@@ -54,8 +51,6 @@ const CreateLayout = ({ children }) => {
           })}
         </nav>
       </div>
-
-      {<TemplateIcon fill={colors.gray[500]} />}
     </div>
   );
 };
