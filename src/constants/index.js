@@ -1,4 +1,10 @@
-import { CentralizedReportIcon, NewReportIcon } from "../icons";
+import {
+  CentralizedReportIcon,
+  HomeIcon,
+  LayoutIcon,
+  NewReportIcon,
+  TemplateIcon,
+} from "../icons";
 
 export const DISASTERS = [
   {
@@ -55,5 +61,23 @@ export const CREAT_REPORT_OPTIONS = [
     icon: NewReportIcon,
     label: <p className="font-medium">สร้างใหม่</p>,
     value: "new",
+  },
+];
+
+export const CREATE_LAYOUT_MENU = [
+  {
+    label: "หน้าหลัก",
+    icon: HomeIcon,
+    value: 1,
+  },
+  {
+    label: "เค้าโครงรายงาน",
+    icon: LayoutIcon,
+    value: 2,
+  },
+  {
+    label: "รูปแบบรายงาน",
+    icon: TemplateIcon,
+    value: 3,
   },
 ];
