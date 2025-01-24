@@ -1,19 +1,24 @@
 "use client";
 
-import { useState } from "react";
-import { DISASTERS_REPORT_SELECT } from "../constants";
+import { useState, useEffect } from "react";
+import { clsx } from "clsx";
+import { DISASTERS_REPORT_SELECT, SAMPLE_REPORT } from "../constants";
 
 import {
+  Button,
   CloseButton,
   Flex,
   FloatingIndicator,
   Modal,
   Tabs,
+  SimpleGrid,
+  Image,
 } from "@mantine/core";
 
 import classes from "./tab.module.css";
 
 export const CreateReportModal = ({ opened, onClose }) => {
+  const [selectedImage, setSelectedImage] = useState("");
   const [rootRef, setRootRef] = useState(null);
   const [value, setValue] = useState("all");
   const [controlsRefs, setControlsRefs] = useState({});
@@ -21,6 +26,13 @@ export const CreateReportModal = ({ opened, onClose }) => {
     controlsRefs[val] = node;
     setControlsRefs(controlsRefs);
   };
+
+  useEffect(() => {
+    if (!opened) {
+      setSelectedImage("")
+      setValue("all")
+    }
+  }, [opened])
 
   return (
     <Modal
@@ -48,7 +60,7 @@ export const CreateReportModal = ({ opened, onClose }) => {
       <Tabs
         variant="none"
         orientation="vertical"
-        className="mt-6"
+        className="mt-6 max-h-[22rem]"
         value={value}
         onChange={setValue}
       >
@@ -59,7 +71,13 @@ export const CreateReportModal = ({ opened, onClose }) => {
               value={disaster.value}
               ref={setControlRef(disaster.value)}
               className={classes.tab}
-              styles={{ tabLabel: { display: "flex", alignItems: 'center', gap: '1rem' } }}
+              styles={{
+                tabLabel: {
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1rem",
+                },
+              }}
             >
               <disaster.icon />
               {disaster.text}
@@ -73,8 +91,37 @@ export const CreateReportModal = ({ opened, onClose }) => {
           />
         </Tabs.List>
 
-        <div className="w-full">test</div>
+        <SimpleGrid
+          className="w-full px-4 pt-1 overflow-y-auto"
+          cols={3}
+          spacing="xl"
+        >
+          {SAMPLE_REPORT.map((image, idx) => {
+            const isSelected = selectedImage === image;
+
+            return (
+              <div
+                key={idx}
+                className={clsx("h-60 cursor-pointer", {
+                  "outline outline-offset-2 outline-2 outline-blue-400":
+                    isSelected,
+                })}
+                onClick={() => setSelectedImage(image)}
+              >
+                <Image alt="report-image" className="h-full" src={image} />
+              </div>
+            );
+          })}
+        </SimpleGrid>
       </Tabs>
+
+      <Button
+        className="block h-11 mt-8 ml-auto"
+        disabled={!selectedImage}
+        variant="primary"
+      >
+        ดำเนินการต่อ
+      </Button>
     </Modal>
   );
 };
