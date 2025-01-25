@@ -84,3 +84,22 @@ export const SAMPLE_REPORT = [
   "https://media.istockphoto.com/id/1193723594/photo/fujiyoshida-japan-at-chureito-pagoda-and-mt-fuji-in-the-spring-with-cherry-blossoms.jpg?s=612x612&w=0&k=20&c=O5Oy6Bxa7rJs6eqVu4h85OxDd-yBnUVfJ_cAyt5P6iY=",
   "https://cdn.pixabay.com/photo/2022/10/09/12/07/plant-7508987_640.jpg"
 ];
+
+export const MOCK_OVERVIEW_STATUS = [
+  {
+    status: "pending",
+    total: 1,
+  },
+  {
+    status: "approved",
+    total: 2,
+  },
+  {
+    status: "rejected",
+    total: 1,
+  },
+  {
+    status: "total",
+    total: 4,
+  },
+];

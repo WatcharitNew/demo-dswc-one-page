@@ -1,12 +1,18 @@
 "use client";
 
 import { useDisclosure } from "@mantine/hooks";
-import { Button, Center, Input, UnstyledButton } from "@mantine/core";
+import { Button, Input, UnstyledButton } from "@mantine/core";
 
+import dayjs from '@/lib/helpers/dayjs'
+import { useAuthContext } from '@/lib/providers/auth';
+import { MOCK_OVERVIEW_STATUS } from "../constants";
+
+import { OverviewStatusCard } from '@/components';
 import { CreateReportModal, ReportTable } from "../components";
 import { AddIcon, Filter, Search, Sort } from "@/icons";
 
 export const ReporterHomeContainer = () => {
+  const { data } = useAuthContext()
   const [
     createReportOpened,
     { open: openCreateReport, close: closeCreateReport },
@@ -15,9 +21,17 @@ export const ReporterHomeContainer = () => {
   return (
     <div className="max-w-[78.875rem] mx-auto">
       <div className="col gap-8">
-        <Center className="h-52 rounded-lg bg-gray-300">
-          Put Status Component Here
-        </Center>
+        <div className="col gap-6">
+          <p className="text-black text-left font-medium text-xl">
+            งานที่ต้องดำเนินการ ณ วันที่&nbsp;
+            {dayjs(data.date).format("DD MMMM BBBB")}
+          </p>
+          <div className="flex flex-row gap-5 mx-auto">
+            {MOCK_OVERVIEW_STATUS.map(({ total, status }) => (
+              <OverviewStatusCard key={status} total={total} status={status} />
+            ))}
+          </div>
+        </div>
         <div className="col gap-6 shadow-report bg-white rounded-lg p-6">
           <div className="row gap-4">
             <Input
