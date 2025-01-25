@@ -86,7 +86,7 @@ function LoginPage() {
                 styles={{
                   label: { color: "#252525", fontSize: "1.25rem" },
                   dropdown: { color: "#252525", fontSize: "1rem" },
-                  input: { height: "full", marginTop: "0.25rem" },
+                  input: { height: "2.5rem", marginTop: "0.25rem" },
                 }}
               />
             )}
@@ -113,7 +113,7 @@ function LoginPage() {
                 styles={{
                   label: { color: "#252525", fontSize: "1.25rem" },
                   calendarHeader: { color: "#252525" },
-                  input: { height: "full", marginTop: "0.25rem" },
+                  input: { height: "2.5rem", marginTop: "0.25rem" },
                 }}
               />
             )}
@@ -130,9 +130,10 @@ function LoginPage() {
                 data={TYPE_USER}
                 className="w-full h-16"
                 styles={{
+                 //root: {  },
                   label: { color: "#252525", fontSize: "1.25rem" },
                   dropdown: { color: "#252525", fontSize: "1rem" },
-                  input: { height: "full", marginTop: "0.25rem" },
+                  input: { height: "2.5rem", marginTop: "0.25rem" },
                 }}
               />
             )}
@@ -145,7 +146,7 @@ function LoginPage() {
           <Button
             type="submit"
             variant="filled"
-            className="w-full bg-blue-1000 hover:bg-black"
+            className="w-full h-11 bg-blue-1000 hover:bg-black"
           >
             เข้าสู่ระบบ
           </Button>
