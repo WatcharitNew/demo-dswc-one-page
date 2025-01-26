@@ -1,5 +1,3 @@
-import "@mantine/core/styles.css";
-
 import {
   ColorSchemeScript,
   MantineProvider,
@@ -7,10 +5,12 @@ import {
 } from "@mantine/core";
 
 import { QueryProvider } from "@/lib/providers";
-import { AppLayout } from "@/components";
 
 import { Kanit } from "next/font/google";
+import theme from "@/styles/theme";
+import "@mantine/core/styles.css";
 import "./globals.css";
+import { AuthProvider } from "@/lib/providers/auth";
 
 const kanit = Kanit({
   subsets: ["latin"],
@@ -29,11 +29,11 @@ export default function RootLayout({ children }) {
         <ColorSchemeScript />
       </head>
       <body
-        className={`${kanit.className} min-w-[90rem] font-normal text-base bg-gray-100`}
+        className={`${kanit.className} h-screen min-w-[90rem] font-normal text-base bg-gray-100`}
       >
         <QueryProvider>
-          <MantineProvider>
-            <AppLayout>{children}</AppLayout>
+          <MantineProvider theme={theme}>
+            <AuthProvider>{children}</AuthProvider>
           </MantineProvider>
         </QueryProvider>
       </body>
