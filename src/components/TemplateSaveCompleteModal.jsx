@@ -1,7 +1,6 @@
 "use client";
 
-import { DISASTERS } from "@/constants";
-import { Button, Modal, MultiSelect, TextInput } from "@mantine/core";
+import { Button, Modal } from "@mantine/core";
 
 export function TemplateSaveCompleteModal({ templateName, isRequestApproval, isOpen, onClose }) {
   return (
