@@ -1,4 +1,3 @@
-import { PencilIcon } from "@/icons/PencilIcon";
 import {
   CentralizedReportIcon,
   HomeIcon,
@@ -10,6 +9,7 @@ import {
   ForecastIcon,
   RainWaterIcon,
   Pm25Icon,
+  PencilIcon,
 } from "../icons";
 
 export const DISASTERS = [
