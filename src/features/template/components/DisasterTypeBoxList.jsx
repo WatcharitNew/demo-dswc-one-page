@@ -14,11 +14,11 @@ export const DisasterTypeBoxList = ({
 }) => {
   return (
     <div className="flex flex-row gap-2">
-      <div onClick={() => onClickBack()} className="my-auto cursor-pointer">
+      <div onClick={() => onClickBack()} className="my-auto cursor-pointer pb-4">
         <Back2Icon />
       </div>
 
-      <div ref={sliderRef} className="flex flex-row gap-2 overflow-x-auto">
+      <div ref={sliderRef} className="flex flex-row gap-2 overflow-x-auto pb-4">
         {DISASTERS_WITH_OTHER.map(({ filterText, value }, idx) => (
           <DisasterTypeBox
             key={value}
@@ -32,7 +32,7 @@ export const DisasterTypeBoxList = ({
         ))}
       </div>
 
-      <div onClick={() => onClickNext()} className="my-auto cursor-pointer">
+      <div onClick={() => onClickNext()} className="my-auto cursor-pointer pb-4">
         <Next2Icon />
       </div>
     </div>

@@ -77,7 +77,7 @@ export const TemplateComponentModal = () => {
         }}
       >
         <div className="w-full min-w-[78.3125rem] h-[70vh] flex flex-row gap-6">
-          <div className="flex flex-col max-w-[24.625rem] gap-4">
+          <div className="flex flex-col max-w-[24.625rem]">
             <div className="flex flex-col gap-1">
               <p>ประเภทภัย</p>
               <DisasterTypeBoxList
