@@ -35,7 +35,7 @@ export const DisasterTypeBox = ({
 }) => {
   return (
     <div
-      ref={(el) => ref(el)}
+      ref={ref}
       onClick={() => onSelect(idx)}
       className={clsx(
         "min-w-max h-11 bg-white rounded px-6 flex flex-row gap-2 border border-gray-200 items-center text-gray-900 cursor-pointer",
