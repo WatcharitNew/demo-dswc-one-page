@@ -4,6 +4,12 @@ import {
   LayoutIcon,
   NewReportIcon,
   TemplateIcon,
+  RunoffWaterIcon,
+  ReservoirWaterIcon,
+  ForecastIcon,
+  RainWaterIcon,
+  Pm25Icon,
+  PencilIcon,
 } from "../icons";
 
 export const DISASTERS = [
@@ -11,38 +17,54 @@ export const DISASTERS = [
     srcName: "disaster-flood",
     text: "อุทกภัย",
     value: "flood",
+    filterText: "อุทกภัย",
   },
   {
     srcName: "disaster-drought",
     text: "ภัยแล้ง",
     value: "drought",
+    filterText: "ภัยแล้ง",
   },
   {
     srcName: "disaster-storm",
     text: "วาตภัย/พายุ",
     value: "storm",
+    filterText: "วาตภัย/พายุ",
   },
   {
     srcName: "disaster-mudslide",
     text: "ดินโคลนถล่ม",
     value: "mudslide",
+    filterText: "ดินโคลนถล่ม",
   },
   {
     srcName: "disaster-earthquake-tsunami",
     text: "แผ่นดินไหว",
     subtext: "สึนามิ",
     value: "earthquake-tsunami",
+    filterText: "แผ่นดินไหว/สึนามิ",
   },
   {
     srcName: "disaster-pm25",
     text: "หมอกควัน",
     subtext: "PM2.5",
     value: "pm25",
+    filterText: "หมอกควัน (PM2.5,PM10)",
   },
   {
     srcName: "disaster-forest-fire",
     text: "ไฟป่า",
     value: "forest-fire",
+    filterText: "ไฟป่า",
+  },
+];
+
+export const DISASTERS_WITH_OTHER = [
+  ...DISASTERS,
+  {
+    text: "ข้อมูลอื่นๆ",
+    value: "other",
+    filterText: "ข้อมูลอื่นๆ",
   },
 ];
 
@@ -187,3 +209,59 @@ export const PROVINCES = [
 ];
 
 export const TYPE_USER = ["ผู้รับผิดชอบรูปแบบรายงาน", "ผู้สร้างรายงาน"];
+
+export const DISASTER_COMPONENTS = {
+  flood: [
+    {
+      name: "ปริมาณน้ำท่า",
+      icon: (props = {}) => <RunoffWaterIcon {...props} />,
+    },
+    {
+      name: "ปริมาณน้ำอ่าง",
+      icon: (props = {}) => <ReservoirWaterIcon {...props} />,
+    },
+    {
+      name: "พยากรณ์อากาศประจำวัน",
+      icon: (props = {}) => <ForecastIcon {...props} />,
+    },
+    {
+      name: "ปริมาณน้ำฝน",
+      icon: (props = {}) => <RainWaterIcon {...props} />,
+    },
+  ],
+  drought: [
+    {
+      name: "ปริมาณน้ำท่า",
+      icon: (props = {}) => <RunoffWaterIcon {...props} />,
+    },
+    {
+      name: "ปริมาณน้ำอ่าง",
+      icon: (props = {}) => <ReservoirWaterIcon {...props} />,
+    },
+    {
+      name: "พยากรณ์อากาศประจำวัน",
+      icon: (props = {}) => <ForecastIcon {...props} />,
+    },
+    {
+      name: "ปริมาณน้ำฝน",
+      icon: (props = {}) => <RainWaterIcon {...props} />,
+    },
+  ],
+  pm25: [
+    {
+      name: "PM2.5",
+      icon: (props = {}) => <Pm25Icon {...props} />,
+    },
+  ],
+  other: [
+    {
+      name: "กำหนดเอง",
+      icon: (props = {}) => <PencilIcon {...props} />,
+    },
+  ],
+};
+
+export const MOCK_COMPONENTS = [
+  "/mock-component-1.svg",
+  "/mock-component-2.svg",
+];
