@@ -1,1 +1,1 @@
-export { default } from "../../../../features/createLayout/SelectOutline";
+export { default } from "@/features/createLayout/SelectOutline";
