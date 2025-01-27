@@ -3,7 +3,7 @@ export * from "./newReportIcon";
 export * from "./addIcon";
 export * from "./homeIcon";
 export * from "./layoutIcon";
-export * from "./TemplateIcon";
+export * from "./templateIcon";
 export * from "./VerticalIcon";
 export * from "./HorizontalIcon";
 export * from "./BackIcon";
