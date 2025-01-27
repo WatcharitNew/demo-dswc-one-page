@@ -265,3 +265,11 @@ export const MOCK_COMPONENTS = [
   "/mock-component-1.svg",
   "/mock-component-2.svg",
 ];
+
+export const COMPONENT_CUSTOM_CHECKBOXES = [
+  "อำเภอ",
+  "สถานีตรวจวัด",
+  "ประมาณน้ำวันนี้",
+  "ความแตกต่างเทียบกับเมื่อวาน",
+  "แนวโน้ม",
+];
