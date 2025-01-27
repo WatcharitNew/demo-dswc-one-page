@@ -6,10 +6,21 @@ import { useRouter } from "next/navigation";
 import { BackIcon, NextIcon } from "@/icons";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
+import { TemplateSaveModal, TemplateSaveCompleteModal } from "@/components";
 
 const SelectOutline = () => {
-  const { selectedTemplate, setSelectedTemplate } =
-    useContext(CreateLayoutContext);
+  const {
+    selectedTemplate,
+    setSelectedTemplate,
+    templateName,
+    setTemplateName,
+    openedSaveModal,
+    openSaveModal,
+    closeSaveModal,
+    openedSaveCompleteModal,
+    openSaveCompleteModal,
+    closeSaveCompleteModal
+  } = useContext(CreateLayoutContext);
   const router = useRouter();
 
   return (
@@ -54,11 +65,23 @@ const SelectOutline = () => {
             disabled={!selectedTemplate}
             variant="primary"
             className="w-[8.6rem]"
+            onClick={openSaveModal}
           >
             ดำเนินการต่อ
           </Button>
         </Flex>
       </div>
+      <TemplateSaveModal
+        opened={openedSaveModal}
+        setTemplateName={setTemplateName}
+        close={closeSaveModal}
+        openSaveCompleteModal={openSaveCompleteModal}
+      />
+      <TemplateSaveCompleteModal
+        templateName={templateName}
+        opened={openedSaveCompleteModal}
+        close={closeSaveCompleteModal}
+      />
     </Flex>
   );
 };
