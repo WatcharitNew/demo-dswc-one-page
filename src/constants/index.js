@@ -42,7 +42,7 @@ export const DISASTERS = [
     text: "แผ่นดินไหว",
     subtext: "สึนามิ",
     value: "earthquake-tsunami",
-    filterText: "แผ่นดินไหว/สึนามื",
+    filterText: "แผ่นดินไหว/สึนามิ",
   },
   {
     srcName: "disaster-pm25",
