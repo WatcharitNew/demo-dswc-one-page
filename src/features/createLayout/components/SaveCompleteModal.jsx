@@ -1,9 +1,17 @@
 "use client";
 
+import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import { Button, Modal } from "@mantine/core";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
 
-export function TemplateSaveCompleteModal({ templateName, opened, close }) {
+const SaveCompleteModal = () => {
+  const {
+    templateName,
+    openedSaveCompleteModal: opened,
+    closeSaveCompleteModal: close
+  } = useContext(CreateLayoutContext);
+
   const router = useRouter();
 
   const handleClose = () => {
@@ -40,3 +48,5 @@ export function TemplateSaveCompleteModal({ templateName, opened, close }) {
     </Modal>
   );
 }
+
+export default SaveCompleteModal;

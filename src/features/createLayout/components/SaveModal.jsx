@@ -1,14 +1,18 @@
 "use client";
 
 import { DISASTERS } from "@/constants";
+import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import { Button, Modal, MultiSelect, TextInput } from "@mantine/core";
+import { useContext } from "react";
 
-export function TemplateSaveModal({
-    opened,
+const SaveModal = () => {
+  const {
     setTemplateName,
-    close,
+    openedSaveModal: opened,
+    closeSaveModal: close,
     openSaveCompleteModal
-  }) {
+  } = useContext(CreateLayoutContext);
+
   const disasterMultiSelectData = DISASTERS.map((disaster) => ({
     value: disaster.value,
     label: disaster.text
@@ -74,3 +78,5 @@ export function TemplateSaveModal({
     </Modal>
   );
 }
+
+export default SaveModal;

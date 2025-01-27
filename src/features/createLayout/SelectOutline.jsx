@@ -6,20 +6,14 @@ import { useRouter } from "next/navigation";
 import { BackIcon, NextIcon } from "@/icons";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
-import { TemplateSaveModal, TemplateSaveCompleteModal } from "@/components";
+import SaveModal from "./components/SaveModal";
+import SaveCompleteModal from "./components/SaveCompleteModal";
 
 const SelectOutline = () => {
   const {
     selectedTemplate,
     setSelectedTemplate,
-    templateName,
-    setTemplateName,
-    openedSaveModal,
-    openSaveModal,
-    closeSaveModal,
-    openedSaveCompleteModal,
-    openSaveCompleteModal,
-    closeSaveCompleteModal
+    openSaveModal
   } = useContext(CreateLayoutContext);
   const router = useRouter();
 
@@ -71,17 +65,8 @@ const SelectOutline = () => {
           </Button>
         </Flex>
       </div>
-      <TemplateSaveModal
-        opened={openedSaveModal}
-        setTemplateName={setTemplateName}
-        close={closeSaveModal}
-        openSaveCompleteModal={openSaveCompleteModal}
-      />
-      <TemplateSaveCompleteModal
-        templateName={templateName}
-        opened={openedSaveCompleteModal}
-        close={closeSaveCompleteModal}
-      />
+      <SaveModal />
+      <SaveCompleteModal />
     </Flex>
   );
 };
