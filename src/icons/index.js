@@ -2,7 +2,6 @@ export * from "./CentralizeReportIcon";
 export * from "./NewReportIcon";
 export * from "./AddIcon";
 export * from "./HomeIcon";
-export * from "./HomeIcon";
 export * from "./LayoutIcon";
 export * from "./TemplateIcon";
 export * from "./VerticalIcon";

@@ -8,6 +8,7 @@ import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 const Menu = () => {
   const { selectedTemplate, setSelectedTemplate } =
     useContext(CreateLayoutContext);
+
   return (
     <div className="col relative flex h-[calc(100vh-8rem)] overflow-y-auto w-[20rem] bg-white bg-clip-border py-6 p-8">
       <Flex className="row justify-between mb-2">
@@ -25,7 +26,7 @@ const Menu = () => {
         </Flex>
       </Flex>
       <div className="grid grid-cols-2 gap-4 mt-7">
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((_item, index) => {
+        {new Array(8).fill("").map((_item, index) => {
           return (
             <div
               role="button"
