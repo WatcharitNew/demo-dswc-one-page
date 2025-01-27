@@ -4,11 +4,10 @@ import { DISASTERS } from "@/constants";
 import { Button, Modal, MultiSelect, TextInput } from "@mantine/core";
 
 export function TemplateSaveModal({
-    isRequestApproval,
-    isOpen,
+    opened,
     setTemplateName,
-    setIsOpenSaveModal,
-    setIsOpenSaveCompleteModal
+    close,
+    openSaveCompleteModal
   }) {
   const disasterMultiSelectData = DISASTERS.map((disaster) => ({
     value: disaster.value,
@@ -17,17 +16,17 @@ export function TemplateSaveModal({
 
   const handleComplete = () => {
     // TODO: call API
-    setIsOpenSaveModal(false);
-    setIsOpenSaveCompleteModal(true);
+    close();
+    openSaveCompleteModal(true);
   }
 
   return (
     <Modal
-      opened={isOpen}
+      opened={opened}
       centered
       title={<span className="text-gray-900 font-medium text-xl">ตั้งชื่อรูปแบบรายงาน</span>}
       withCloseButton={false}
-      onClose={() => setIsOpenSaveModal(false)}
+      onClose={close}
       className="bg-white rounded-2xl text-center"
       classNames={{
         header: 'px-8 pt-8 pb-2',
@@ -60,7 +59,7 @@ export function TemplateSaveModal({
           radius="md"
           variant="default"
           className="font-medium mr-4 min-w-[8rem]"
-          onClick={() => setIsOpenSaveModal(false)}
+          onClick={close}
         >
           ยกเลิก
         </Button>
@@ -69,7 +68,7 @@ export function TemplateSaveModal({
           className="font-medium min-w-[8rem]"
           onClick={handleComplete}
         >
-          {isRequestApproval ? 'บันทึก และทำการส่ง' : 'บันทึก' }
+          บันทึก และทำการส่ง
         </Button>
       </div>
     </Modal>

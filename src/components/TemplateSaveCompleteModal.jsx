@@ -2,16 +2,14 @@
 
 import { Button, Modal } from "@mantine/core";
 
-export function TemplateSaveCompleteModal({ templateName, isRequestApproval, isOpen, onClose }) {
-  const descriptionText = isRequestApproval ? `${templateName} : อยู่ระหว่างตรวจสอบ` : `บันทึกรูปแบบรายงาน : ${templateName}`
-
+export function TemplateSaveCompleteModal({ templateName, opened, close }) {
   return (
     <Modal
-      opened={isOpen}
+      opened={opened}
       centered
-      title={<span className="text-gray-900 font-medium text-xl">{isRequestApproval ? 'บันทึกและดำเนินการส่งเรียบร้อย' : 'ดำเนินการสำเร็จ'}</span>}
+      title={<span className="text-gray-900 font-medium text-xl">บันทึกและดำเนินการส่งเรียบร้อย</span>}
       withCloseButton={false}
-      onClose={onClose}
+      onClose={close}
       className="bg-white rounded-2xl text-center"
       classNames={{
         header: 'px-8 pt-24 pb-2',
@@ -20,13 +18,13 @@ export function TemplateSaveCompleteModal({ templateName, isRequestApproval, isO
         content: 'rounded-2xl'
       }}
     >
-      <span className="text-gray-600">{descriptionText}</span>
+      <span className="text-gray-600">{templateName} : อยู่ระหว่างตรวจสอบ</span>
       <div>
         <Button
           radius="md"
           variant="default"
           className="font-medium mt-6 mb-4 min-w-[8rem]"
-          onClick={onClose}
+          onClick={close}
         >
           ปิด
         </Button>
