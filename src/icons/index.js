@@ -6,7 +6,7 @@ export * from "./layoutIcon";
 export * from "./templateIcon";
 export * from "./VerticalIcon";
 export * from "./HorizontalIcon";
-export * from "./Back2Icon";
+export * from "./BackIcon";
 export * from "./NextIcon";
 export * from "./Search";
 export * from "./approvedIcon";
