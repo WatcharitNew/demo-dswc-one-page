@@ -1,3 +1,3 @@
-export default function ReporterCreatePage() {
-  return <div>test</div>;
-}
+import { ReporterCreateContainer } from "@/features/reporter/containers";
+
+export default ReporterCreateContainer
