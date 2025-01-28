@@ -15,7 +15,13 @@ export const CustomComponentModal = ({
 
   return (
     <>
-      <Modal opened={opened} close={close} title={`ส่วนประกอบข้อมูลกลุ่ม${disaster}`}>
+      <Modal
+        opened={opened}
+        close={close}
+        title={`ส่วนประกอบข้อมูลกลุ่ม${disaster}`}
+        cancelText="เลือกชุดข้อมูลใหม่"
+        proceedText="นำไปใช้"
+      >
         <div className="w-full min-w-[78.3125rem] h-[70vh] flex flex-row gap-20">
           <ComponentPreview text={disaster} image="mock-component-1.svg" />
           {type === "table" && <ComponentCustom />}
