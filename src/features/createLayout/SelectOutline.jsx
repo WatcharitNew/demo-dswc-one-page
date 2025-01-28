@@ -6,10 +6,15 @@ import { useRouter } from "next/navigation";
 import { BackIcon, NextIcon } from "@/icons";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
+import SaveModal from "./components/SaveModal";
+import SaveCompleteModal from "./components/SaveCompleteModal";
 
 const SelectOutline = () => {
-  const { selectedTemplate, setSelectedTemplate } =
-    useContext(CreateLayoutContext);
+  const {
+    selectedTemplate,
+    setSelectedTemplate,
+    openSaveModal
+  } = useContext(CreateLayoutContext);
   const router = useRouter();
 
   return (
@@ -54,11 +59,14 @@ const SelectOutline = () => {
             disabled={!selectedTemplate}
             variant="primary"
             className="w-[8.6rem]"
+            onClick={openSaveModal}
           >
             ดำเนินการต่อ
           </Button>
         </Flex>
       </div>
+      <SaveModal />
+      <SaveCompleteModal />
     </Flex>
   );
 };
