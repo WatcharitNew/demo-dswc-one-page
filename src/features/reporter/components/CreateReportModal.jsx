@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { clsx } from "clsx";
+
 import { DISASTERS_REPORT_SELECT, SAMPLE_REPORT } from "../constants";
 
 import {
@@ -18,7 +20,8 @@ import {
 import classes from "./tab.module.css";
 
 export const CreateReportModal = ({ opened, onClose }) => {
-  const [selectedImage, setSelectedImage] = useState("");
+  const router = useRouter()
+  const [selectedImage, setSelectedImage] = useState(null);
   const [rootRef, setRootRef] = useState(null);
   const [value, setValue] = useState("all");
   const [controlsRefs, setControlsRefs] = useState({});
@@ -29,7 +32,7 @@ export const CreateReportModal = ({ opened, onClose }) => {
 
   useEffect(() => {
     if (!opened) {
-      setSelectedImage("")
+      setSelectedImage(null)
       setValue("all")
     }
   }, [opened])
@@ -100,7 +103,7 @@ export const CreateReportModal = ({ opened, onClose }) => {
           spacing="xl"
         >
           {SAMPLE_REPORT.map((image, idx) => {
-            const isSelected = selectedImage === image;
+            const isSelected = selectedImage?.id === image.id;
 
             return (
               <div
@@ -111,7 +114,7 @@ export const CreateReportModal = ({ opened, onClose }) => {
                 })}
                 onClick={() => setSelectedImage(image)}
               >
-                <Image alt="report-image" className="h-full" src={image} />
+                <Image alt="report-image" className="h-full" src={image.src} />
               </div>
             );
           })}
@@ -122,6 +125,7 @@ export const CreateReportModal = ({ opened, onClose }) => {
         className="block h-11 mt-8 ml-auto"
         disabled={!selectedImage}
         variant="primary"
+        onClick={() => router.push(`/reporter/create/${selectedImage?.id}`)}
       >
         ดำเนินการต่อ
       </Button>
