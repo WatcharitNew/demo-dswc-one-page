@@ -45,6 +45,9 @@ export const CreateReportModal = ({ opened, onClose }) => {
       }}
       radius="md"
       styles={{
+        content: {
+          maxWidth: "64rem"
+        },
         body: {
           padding: "2rem",
         },

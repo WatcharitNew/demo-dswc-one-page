@@ -1,4 +1,4 @@
-import { Search } from "@/icons";
+import { Search, Home, Template } from "@/icons";
 
 export const MOCK_REPORT_LIST = [
   {
@@ -103,3 +103,16 @@ export const MOCK_OVERVIEW_STATUS = [
     total: 4,
   },
 ];
+
+export const REPORTER_MENUS = [
+  {
+    label: "หน้าหลัก",
+    icon: Home,
+    value: 1,
+  },
+  {
+    label: "รูปแบบรายงาน",
+    icon: Template,
+    value: 2,
+  },
+]

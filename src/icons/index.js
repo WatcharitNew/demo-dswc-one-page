@@ -1,6 +1,7 @@
 export * from "./centralizeReportIcon";
 export * from "./newReportIcon";
 export * from "./addIcon";
+export * from "./Home";
 export * from "./homeIcon";
 export * from "./layoutIcon";
 export * from "./templateIcon";
@@ -19,6 +20,7 @@ export * from "./totalIcon";
 export * from "./DisasterDefaultIcon";
 export * from "./FloodIcon";
 export * from "./StormIcon.jsx";
+export * from "./Template";
 export * from "./Pm25Icon";
 export * from "./EarthquakeTsunamiIcon";
 export * from "./RunoffWaterIcon";
