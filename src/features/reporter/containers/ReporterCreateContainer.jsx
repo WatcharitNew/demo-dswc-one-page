@@ -1,22 +1,29 @@
 "use client";
 
-import { SAMPLE_REPORT } from "../constants";
+import { useMemo } from "react";
+import { useParams } from "next/navigation";
 import { useDisclosure } from "@mantine/hooks";
 
 import { useReloadReport } from "../services";
+import { SAMPLE_REPORT } from "../constants";
 
 import { RefreshReportModal } from "../components";
 import { Button, Image } from "@mantine/core";
 import { Refresh, Multiplier1, Multiplier15, Multiplier2 } from "@/icons";
 
 export const ReporterCreateContainer = () => {
-  const [opened, { open, close }] = useDisclosure(false)
+  const { id } = useParams();
+  const [opened, { open, close }] = useDisclosure(false);
   const { mutate: reload } = useReloadReport();
 
+  const imageSrc = useMemo(() => {
+    return SAMPLE_REPORT.find((item) => item.id === Number(id))?.src
+  }, [id])
+
   return (
-    <div className="col h-full justify-between">
-      <div className="grow row items-center justify-center">
-        <div className="w-full h-full max-w-[34rem] col gap-2 pt-2 pb-8">
+    <div className="col h-full">
+      <div className="grow row justify-center pt-2 pb-8 overflow-auto">
+        <div className="w-full h-fit max-w-[34rem] col gap-2">
           <div className="row items-end justify-between">
             <p className="font-medium text-gray-300">ตัวอย่างรายงานสาธารณภัย</p>
             <Button.Group>
@@ -24,7 +31,7 @@ export const ReporterCreateContainer = () => {
                 className="h-10 px-3 !border-0 !rounded-r-none"
                 variant="default"
                 onClick={() => {
-                  open()
+                  open();
                   reload(null, {
                     onSettled() {
                       close();
@@ -54,7 +61,12 @@ export const ReporterCreateContainer = () => {
               </Button>
             </Button.Group>
           </div>
-          <div className="h-full"></div>
+          <Image
+            alt="report-by-id-image"
+            src={imageSrc}
+            className="w-full"
+            fit="contain"
+          />
         </div>
       </div>
       <div className="bg-white h-16 p-3 row items-center justify-center">
