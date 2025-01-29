@@ -10,7 +10,7 @@ const Menu = () => {
     useContext(CreateLayoutContext);
 
   return (
-    <div className="col relative flex h-[calc(100vh-8rem)] overflow-y-auto w-[20rem] bg-white bg-clip-border py-6 p-8">
+    <div className="col relative flex h-[calc(100vh-9rem)] overflow-y-auto w-[20rem] bg-white bg-clip-border py-6 p-8">
       <Flex className="row justify-between mb-2">
         <p className="font-medium">เลือกรูปแบบ</p>
         <p className="font-medium text-gray-400">0/25</p>

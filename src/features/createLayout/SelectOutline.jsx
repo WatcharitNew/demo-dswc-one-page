@@ -47,10 +47,10 @@ const SelectOutline = () => {
             <p className="text-gray-400 m-auto">กรุณาเลือกรูปแบบ</p>
           )}
         </Flex>
-        <Flex className="md:w-[25rem] 2xl:w-[32rem] h-fit row gap-2 absolute bottom-[10px] items-end z-10 justify-end">
+        <Flex className="md:w-[25rem] 2xl:w-[32rem] h-fit row gap-2 absolute bottom-3 items-end z-10 justify-end">
           <Button
             variant="outline"
-            className="w-[8.6rem]"
+            className="h-10 min-w-40"
             onClick={() => router.push("/templater")}
           >
             ยกเลิก
@@ -58,7 +58,7 @@ const SelectOutline = () => {
           <Button
             disabled={!selectedTemplate}
             variant="primary"
-            className="w-[8.6rem]"
+            className="h-10 min-w-40"
             onClick={openSaveModal}
           >
             ดำเนินการต่อ
