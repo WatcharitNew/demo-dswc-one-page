@@ -6,7 +6,6 @@ import { LIST_TEMPLATES } from "../constants/queryKeys";
 
 const getListTemplates = async (province) => {
   const provinceId = PROVINCES.findIndex((p) => p === province);
-  console.log(provinceId)
 
   const { data } = await fetchAPI({
     path: `/getListTemplates?province_id=${provinceId}`,
