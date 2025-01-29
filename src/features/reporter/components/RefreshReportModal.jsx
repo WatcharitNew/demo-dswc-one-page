@@ -27,7 +27,7 @@ export const RefreshReportModal = ({ opened }) => {
     >
       <Image src="/loading.gif" h={200} alt="loading"/>
       <Image src="/loading-bar.gif" h={25} alt="loading-bar"/>
-      <p className="text-2xl font-medium">กรุณารอซักครู่</p>
+      <p className="text-2xl font-medium">กรุณารอสักครู่</p>
       <p>ระบบกำลังประมวลผลข้อมูล...</p>
     </Modal>
   );
