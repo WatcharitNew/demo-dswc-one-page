@@ -1,15 +1,29 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Button, Input, Image } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
-import { MOCK_REPORT, MOCK_REPORT_CENTER } from "@/constants";
+import { MOCK_REPORT } from "@/constants";
 
 import { ReportScaleUpModal, TemplateModal } from "@/components";
 import { AddIcon, Search } from "@/icons";
+import { useListTemplates } from "../services";
+import { useAuthContext } from "@/lib/providers/auth";
 
-export const ReportListContainer = () => {
+const translateDisaster = (disaster) => {
+  switch(disaster) {
+    case 'flood': return 'อุทกภัย'
+    case 'drought': return 'ภัยแล้ง'
+    case 'storm': return 'วาตภัย'
+    case 'mudslide': return 'ดินโคลนถล่ม'
+    case 'earthquake-tsunami': return 'แผ่นดินไหว'
+    case 'pm25': return 'pm2.5'
+    case 'forest-fire': return 'ไฟป่า'
+  }
+}
+
+export const ReportListContainer = ({ disaster }) => {
   const [selectedReport, setSelectedReport] = useState({
     imageSrc: "",
     templateName: "",
@@ -17,6 +31,12 @@ export const ReportListContainer = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [createModal, { open: openCreateModal, close: closeCreateModal }] =
     useDisclosure(false);
+  const { data: authData } = useAuthContext()
+  const { data } = useListTemplates(authData['province'])
+
+  const filteredData = useMemo(() => {
+    return data?.filter((datum) => datum.tags.includes(translateDisaster(disaster))) || []
+  }, [data, disaster])
 
   const handleOnClickReport = useCallback(
     (selected) => {
@@ -49,25 +69,25 @@ export const ReportListContainer = () => {
       </div>
       <div className="flex flex-col gap-2">
         <p className="font-medium text-xl">
-          รูปแบบรายงานส่วนกลาง ({MOCK_REPORT_CENTER.length})
+          รูปแบบรายงานส่วนกลาง ({filteredData?.length || 0})
         </p>
-        <div className="flex items-center gap-6">
-          {MOCK_REPORT_CENTER.map((report) => (
+        <div className="grid grid-cols-5 items-center gap-6">
+          {filteredData?.map((report, idx) => (
             <div
-              key={report.name}
+              key={report.template_name + idx}
               className="report-card-container"
               onClick={() =>
                 handleOnClickReport({
-                  imageSrc: report.src,
-                  tamplateName: report.name,
+                  imageSrc: report.img_url,
+                  templateName: report.template_name,
                 })
               }
             >
               <div className="report-card-inner-container">
                 <div className="grow">
-                  <Image h={240} src={report.src} />
+                  <Image h={240} src={report.img_url} />
                 </div>
-                <p className="text-lg font-medium">{report.name}</p>
+                <p className="text-lg font-medium overflow-hidden truncate">{report.template_name}</p>
               </div>
             </div>
           ))}
