@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { clsx } from "clsx";
-import { Breadcrumbs, Anchor } from "@mantine/core";
+import { Breadcrumbs, Button, Anchor } from "@mantine/core";
 
 const items = [
   { title: "รายงานสาธารณภัยประจำวัน", href: "/reporter" },
@@ -20,8 +21,17 @@ const items = [
 
 export const ReporterDetailContainer = () => {
   return (
-    <div className="p-6">
+    <div className="h-full col gap-6 p-6">
       <Breadcrumbs>{items}</Breadcrumbs>
+      <div className="grow"></div>
+      <Button
+        component={Link}
+        href="/reporter"
+        className="h-10 max-w-36 font-medium ml-auto"
+        variant="default"
+      >
+        กลับหน้าหลัก
+      </Button>
     </div>
   );
 };
