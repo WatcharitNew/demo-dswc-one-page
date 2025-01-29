@@ -1,5 +1,3 @@
-export default function ReporterDetailPage() {
-  return (
-    <div></div>
-  );
-}
+import { ReporterDetailContainer } from "@/features/reporter/containers";
+
+export default ReporterDetailContainer

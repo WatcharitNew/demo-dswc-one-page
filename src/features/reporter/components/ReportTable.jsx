@@ -48,7 +48,7 @@ export const ReportTable = ({data = []}) => {
         <UnstyledButton
           component={Link}
           className="col mx-auto items-center text-xs"
-          href={`#${idx}`}
+          href={`/reporter/${report.id}`}
         >
           <Report className="size-5" />
           ดูรายงาน
