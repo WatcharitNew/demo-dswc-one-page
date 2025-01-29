@@ -1,10 +1,11 @@
 "use client";
 
-import { Button, Modal } from "@mantine/core";
+import { Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 import { ComponentPreview } from "./ComponentPreview";
 import { ComponentCustom } from "./ComponentCustom";
+import { Modal } from "@/components";
 
 export const CustomComponentModal = ({
   disaster = "อุทกภัย",
@@ -16,30 +17,13 @@ export const CustomComponentModal = ({
     <>
       <Modal
         opened={opened}
-        onClose={close}
+        close={close}
         title={`ส่วนประกอบข้อมูลกลุ่ม${disaster}`}
-        size="auto"
-        centered
-        styles={{
-          header: {
-            width: "78.3125rem",
-            paddingTop: "1.5rem",
-            paddingLeft: "1.5rem",
-            paddingRight: "1.5rem",
-          },
-          title: {
-            color: "#707070",
-            fontSize: "1.5rem",
-            fontWeight: "500",
-          },
-          body: {
-            paddingLeft: "1.5rem",
-            paddingRight: "3rem",
-          },
-        }}
+        cancelText="เลือกชุดข้อมูลใหม่"
+        proceedText="นำไปใช้"
       >
         <div className="w-full min-w-[78.3125rem] h-[70vh] flex flex-row gap-20">
-          <ComponentPreview text={"test"} image="mock-component-1.svg" />
+          <ComponentPreview text={disaster} image="mock-component-1.svg" />
           {type === "table" && <ComponentCustom />}
         </div>
       </Modal>

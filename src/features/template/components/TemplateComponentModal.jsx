@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { Modal, Button } from "@mantine/core";
+import { Button } from "@mantine/core";
 
 import {
   DisasterComponentList,
@@ -10,6 +10,7 @@ import {
   DisasterTypeBoxList,
 } from ".";
 import { DISASTERS_WITH_OTHER } from "@/constants";
+import { Modal } from "@/components";
 
 export const TemplateComponentModal = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -54,27 +55,9 @@ export const TemplateComponentModal = () => {
     <>
       <Modal
         opened={opened}
-        onClose={close}
+        close={close}
         title="ส่วนประกอบข้อมูล"
-        size="auto"
-        centered
-        styles={{
-          header: {
-            width: "78.3125rem",
-            paddingTop: "1.5rem",
-            paddingLeft: "1.5rem",
-            paddingRight: "1.5rem",
-          },
-          title: {
-            color: "#707070",
-            fontSize: "1.5rem",
-            fontWeight: "500",
-          },
-          body: {
-            paddingLeft: "1.5rem",
-            paddingRight: "1.5rem",
-          },
-        }}
+        proceedText="ดำเนินการต่อ"
       >
         <div className="w-full min-w-[78.3125rem] h-[70vh] flex flex-row gap-6">
           <div className="flex flex-col max-w-[24.625rem]">
