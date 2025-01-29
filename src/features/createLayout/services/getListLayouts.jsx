@@ -7,7 +7,16 @@ export const getListLayouts = async () => {
     path: "/getListLayouts",
   });
 
-  return data;
+  const mock = new Array(5)
+    .fill({ layout_id: null, img: null, img_thumbnail: null, bbox: [] })
+    .map((item, idx) => ({
+      ...item,
+      layout_id: idx + 4,
+      img: `/template_0${idx + 4}.svg`,
+      img_thumbnail: `/template_0${idx + 4}.svg`,
+    }));
+
+  return data.concat(mock);
 };
 
 export const useListLayouts = () => {
