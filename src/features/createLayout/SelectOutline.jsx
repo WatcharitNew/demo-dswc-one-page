@@ -15,8 +15,8 @@ import { BackIcon, NextIcon } from "@/icons";
 
 const SelectOutline = () => {
   const {
-    selectedTemplate,
-    setSelectedTemplate,
+    selectedLayout,
+    setSelectedLayout,
     openSaveModal
   } = useContext(CreateLayoutContext);
   const router = useRouter();
@@ -27,8 +27,8 @@ const SelectOutline = () => {
       <div className="m-auto">
         <Flex className="justify-between gap-2 mb-2 items-center">
           <div>
-            {selectedTemplate ? (
-              <p className="text-gray-400">{`V0${selectedTemplate}`}</p>
+            {selectedLayout ? (
+              <p className="text-gray-400">{`V0${selectedLayout.layout_id}`}</p>
             ) : null}
           </div>
           <Flex className="justify-end gap-2 mb-2">
@@ -41,12 +41,12 @@ const SelectOutline = () => {
           className={clsx(
             "md:w-[25rem] 2xl:w-[32rem] 2xl:h-[46rem] md:h-[36.5rem] shadow-sm  relative",
             {
-              "bg-white": selectedTemplate === undefined,
+              "bg-white": selectedLayout === undefined,
             }
           )}
         >
-          {selectedTemplate ? (
-            <Image src={`/template_0${selectedTemplate}.svg`} fit="contain" />
+          {selectedLayout ? (
+            <Image src={selectedLayout.img} fit="contain" />
           ) : (
             <p className="text-gray-400 m-auto">กรุณาเลือกรูปแบบ</p>
           )}
@@ -60,7 +60,7 @@ const SelectOutline = () => {
             ยกเลิก
           </Button>
           <Button
-            disabled={!selectedTemplate}
+            disabled={!selectedLayout}
             variant="primary"
             className="h-10 min-w-40"
             onClick={openSaveModal}

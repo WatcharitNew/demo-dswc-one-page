@@ -1,13 +1,17 @@
 "use client";
 import { useContext } from "react";
-import clsx from "clsx";
 import { Flex, Image } from "@mantine/core";
-import { HorizontalIcon, VerticalIcon } from "@/icons";
+import clsx from "clsx";
+
+import { useListLayouts } from "../services";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 
+import { HorizontalIcon, VerticalIcon } from "@/icons";
+
 const Menu = () => {
-  const { selectedTemplate, setSelectedTemplate } =
-    useContext(CreateLayoutContext);
+  const { selectedLayout, setSelectedLayout } = useContext(CreateLayoutContext);
+
+  const { data } = useListLayouts();
 
   return (
     <div className="col relative flex h-[calc(100vh-9rem)] overflow-y-auto w-[20rem] bg-white bg-clip-border py-6 p-8">
@@ -26,30 +30,29 @@ const Menu = () => {
         </Flex>
       </Flex>
       <div className="grid grid-cols-2 gap-4 mt-7">
-        {new Array(8).fill("").map((_item, index) => {
-          return (
+        {data?.map((layout, index) => (
+          <div
+            key={layout.layout_id}
+            role="button"
+            className={clsx("", {
+              "cursor-pointer": index <= 2,
+            })}
+            onClick={() => index <= 2 && setSelectedLayout(layout)}
+          >
             <div
-              role="button"
-              key={index}
-              className={clsx("", {
-                "cursor-pointer": index <= 2,
+              className={clsx("box", {
+                "border-4 border-blue-400":
+                  selectedLayout?.layout_id === layout.layout_id,
               })}
-              onClick={() => index <= 2 && setSelectedTemplate(index + 1)}
             >
-              <div
-                className={clsx("box", {
-                  "border-4 border-blue-400": selectedTemplate === index + 1,
-                })}
-              >
-                <Image src={`/template_0${index + 1}.svg`} width={107} />
-              </div>
-
-              <p className="text-gray-400 text-[0.875rem] mt-1">{`V0${
-                index + 1
-              }`}</p>
+              <Image src={layout.img_thumbnail} width={107} />
             </div>
-          );
-        })}
+
+            <p className="text-gray-400 text-[0.875rem] mt-1">{`V0${
+              index + 1
+            }`}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
