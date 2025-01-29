@@ -1,13 +1,17 @@
 "use client";
+
 import { useContext } from "react";
-import clsx from "clsx";
-import { Flex, Image, Button } from "@mantine/core";
 import { useRouter } from "next/navigation";
-import { BackIcon, NextIcon } from "@/icons";
+import { Flex, Image, Button } from "@mantine/core";
+import clsx from "clsx";
+
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
+
 import Menu from "./components/Menu";
 import SaveModal from "./components/SaveModal";
 import SaveCompleteModal from "./components/SaveCompleteModal";
+import { BackIcon, NextIcon } from "@/icons";
+
 
 const SelectOutline = () => {
   const {
