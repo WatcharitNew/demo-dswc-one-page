@@ -6,7 +6,7 @@ import { MOCK_REPORT_LIST } from "../constants";
 import { Badge, Table, UnstyledButton } from "@mantine/core";
 import { Report } from "@/icons";
 
-const getBadgeStatus = (status) => {
+export const getBadgeStatus = (status) => {
   switch (status) {
     case "รอการอนุมัติ":
       return "yellow";
@@ -40,7 +40,7 @@ export const ReportTable = () => {
         <UnstyledButton
           component={Link}
           className="col mx-auto items-center text-xs"
-          href={`#${report.id}`}
+          href={`/reporter/${report.id}`}
         >
           <Report className="size-5" />
           ดูรายงาน
