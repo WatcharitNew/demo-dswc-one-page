@@ -22,7 +22,6 @@ const SelectOutline = () => {
     openSaveModal
   } = useContext(CreateLayoutContext);
   const router = useRouter();
-  const hoverStyle = "4";
 
   return (
     <Flex className="w-full">

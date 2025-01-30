@@ -11,7 +11,7 @@ const LayoutComponent = ({ className }) => {
   return (
     <div
       onClick={openTemplateComponentModal}
-      className={`bg-gray-200 flex items-center justify-center hover:outline hover:outline-blue-500 hover:bg-white cursor-pointer ${className}`}
+      className={`bg-gray-200 flex items-center justify-center hover:outline hover:outline-blue-500 cursor-pointer ${className}`}
     >
       +
     </div>
