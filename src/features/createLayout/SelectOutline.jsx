@@ -4,7 +4,6 @@ import { useContext } from "react";
 import clsx from "clsx";
 import { Flex, Button } from "@mantine/core";
 import { useRouter } from "next/navigation";
-import clsx from "clsx";
 
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 
@@ -13,6 +12,7 @@ import SaveModal from "./components/SaveModal";
 import SaveCompleteModal from "./components/SaveCompleteModal";
 import Layout01 from "./components/Layout01";
 import { BackIcon, NextIcon } from "@/icons";
+import { TemplateComponentModal } from "../template/components";
 
 
 const SelectOutline = () => {
@@ -72,6 +72,7 @@ const SelectOutline = () => {
           </Button>
         </Flex>
       </div>
+      <TemplateComponentModal />
       <SaveModal />
       <SaveCompleteModal />
     </Flex>

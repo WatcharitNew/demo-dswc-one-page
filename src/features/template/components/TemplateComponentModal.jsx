@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useDisclosure } from "@mantine/hooks";
-import { Button } from "@mantine/core";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import {
   DisasterComponentList,
@@ -11,9 +9,14 @@ import {
 } from ".";
 import { DISASTERS_WITH_OTHER } from "@/constants";
 import { Modal } from "@/components";
+import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 
 export const TemplateComponentModal = () => {
-  const [opened, { open, close }] = useDisclosure(false);
+  const {
+    openedTemplateComponentModal: opened,
+    closeTemplateComponentModal: close
+  } = useContext(CreateLayoutContext);
+
   const [disasterIdx, setDisasterIdx] = useState(0);
   const [option, setOption] = useState();
   const sliderRef = useRef(null);
@@ -94,10 +97,6 @@ export const TemplateComponentModal = () => {
           <DisasterComponentList text={option} />
         </div>
       </Modal>
-
-      <Button variant="default" onClick={open}>
-        Component Modal
-      </Button>
     </>
   );
 };
