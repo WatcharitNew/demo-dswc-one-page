@@ -2,13 +2,10 @@
 
 import Link from "next/link";
 import { clsx } from "clsx";
-import {
-  Anchor,
-  Breadcrumbs,
-  Button,
-  Flex,
-  Image,
-} from "@mantine/core";
+import { Anchor, Badge, Breadcrumbs, Button, Flex, Image } from "@mantine/core";
+
+import { useReportDetail } from "../services";
+import { getBadgeStatus } from "../components";
 
 const items = [
   { title: "รายงานสาธารณภัยประจำวัน", href: "/reporter" },
@@ -26,6 +23,8 @@ const items = [
 ));
 
 export const ReporterDetailContainer = () => {
+  const { data: report } = useReportDetail();
+
   return (
     <div className="h-full col gap-6 p-6">
       <Breadcrumbs>{items}</Breadcrumbs>
@@ -37,17 +36,28 @@ export const ReporterDetailContainer = () => {
             </p>
             <div className="grid grid-cols-[10.5rem_1fr_7rem_1fr] gap-2 max-w-[35rem] [&>:nth-child(odd)]:text-gray-300 [&>:nth-child(even)]:text-gray-500 [&>:nth-child(even)]:font-medium">
               <p>วันที่รายงานเหตุ</p>
-              <p>20/11/2567</p>
+              <p>{report?.date}</p>
               <p>Template</p>
-              <p>SUP_OP_P003</p>
+              <p>{report?.name}</p>
               <p>ครั้งที่และเวลาประมวลผล</p>
-              <p>2, 8:10 น.</p>
+              <p>
+                {report?.count}, {report?.times}
+              </p>
               <p>สถานะ</p>
-              <p>รอรอรอ</p>
+              <div className="text-current">
+                <Badge
+                  variant="light"
+                  color={getBadgeStatus(report?.status)}
+                  size="lg"
+                  style={{ fontWeight: 400 }}
+                >
+                  {report?.status}
+                </Badge>
+              </div>
             </div>
           </div>
           <Flex className="h-full justify-center">
-            <Image src="/template_01.svg" fit="contain" />
+            <Image src={report?.img} fit="contain" />
           </Flex>
         </div>
         <div className="min-w-[23rem] rounded-lg bg-white shadow-report p-6"></div>

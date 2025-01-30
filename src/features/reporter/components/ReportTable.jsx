@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Badge, Table, UnstyledButton } from "@mantine/core";
 import { Report } from "@/icons";
 
-const getBadgeStatus = (status) => {
+export const getBadgeStatus = (status) => {
   switch (status) {
     case "pending":
       return "yellow";
