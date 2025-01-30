@@ -60,7 +60,53 @@ export const ReporterDetailContainer = () => {
             <Image src={report?.img} fit="contain" />
           </Flex>
         </div>
-        <div className="min-w-[23rem] rounded-lg bg-white shadow-report p-6"></div>
+
+        <div className="min-w-[23rem] rounded-lg bg-white shadow-report col gap-6">
+          <div className="p-6 col gap-6">
+            <p className="text-2xl font-medium">ดำเนินการ</p>
+            <div className="col gap-4">
+              <p>Download</p>
+              <div className="row gap-6">
+                <p>icon1</p>
+                <p>icon2</p>
+                <p>icon3</p>
+              </div>
+            </div>
+
+            <div className="col gap-4">
+              <p>พิจารณา</p>
+              <div className="row w-full gap-6">
+                <Button className="w-full" variant="default">
+                  ไม่อนุมัติ
+                </Button>
+                <Button className="w-full" variant="primary">
+                  อนุมัติ
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div className="p-6 pt-0 col gap-6">
+            <p className="font-medium">
+              ประวัติการจัดทำรายงานสาธารณภัยประจำวัน{" "}
+            </p>
+            <div className="col text-sm pb-6 border-b border-gra2-300">
+              <p className="text-gray-300">20/11/2567 ,07:15 น.</p>
+              <div className="grid grid-cols-[5.25rem_1fr] [&>:nth-child(odd)]:text-gray-300 [&>:nth-child(odd)]:text-right gap-x-2">
+                <p>การดำเนินการ: </p>
+                <p>
+                  ส่ง <span className="text-blue-400">SUP_OP_P003</span>
+                </p>
+                <p>โดย:</p>
+                <p>สมชาย นามสมมติ</p>
+                <p>รายละเอียด:</p>
+                <p>ส่งรายงานประจำวันเพื่ออนุมัติ</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="max-w-[77.5rem]">
         <Button
