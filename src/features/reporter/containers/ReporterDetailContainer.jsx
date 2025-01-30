@@ -2,10 +2,20 @@
 
 import Link from "next/link";
 import { clsx } from "clsx";
-import { Anchor, Badge, Breadcrumbs, Button, Flex, Image } from "@mantine/core";
+import {
+  Anchor,
+  Badge,
+  Breadcrumbs,
+  Button,
+  Flex,
+  Image,
+  UnstyledButton,
+} from "@mantine/core";
 
 import { useReportDetail } from "../services";
 import { getBadgeStatus } from "../components";
+
+import { Pdf, Jpg, Png, History } from "@/icons";
 
 const items = [
   { title: "รายงานสาธารณภัยประจำวัน", href: "/reporter" },
@@ -67,9 +77,15 @@ export const ReporterDetailContainer = () => {
             <div className="col gap-4">
               <p>Download</p>
               <div className="row gap-6">
-                <p>icon1</p>
-                <p>icon2</p>
-                <p>icon3</p>
+                <UnstyledButton>
+                  <Pdf />
+                </UnstyledButton>
+                <UnstyledButton>
+                  <Jpg />
+                </UnstyledButton>
+                <UnstyledButton>
+                  <Png />
+                </UnstyledButton>
               </div>
             </div>
 
@@ -89,9 +105,13 @@ export const ReporterDetailContainer = () => {
           <hr />
 
           <div className="p-6 pt-0 col gap-6">
-            <p className="font-medium">
-              ประวัติการจัดทำรายงานสาธารณภัยประจำวัน{" "}
-            </p>
+            <div className="row items-center gap-2">
+              <History className="size-6 text-gray-500"/>
+              <p className="font-medium">
+                ประวัติการจัดทำรายงานสาธารณภัยประจำวัน
+              </p>
+            </div>
+
             <div className="col text-sm pb-6 border-b border-gra2-300">
               <p className="text-gray-300">20/11/2567 ,07:15 น.</p>
               <div className="grid grid-cols-[5.25rem_1fr] [&>:nth-child(odd)]:text-gray-300 [&>:nth-child(odd)]:text-right gap-x-2">
