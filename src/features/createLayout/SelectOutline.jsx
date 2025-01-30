@@ -23,6 +23,15 @@ const SelectOutline = () => {
   } = useContext(CreateLayoutContext);
   const router = useRouter();
 
+  const handleBackButton = () => {
+    if(selectedLayout) {
+      setSelectedLayout(undefined)
+    }
+    else {
+      router.push("/templater")
+    }
+  };
+
   return (
     <Flex className="w-full">
       <Menu />
@@ -57,9 +66,9 @@ const SelectOutline = () => {
           <Button
             variant="outline"
             className="h-10 min-w-40"
-            onClick={() => router.push("/templater")}
+            onClick={handleBackButton}
           >
-            ยกเลิก
+            {selectedLayout ? "ย้อนกลับ" : "ยกเลิก"}
           </Button>
           <Button
             disabled={!selectedLayout}
