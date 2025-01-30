@@ -1,13 +1,14 @@
 "use client";
 import { useContext } from "react";
 import clsx from "clsx";
-import { Flex, Image, Button } from "@mantine/core";
+import { Flex, Button } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { BackIcon, NextIcon } from "@/icons";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
 import SaveModal from "./components/SaveModal";
 import SaveCompleteModal from "./components/SaveCompleteModal";
+import Layout01 from "./components/Layout01";
 
 const SelectOutline = () => {
   const {
@@ -16,6 +17,7 @@ const SelectOutline = () => {
     openSaveModal
   } = useContext(CreateLayoutContext);
   const router = useRouter();
+  const hoverStyle = "4";
 
   return (
     <Flex className="w-full">
@@ -41,11 +43,7 @@ const SelectOutline = () => {
             }
           )}
         >
-          {selectedTemplate ? (
-            <Image src={`/template_0${selectedTemplate}.svg`} fit="contain" />
-          ) : (
-            <p className="text-gray-400 m-auto">กรุณาเลือกรูปแบบ</p>
-          )}
+          <Layout01 />
         </Flex>
         <Flex className="md:w-[25rem] 2xl:w-[32rem] h-fit row gap-2 absolute bottom-[10px] items-end z-10 justify-end">
           <Button
