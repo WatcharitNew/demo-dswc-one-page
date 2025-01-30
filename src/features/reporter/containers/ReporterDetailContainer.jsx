@@ -15,7 +15,7 @@ import {
 import { useReportDetail } from "../services";
 import { getBadgeStatus } from "../components";
 
-import { Pdf, Jpg, Png, History } from "@/icons";
+import { History, Pdf, Jpg, Png, Sent } from "@/icons";
 
 const items = [
   { title: "รายงานสาธารณภัยประจำวัน", href: "/reporter" },
@@ -77,19 +77,50 @@ export const ReporterDetailContainer = () => {
             <div className="col gap-4">
               <p>Download</p>
               <div className="row gap-6">
-                <UnstyledButton>
+                <UnstyledButton
+                  disabled={report?.status === "รอการอนุมัติ"}
+                  className={clsx({
+                    "opacity-30": report?.status === "รอการอนุมัติ",
+                  })}
+                >
                   <Pdf />
                 </UnstyledButton>
-                <UnstyledButton>
+                <UnstyledButton
+                  disabled={report?.status === "รอการอนุมัติ"}
+                  className={clsx({
+                    "opacity-30": report?.status === "รอการอนุมัติ",
+                  })}
+                >
                   <Jpg />
                 </UnstyledButton>
-                <UnstyledButton>
+                <UnstyledButton
+                  disabled={report?.status === "รอการอนุมัติ"}
+                  className={clsx({
+                    "opacity-30": report?.status === "รอการอนุมัติ",
+                  })}
+                >
                   <Png />
                 </UnstyledButton>
               </div>
             </div>
+            {report?.status === "อนุมัติ" ? null : (
+              <div className="col gap-4">
+                <p>ส่งออก</p>
+                <div className="row w-full gap-6">
+                  <Button
+                    disabled={report?.status === "รอการอนุมัติ"}
+                    className="w-full gap-4"
+                    variant="default"
+                    leftSection={<Sent />}
+                  >
+                    ส่งอีเมล
+                  </Button>
+                </div>
+              </div>
+            )}
 
-            <div className="col gap-4">
+            {/* Approve Reporter */}
+            {/* <div className="col gap-4">
               <p>พิจารณา</p>
               <div className="row w-full gap-6">
                 <Button className="w-full" variant="default">
@@ -99,14 +130,15 @@ export const ReporterDetailContainer = () => {
                   อนุมัติ
                 </Button>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <hr />
 
+          {/* Mock */}
           <div className="p-6 pt-0 col gap-6">
             <div className="row items-center gap-2">
-              <History className="size-6 text-gray-500"/>
+              <History className="size-6 text-gray-500" />
               <p className="font-medium">
                 ประวัติการจัดทำรายงานสาธารณภัยประจำวัน
               </p>
