@@ -7,6 +7,9 @@ export const Modal = ({
   children,
   cancelText,
   proceedText,
+  cancelAction,
+  proceedAction,
+  isProceedDisabled,
 }) => {
   return (
     <>
@@ -38,12 +41,21 @@ export const Modal = ({
         <div className="min-w-[78.3125rem] h-[5.5rem] bg-white sticky flex z-50 bottom-0 shadow-xl">
           <div className="flex flex-row gap-4 ml-auto my-auto mr-6">
             {cancelText && (
-              <Button variant="default" className="h-10 w-40">
+              <Button
+                variant="default"
+                className="h-10 w-40"
+                onClick={(e) => cancelAction?.(e)}
+              >
                 {cancelText}
               </Button>
             )}
             {proceedText && (
-              <Button variant="filled" className="h-10 w-40">
+              <Button
+                variant="filled"
+                className="h-10 w-40"
+                onClick={(e) => proceedAction?.(e)}
+                disabled={isProceedDisabled}
+              >
                 {proceedText}
               </Button>
             )}

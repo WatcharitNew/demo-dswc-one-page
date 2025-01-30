@@ -1,8 +1,8 @@
 "use client";
 
 import { DISASTERS_WITH_OTHER } from "@/constants";
-import { DisasterTypeBox } from ".";
 import { Back2Icon, Next2Icon } from "@/icons";
+import { DisasterTypeBox } from ".";
 
 export const DisasterTypeBoxList = ({
   disaster,
@@ -14,10 +14,12 @@ export const DisasterTypeBoxList = ({
 }) => {
   return (
     <div className="flex flex-row gap-2">
-      <div onClick={() => onClickBack()} className="my-auto cursor-pointer pb-4">
+      <div
+        onClick={() => onClickBack()}
+        className="my-auto cursor-pointer pb-4"
+      >
         <Back2Icon />
       </div>
-
       <div ref={sliderRef} className="flex flex-row gap-2 overflow-x-auto pb-4">
         {DISASTERS_WITH_OTHER.map(({ filterText, value }, idx) => (
           <DisasterTypeBox
@@ -31,8 +33,10 @@ export const DisasterTypeBoxList = ({
           />
         ))}
       </div>
-
-      <div onClick={() => onClickNext()} className="my-auto cursor-pointer pb-4">
+      <div
+        onClick={() => onClickNext()}
+        className="my-auto cursor-pointer pb-4"
+      >
         <Next2Icon />
       </div>
     </div>

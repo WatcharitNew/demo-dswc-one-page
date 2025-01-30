@@ -214,48 +214,58 @@ export const DISASTER_COMPONENTS = {
   flood: [
     {
       name: "ปริมาณน้ำท่า",
+      value: "น้ำท่า",
       icon: (props = {}) => <RunoffWaterIcon {...props} />,
     },
     {
       name: "ปริมาณน้ำอ่าง",
+      value: "น้ำอ่าง",
       icon: (props = {}) => <ReservoirWaterIcon {...props} />,
     },
     {
       name: "พยากรณ์อากาศประจำวัน",
+      value: "พยากรณ์อากาศ",
       icon: (props = {}) => <ForecastIcon {...props} />,
     },
     {
       name: "ปริมาณน้ำฝน",
+      value: "น้ำฝน",
       icon: (props = {}) => <RainWaterIcon {...props} />,
     },
   ],
   drought: [
     {
       name: "ปริมาณน้ำท่า",
+      value: "น้ำท่า",
       icon: (props = {}) => <RunoffWaterIcon {...props} />,
     },
     {
       name: "ปริมาณน้ำอ่าง",
+      value: "น้ำอ่าง",
       icon: (props = {}) => <ReservoirWaterIcon {...props} />,
     },
     {
       name: "พยากรณ์อากาศประจำวัน",
+      value: "พยากรณ์อากาศ",
       icon: (props = {}) => <ForecastIcon {...props} />,
     },
     {
       name: "ปริมาณน้ำฝน",
+      value: "น้ำฝน",
       icon: (props = {}) => <RainWaterIcon {...props} />,
     },
   ],
   pm25: [
     {
       name: "PM2.5",
+      value: "pm2.5",
       icon: (props = {}) => <Pm25Icon {...props} />,
     },
   ],
   other: [
     {
       name: "กำหนดเอง",
+      value: "อื่น ๆ",
       icon: (props = {}) => <PencilIcon {...props} />,
     },
   ],

@@ -1,28 +1,42 @@
 "use client";
+import clsx from "clsx";
+import { Flex, Image } from "@mantine/core";
 
-import { MOCK_COMPONENTS } from "@/constants";
-import { Image } from "@mantine/core";
-
-export const DisasterComponentList = ({ text }) => {
+export const DisasterComponentList = ({
+  text,
+  components,
+  setSelectedComponent,
+  selectedComponent,
+}) => {
   return (
-    <div className="w-full bg-gray-100 flex flex-col gap-2 p-6">
+    <div className="w-full bg-gray-100 flex flex-col gap-2 p-6 overflow-auto">
       {text && (
         <>
           <p className="text-sm text-gray-400">{text}</p>
-          <div className="grid grid-cols-2 gap-2">
-            {MOCK_COMPONENTS.map((component) => (
+          <Flex className="row flex-wrap gap-2">
+            {components?.map((item) => (
               <div
-                key={component}
-                className="w-[24rem] bg-white p-6 rounded-xl flex flex-row items-center justify-center"
+                key={item.component_id}
+                className={clsx(
+                  "w-[24rem] bg-white p-6 rounded-xl flex flex-row items-center justify-center border-2 cursor-pointer hover:border-blue-400",
+                  {
+                    "border-blue-400":
+                      item.component_id ===
+                      selectedComponent?.data.component_id,
+                  }
+                )}
+                onClick={() =>
+                  setSelectedComponent((prev) => ({ ...prev, data: item }))
+                }
               >
                 <Image
-                  src={component}
-                  alt={component}
-                  className="h-[17.25rem] object-contain"
+                  src={item.empty_data_img_url}
+                  alt={item.name}
+                  width="auto"
                 />
               </div>
             ))}
-          </div>
+          </Flex>
         </>
       )}
     </div>

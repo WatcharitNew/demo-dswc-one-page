@@ -7,13 +7,12 @@ export const CreateLayoutContext = createContext(null);
 const CreateLayoutContextProvider = ({ children }) => {
   const [selectedTemplate, setSelectedTemplate] = useState();
   const [templateName, setTemplateName] = useState("");
-  const [
-    openedSaveModal,
-    { open: openSaveModal, close: closeSaveModal }
-  ] = useDisclosure(false);
+  const [createLayoutData, setCreateLayoutData] = useState(); // รวม data ที่จะส่งไปสำหรับ create layout
+  const [openedSaveModal, { open: openSaveModal, close: closeSaveModal }] =
+    useDisclosure(false);
   const [
     openedSaveCompleteModal,
-    { open: openSaveCompleteModal, close: closeSaveCompleteModal }
+    { open: openSaveCompleteModal, close: closeSaveCompleteModal },
   ] = useDisclosure(false);
 
   const contextValue = {
@@ -26,7 +25,9 @@ const CreateLayoutContextProvider = ({ children }) => {
     closeSaveModal,
     openedSaveCompleteModal,
     openSaveCompleteModal,
-    closeSaveCompleteModal
+    closeSaveCompleteModal,
+    createLayoutData,
+    setCreateLayoutData,
   };
   return (
     <CreateLayoutContext.Provider value={contextValue}>

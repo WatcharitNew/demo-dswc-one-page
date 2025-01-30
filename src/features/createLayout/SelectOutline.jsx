@@ -8,13 +8,11 @@ import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
 import SaveModal from "./components/SaveModal";
 import SaveCompleteModal from "./components/SaveCompleteModal";
+import { CustomComponentModal } from "../template/components";
 
 const SelectOutline = () => {
-  const {
-    selectedTemplate,
-    setSelectedTemplate,
-    openSaveModal
-  } = useContext(CreateLayoutContext);
+  const { selectedTemplate, setSelectedTemplate, openSaveModal } =
+    useContext(CreateLayoutContext);
   const router = useRouter();
 
   return (
@@ -67,6 +65,7 @@ const SelectOutline = () => {
       </div>
       <SaveModal />
       <SaveCompleteModal />
+      <CustomComponentModal />
     </Flex>
   );
 };
