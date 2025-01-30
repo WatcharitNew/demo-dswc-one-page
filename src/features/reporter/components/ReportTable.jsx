@@ -6,7 +6,7 @@ import { MOCK_REPORT_LIST } from "../constants";
 import { Badge, Table, UnstyledButton } from "@mantine/core";
 import { Report } from "@/icons";
 
-const getBadgeStatus = (status) => {
+export const getBadgeStatus = (status) => {
   switch (status) {
     case "รอการอนุมัติ":
       return "yellow";
