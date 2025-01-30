@@ -8,6 +8,10 @@ const CreateLayoutContextProvider = ({ children }) => {
   const [selectedLayout, setSelectedLayout] = useState();
   const [templateName, setTemplateName] = useState("");
   const [
+    openedTemplateComponentModal,
+    { open: openTemplateComponentModal, close: closeTemplateComponentModal }
+  ] = useDisclosure(false);
+  const [
     openedSaveModal,
     { open: openSaveModal, close: closeSaveModal }
   ] = useDisclosure(false);
@@ -21,6 +25,9 @@ const CreateLayoutContextProvider = ({ children }) => {
     setSelectedLayout,
     templateName,
     setTemplateName,
+    openedTemplateComponentModal,
+    openTemplateComponentModal,
+    closeTemplateComponentModal,
     openedSaveModal,
     openSaveModal,
     closeSaveModal,
