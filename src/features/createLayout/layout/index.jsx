@@ -15,9 +15,9 @@ const CreateLayout = ({ children }) => {
     }
   }, [pathname]);
   return (
-    <div className="row">
-      <div className="col relative flex h-[calc(100vh-4.5rem)] w-[5rem] bg-white border-r border-gray-200">
-        <nav className="col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
+    <div className="h-[calc(100dvh-5rem)] flex">
+      <div className="col relative flex w-20 bg-white border-r border-gray-200">
+        <nav className="col gap-1 p-2 text-base font-normal text-blue-gray-700">
           {CREATE_LAYOUT_MENU.map((item) => {
             const isActive = currentStep === item.value;
             return (
@@ -58,11 +58,9 @@ const CreateLayout = ({ children }) => {
           })}
         </nav>
       </div>
-      <div className="w-[calc(100%-80px)] max-h-[calc(100vh-4.5rem)] overflow-hidden re">
-        <div className="h-[calc(100vh-8.5rem)] bg-gray-100 overflow-auto">
-          {children}
-        </div>
-        <footer className="row bg-white h-[4rem] relative my-auto"></footer>
+      <div className="col grow">
+        <div className="grow bg-gray-100 overflow-auto">{children}</div>
+        <div className="row bg-white h-16"></div>
       </div>
     </div>
   );
