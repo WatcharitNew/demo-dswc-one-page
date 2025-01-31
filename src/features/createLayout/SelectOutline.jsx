@@ -10,9 +10,11 @@ import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
 import SaveModal from "./components/SaveModal";
 import SaveCompleteModal from "./components/SaveCompleteModal";
-import Layout01 from "./components/Layout01";
 import { BackIcon, NextIcon } from "@/icons";
 import { TemplateComponentModal } from "../template/components";
+import Layout01 from "./components/layout/Layout01";
+import Layout02 from "./components/layout/Layout02";
+import Layout03 from "./components/layout/Layout03";
 
 
 const SelectOutline = () => {
@@ -22,6 +24,28 @@ const SelectOutline = () => {
     openSaveModal
   } = useContext(CreateLayoutContext);
   const router = useRouter();
+
+  const handleBackButton = () => {
+    if(selectedLayout) {
+      setSelectedLayout(undefined)
+    }
+    else {
+      router.push("/templater")
+    }
+  };
+
+  const layoutComponent = () => {
+    switch (selectedLayout?.layout_id) {
+      case 1:
+        return <Layout01 />;
+      case 2:
+        return <Layout02 />;
+      case 3:
+        return <Layout03 />;
+      default:
+        return null;
+    }
+  }
 
   return (
     <Flex className="w-full">
@@ -48,7 +72,7 @@ const SelectOutline = () => {
           )}
         >
           {selectedLayout ? (
-            <Layout01 />
+            layoutComponent()
           ) : (
             <p className="text-gray-400 m-auto">กรุณาเลือกรูปแบบ</p>
           )}
@@ -57,9 +81,9 @@ const SelectOutline = () => {
           <Button
             variant="outline"
             className="h-10 min-w-40"
-            onClick={() => router.push("/templater")}
+            onClick={handleBackButton}
           >
-            ยกเลิก
+            {selectedLayout ? "ย้อนกลับ" : "ยกเลิก"}
           </Button>
           <Button
             disabled={!selectedLayout}
