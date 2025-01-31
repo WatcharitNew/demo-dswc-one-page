@@ -2,7 +2,7 @@
 
 import LayoutComponent from "./LayoutComponent";
 
-const Layout01 = () => {
+const LayoutTemplate = ({ children }) => {
   return (
     <div className="flex flex-col w-full max-w-7xl max-h-full mx-auto p-4 gap-1">
       <div className="flex flex-col gap-1 basis-[13%] w-full bg-gray-300 p-1">
@@ -18,22 +18,7 @@ const Layout01 = () => {
           <LayoutComponent className='w-full' />
         </div>
       </div>
-      <div className="flex gap-1 basis-[15%]">
-        <LayoutComponent className='basis-[69%]' />
-        <LayoutComponent className='basis-[31%]' />
-      </div>
-      <div className="flex gap-1 basis-[65%]">
-        <div className="flex flex-col gap-1 basis-[61%]">
-          <LayoutComponent className='basis-[58%]' />
-          <LayoutComponent className='basis-[26%]' />
-          <LayoutComponent className='basis-[16%]' />
-        </div>
-        <div className="flex flex-col gap-1 basis-[39%]">
-          <LayoutComponent className='basis-[30%]' />
-          <LayoutComponent className='basis-[39%]' />
-          <LayoutComponent className='basis-[31%]' />
-        </div>
-      </div>
+      {children}
       <div className="flex gap-1 basis-[7%]">
         <LayoutComponent className='basis-[69%]' />
         <LayoutComponent className='basis-[31%]' />
@@ -42,4 +27,4 @@ const Layout01 = () => {
   );
 }
 
-export default Layout01;
+export default LayoutTemplate;
