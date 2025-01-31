@@ -34,6 +34,19 @@ const SelectOutline = () => {
     }
   };
 
+  const layoutComponent = () => {
+    switch (selectedLayout?.layout_id) {
+      case 1:
+        return <Layout01 />;
+      case 2:
+        return <Layout02 />;
+      case 3:
+        return <Layout03 />;
+      default:
+        return null;
+    }
+  }
+
   return (
     <Flex className="w-full">
       <Menu />
@@ -59,7 +72,7 @@ const SelectOutline = () => {
           )}
         >
           {selectedLayout ? (
-            <Layout03 />
+            layoutComponent()
           ) : (
             <p className="text-gray-400 m-auto">กรุณาเลือกรูปแบบ</p>
           )}
