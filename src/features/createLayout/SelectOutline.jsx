@@ -10,9 +10,10 @@ import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
 import SaveModal from "./components/SaveModal";
 import SaveCompleteModal from "./components/SaveCompleteModal";
-import Layout01 from "./components/Layout01";
 import { BackIcon, NextIcon } from "@/icons";
 import { TemplateComponentModal } from "../template/components";
+import Layout01 from "./components/layout/Layout01";
+import Layout02 from "./components/layout/Layout02";
 
 
 const SelectOutline = () => {
@@ -57,7 +58,7 @@ const SelectOutline = () => {
           )}
         >
           {selectedLayout ? (
-            <Layout01 />
+            <Layout02 />
           ) : (
             <p className="text-gray-400 m-auto">กรุณาเลือกรูปแบบ</p>
           )}
