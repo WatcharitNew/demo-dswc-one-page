@@ -21,7 +21,7 @@ export const ReporterCreateContainer = () => {
   const { mutate: reload } = useReloadReport();
 
   const imageSrc = useMemo(() => {
-    return templates.find((item) => item.template_id === Number(id))?.img_url
+    return templates?.find((item) => item.template_id === Number(id))?.img_url
   }, [id])
 
   return (
