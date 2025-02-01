@@ -12,10 +12,12 @@ import { CreateReportModal, ReportTable } from "../components";
 import { AddIcon, Filter, Search, Sort } from "@/icons";
 import { useListReports } from "../services";
 import { useMemo } from "react";
+import { useListTemplates } from "@/features/templater/services";
 
 export const ReporterHomeContainer = () => {
   const { data } = useAuthContext()
   const { data: reports } = useListReports(data?.province)
+  const { data: templates } = useListTemplates(data?.province)
   const [
     createReportOpened,
     { open: openCreateReport, close: closeCreateReport },
@@ -80,6 +82,7 @@ export const ReporterHomeContainer = () => {
       </div>
 
       <CreateReportModal
+        templates={templates || []}
         opened={createReportOpened}
         onClose={closeCreateReport}
       />
