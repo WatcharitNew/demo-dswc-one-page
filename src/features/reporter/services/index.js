@@ -1,1 +1,2 @@
-export * from './reloadReport'
+export * from "./reloadReport";
+export * from "./getListReports";
