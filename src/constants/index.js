@@ -273,3 +273,6 @@ export const COMPONENT_CUSTOM_CHECKBOXES = [
   "ความแตกต่างเทียบกับเมื่อวาน",
   "แนวโน้ม",
 ];
+
+export const LAYOUT_TEMPLATE_WIDTH = 413.12399643086314;
+export const LAYOUT_TEMPLATE_HEIGHT = 584;

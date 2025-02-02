@@ -10,6 +10,7 @@ import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
 import SaveModal from "./components/SaveModal";
 import SaveCompleteModal from "./components/SaveCompleteModal";
+import Layout from "./components/Layout";
 import { BackIcon, NextIcon } from "@/icons";
 import { TemplateComponentModal } from "../template/components";
 import Layout01 from "./components/layout/Layout01";
@@ -33,19 +34,6 @@ const SelectOutline = () => {
       router.push("/templater")
     }
   };
-
-  const layoutComponent = () => {
-    switch (selectedLayout?.layout_id) {
-      case 1:
-        return <Layout01 />;
-      case 2:
-        return <Layout02 />;
-      case 3:
-        return <Layout03 />;
-      default:
-        return null;
-    }
-  }
 
   return (
     <Flex className="w-full">
@@ -72,7 +60,9 @@ const SelectOutline = () => {
           )}
         >
           {selectedLayout ? (
-            layoutComponent()
+            <Layout
+              data={selectedLayout.bbox}
+            />
           ) : (
             <p className="text-gray-400 m-auto">กรุณาเลือกรูปแบบ</p>
           )}
