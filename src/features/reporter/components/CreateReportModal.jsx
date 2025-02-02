@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { clsx } from "clsx";
 
@@ -19,7 +19,19 @@ import {
 
 import classes from "./tab.module.css";
 
-export const CreateReportModal = ({ opened, onClose }) => {
+const transformValue = (value) => {
+  switch(value) {
+    case "flood": return "อุทกภัย"
+    case "drought": return "ภัยแล้ง"
+    case "storm": return "วาตภัย"
+    case "mudslide": return "ดินโคลนถล่ม"
+    case "earthquake-tsunami": return "แผ่นดินไหว"
+    case "pm25": return "pm2.5"
+    case "forest-fire": return "ไฟป่า"
+  }
+}
+
+export const CreateReportModal = ({ templates = [], opened, onClose }) => {
   const router = useRouter()
   const [selectedImage, setSelectedImage] = useState(null);
   const [rootRef, setRootRef] = useState(null);
@@ -36,6 +48,10 @@ export const CreateReportModal = ({ opened, onClose }) => {
       setValue("all")
     }
   }, [opened])
+
+  const filteredTemplate = useMemo(() => {
+    return templates.filter((template) => value === 'all' || template?.tags?.includes(transformValue(value)))
+  }, [templates, value])
 
   return (
     <Modal
@@ -102,8 +118,8 @@ export const CreateReportModal = ({ opened, onClose }) => {
           cols={3}
           spacing="xl"
         >
-          {SAMPLE_REPORT.map((image, idx) => {
-            const isSelected = selectedImage?.id === image.id;
+          {filteredTemplate.map((template, idx) => {
+            const isSelected = selectedImage?.template_id === template.template_id;
 
             return (
               <div
@@ -112,9 +128,9 @@ export const CreateReportModal = ({ opened, onClose }) => {
                   "outline outline-offset-2 outline-2 outline-blue-400":
                     isSelected,
                 })}
-                onClick={() => setSelectedImage(image)}
+                onClick={() => setSelectedImage(template)}
               >
-                <Image alt="report-image" className="h-full" src={image.src} />
+                <Image alt="report-image" className="h-full" src={template.img_url} />
               </div>
             );
           })}
@@ -125,7 +141,7 @@ export const CreateReportModal = ({ opened, onClose }) => {
         className="block h-11 mt-8 ml-auto"
         disabled={!selectedImage}
         variant="primary"
-        onClick={() => router.push(`/reporter/create/${selectedImage?.id}`)}
+        onClick={() => router.push(`/reporter/create/${selectedImage?.template_id}`)}
       >
         ดำเนินการต่อ
       </Button>
