@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { clsx } from "clsx";
 
-import { DISASTERS_REPORT_SELECT, SAMPLE_REPORT } from "../constants";
+import { DISASTERS_REPORT_SELECT } from "../constants";
 
 import {
   Button,

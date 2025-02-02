@@ -904,3 +904,5 @@ export const SPECIAL_TYPE = ["text", "image"];
 
 export const LAYOUT_TEMPLATE_WIDTH = 413.12399643086314;
 export const LAYOUT_TEMPLATE_HEIGHT = 584;
+export const TEMPLATE_WIDTH = 544;
+export const TEMPLATE_HEIGHT = 769.00882724;

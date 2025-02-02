@@ -1,28 +1,58 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { useDisclosure } from "@mantine/hooks";
 
 import { useReloadReport } from "../services";
-import { SAMPLE_REPORT } from "../constants";
 
 import { RefreshReportModal } from "../components";
 import { Button, Image } from "@mantine/core";
 import { Refresh, Multiplier1, Multiplier15, Multiplier2 } from "@/icons";
-import { useListTemplates } from "@/features/templater/services";
 import { useAuthContext } from "@/lib/providers/auth";
+import { PROVINCES, TEMPLATE_HEIGHT, TEMPLATE_WIDTH } from "@/constants";
+
+const getProvinceId = (province) => {
+  return PROVINCES.findIndex((p) => p === province)
+}
+
+const getInitialReloadParams = (id, data) => {
+  return {
+    template_id: id,
+    province_id: getProvinceId(data?.province),
+    date: data?.date,
+    customizable_component: []
+  }
+}
 
 export const ReporterCreateContainer = () => {
   const { id } = useParams();
   const { data } = useAuthContext()
-  const { data: templates } = useListTemplates(data?.province)
   const [opened, { open, close }] = useDisclosure(false);
-  const { mutate: reload } = useReloadReport();
+  const { mutate: reload, data: reloadedReport } = useReloadReport()
 
   const imageSrc = useMemo(() => {
-    return templates?.find((item) => item.template_id === Number(id))?.img_url
-  }, [id])
+    return reloadedReport?.data?.img_url
+  }, [reloadedReport?.data])
+
+  const reloadReport = () => {
+    open()
+    reload(getInitialReloadParams(id, data), {
+      onSettled() {
+        close();
+      },
+    });
+  }
+
+  const customizableComponents = useMemo(() => {
+    return reloadedReport?.data?.customizable_component || []
+  }, [reloadedReport?.data])
+
+  useEffect(() => {
+    reloadReport()
+  }, [id, data])
+
+  // const top = 0.069128722688822*2242*544/1586
 
   return (
     <div className="col h-full">
@@ -35,12 +65,7 @@ export const ReporterCreateContainer = () => {
                 className="h-10 px-3 !border-0 !rounded-r-none"
                 variant="default"
                 onClick={() => {
-                  open();
-                  reload(null, {
-                    onSettled() {
-                      close();
-                    },
-                  });
+                  reloadReport()
                 }}
               >
                 <Refresh />
@@ -65,12 +90,27 @@ export const ReporterCreateContainer = () => {
               </Button>
             </Button.Group>
           </div>
-          <Image
-            alt="report-by-id-image"
-            src={imageSrc}
-            className="w-full"
-            fit="contain"
-          />
+          <div className="relative">
+            <Image
+              alt="report-by-id-image"
+              src={imageSrc}
+              className="w-full"
+              fit="contain"
+            />
+            {customizableComponents.map(({ box, component_id }, idx) => (
+              <div
+                key={`${component_id}-${idx}`}
+                onClick={() => console.log('click box')}
+                className={`
+                  bg-black absolute cursor-pointer
+                  h-[calc((${box.bottom}-${box.top})*${TEMPLATE_HEIGHT}px)]
+                  w-[calc((${box.right}-${box.left})*${TEMPLATE_WIDTH}px)]
+                  top-[calc(${box.top}*${TEMPLATE_HEIGHT}px)]
+                  left-[calc(${box.left}*${TEMPLATE_WIDTH}px)]
+                `}
+              ></div>
+            ))}
+          </div>
         </div>
       </div>
       <div className="bg-white h-16 p-3 row items-center justify-center">
