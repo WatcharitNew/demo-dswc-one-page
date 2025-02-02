@@ -50,7 +50,7 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
   }, [opened])
 
   const filteredTemplate = useMemo(() => {
-    return templates.filter((template) => value === 'all' ? true : template?.tags?.includes(transformValue(value)))
+    return templates.filter((template) => value === 'all' || template?.tags?.includes(transformValue(value)))
   }, [templates, value])
 
   return (
