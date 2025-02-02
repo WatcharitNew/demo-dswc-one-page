@@ -10,7 +10,7 @@ import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
 import SaveModal from "./components/SaveModal";
 import SaveCompleteModal from "./components/SaveCompleteModal";
-import Layout01 from "./components/Layout01";
+import Layout from "./components/Layout";
 import { BackIcon, NextIcon } from "@/icons";
 import { TemplateComponentModal } from "../template/components";
 
@@ -48,7 +48,9 @@ const SelectOutline = () => {
           )}
         >
           {selectedLayout ? (
-            <Layout01 />
+            <Layout
+              data={selectedLayout.bbox}
+            />
           ) : (
             <p className="text-gray-400 m-auto">กรุณาเลือกรูปแบบ</p>
           )}
