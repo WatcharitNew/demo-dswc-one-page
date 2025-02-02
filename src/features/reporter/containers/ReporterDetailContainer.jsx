@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import { clsx } from "clsx";
 import {
@@ -12,8 +14,9 @@ import {
   UnstyledButton,
 } from "@mantine/core";
 
-import { useReportDetail } from "../services";
-import { getBadgeStatus } from "../components";
+import { useAuthContext } from '@/lib/providers/auth';
+import { useListReports } from "../services";
+import { getBadgeStatus, getStatusText } from "../components";
 
 import { History, Pdf, Jpg, Png, Sent } from "@/icons";
 
@@ -33,7 +36,13 @@ const items = [
 ));
 
 export const ReporterDetailContainer = () => {
-  const { data: report } = useReportDetail();
+  const { id } = useParams()
+  const { data } = useAuthContext()
+  const { data: reports } = useListReports(data?.province)
+
+  const report = useMemo(() => {
+    return reports?.report_table?.find((_, idx) => idx + 1 === Number(id))
+  }, [reports, id])
 
   return (
     <div className="h-full col gap-6 p-6">
@@ -48,10 +57,10 @@ export const ReporterDetailContainer = () => {
               <p>วันที่รายงานเหตุ</p>
               <p>{report?.date}</p>
               <p>Template</p>
-              <p>{report?.name}</p>
+              <p>{report?.template_name}</p>
               <p>ครั้งที่และเวลาประมวลผล</p>
               <p>
-                {report?.count}, {report?.times}
+                {report?.order}, {report?.time}
               </p>
               <p>สถานะ</p>
               <div className="text-current">
@@ -61,13 +70,13 @@ export const ReporterDetailContainer = () => {
                   size="lg"
                   style={{ fontWeight: 400 }}
                 >
-                  {report?.status}
+                  {getStatusText(report?.status)}
                 </Badge>
               </div>
             </div>
           </div>
           <Flex className="h-full justify-center">
-            <Image src={report?.img} fit="contain" />
+            <Image src={report?.img_url} fit="contain" />
           </Flex>
         </div>
 
@@ -78,37 +87,37 @@ export const ReporterDetailContainer = () => {
               <p>Download</p>
               <div className="row gap-6">
                 <UnstyledButton
-                  disabled={report?.status === "รอการอนุมัติ"}
+                  disabled={report?.status === "pending"}
                   className={clsx({
-                    "opacity-30": report?.status === "รอการอนุมัติ",
+                    "opacity-30": report?.status === "pending",
                   })}
                 >
                   <Pdf />
                 </UnstyledButton>
                 <UnstyledButton
-                  disabled={report?.status === "รอการอนุมัติ"}
+                  disabled={report?.status === "pending"}
                   className={clsx({
-                    "opacity-30": report?.status === "รอการอนุมัติ",
+                    "opacity-30": report?.status === "pending",
                   })}
                 >
                   <Jpg />
                 </UnstyledButton>
                 <UnstyledButton
-                  disabled={report?.status === "รอการอนุมัติ"}
+                  disabled={report?.status === "pending"}
                   className={clsx({
-                    "opacity-30": report?.status === "รอการอนุมัติ",
+                    "opacity-30": report?.status === "pending",
                   })}
                 >
                   <Png />
                 </UnstyledButton>
               </div>
             </div>
-            {report?.status === "อนุมัติ" ? null : (
+            {report?.status === "approved" ? null : (
               <div className="col gap-4">
                 <p>ส่งออก</p>
                 <div className="row w-full gap-6">
                   <Button
-                    disabled={report?.status === "รอการอนุมัติ"}
+                    disabled={report?.status === "pending"}
                     className="w-full gap-4"
                     variant="default"
                     leftSection={<Sent />}

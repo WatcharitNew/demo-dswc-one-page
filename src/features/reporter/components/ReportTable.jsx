@@ -18,7 +18,7 @@ export const getBadgeStatus = (status) => {
   }
 };
 
-const getStatusText = (status) => {
+export const getStatusText = (status) => {
   switch (status) {
     case "pending": return "รอการอนุมัติ"
     case "rejected": return "ไม่อนุมัติ"
@@ -48,7 +48,7 @@ export const ReportTable = ({data = []}) => {
         <UnstyledButton
           component={Link}
           className="col mx-auto items-center text-xs"
-          href={`/reporter/${report.id}`}
+          href={`/reporter/${idx + 1}`}
         >
           <Report className="size-5" />
           ดูรายงาน
