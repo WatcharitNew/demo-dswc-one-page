@@ -2,7 +2,7 @@ import { ApprovedIcon, PendingIcon, RejectedIcon, TotalIcon } from "@/icons";
 
 const StatusIcon = ({ status }) => {
   switch (status) {
-    case "pending":
+    case "waiting_for_reviewing":
       return <PendingIcon />;
     case "approved":
       return <ApprovedIcon />;
@@ -15,7 +15,7 @@ const StatusIcon = ({ status }) => {
 
 const statusName = (status) => {
   switch (status) {
-    case "pending":
+    case "waiting_for_reviewing":
       return "รอการตรวจสอบ";
     case "approved":
       return "รายงานที่ได้รับการอนุมัติ";
