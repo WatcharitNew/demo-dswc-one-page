@@ -103,7 +103,6 @@ export const useSelectTemplateComponent = ({ close }) => {
   };
 
   const resetSelected = () => {
-    console.log("this");
     setSelectedTempComponent(undefined);
     setOption(undefined);
   };
