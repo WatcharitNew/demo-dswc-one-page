@@ -52,8 +52,6 @@ export const ReporterCreateContainer = () => {
     reloadReport()
   }, [id, data])
 
-  // const top = 0.069128722688822*2242*544/1586
-
   return (
     <div className="col h-full">
       <div className="grow row justify-center pt-2 pb-8 overflow-auto">
