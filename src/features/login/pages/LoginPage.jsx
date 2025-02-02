@@ -151,7 +151,7 @@ function LoginPage() {
           <Button
             type="submit"
             variant="filled"
-            className="w-full h-11 bg-blue-1000 hover:bg-black"
+            className="w-full h-11 !bg-blue-1000 !hover:bg-black"
           >
             เข้าสู่ระบบ
           </Button>

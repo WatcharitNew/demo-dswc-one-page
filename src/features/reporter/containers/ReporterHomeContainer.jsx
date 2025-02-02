@@ -5,18 +5,27 @@ import { Button, Input, UnstyledButton } from "@mantine/core";
 
 import dayjs from '@/lib/helpers/dayjs'
 import { useAuthContext } from '@/lib/providers/auth';
-import { MOCK_OVERVIEW_STATUS } from "../constants";
+import { INITIAL_OVERVIEW_DATA, OVERVIEW_STATUS } from "../constants";
 
 import { OverviewStatusCard } from '@/components';
 import { CreateReportModal, ReportTable } from "../components";
 import { AddIcon, Filter, Search, Sort } from "@/icons";
+import { useListReports } from "../services";
+import { useMemo } from "react";
+import { useListTemplates } from "@/features/templater/services";
 
 export const ReporterHomeContainer = () => {
   const { data } = useAuthContext()
+  const { data: reports } = useListReports(data?.province)
+  const { data: templates } = useListTemplates(data?.province)
   const [
     createReportOpened,
     { open: openCreateReport, close: closeCreateReport },
   ] = useDisclosure(false);
+
+  const formattedReports = useMemo(() => {
+    return reports || INITIAL_OVERVIEW_DATA
+  }, [reports])
 
   return (
     <div className="max-w-[78.875rem] mx-auto">
@@ -27,8 +36,8 @@ export const ReporterHomeContainer = () => {
             {dayjs(data.date).format("DD MMMM BBBB")}
           </p>
           <div className="flex flex-row gap-5 mx-auto">
-            {MOCK_OVERVIEW_STATUS.map(({ total, status }) => (
-              <OverviewStatusCard key={status} total={total} status={status} />
+            {OVERVIEW_STATUS.map((status) => (
+              <OverviewStatusCard key={status} total={formattedReports?.summary_numbers?.[status]} status={status} />
             ))}
           </div>
         </div>
@@ -59,7 +68,7 @@ export const ReporterHomeContainer = () => {
           <div className="col gap-4">
             <div className="row items-center justify-between">
               <p className="text-xl font-medium">
-                ประวัติการจัดทำรายงานสาธารณภัยประจำวัน จังหวัดสุพรรณบุรี
+                ประวัติการจัดทำรายงานสาธารณภัยประจำวัน จังหวัด{data?.province}
               </p>
               <UnstyledButton className="row items-center text-sm gap-2 text-gray-900">
                 <Sort className="size-6 text-gray-600" />
@@ -67,12 +76,13 @@ export const ReporterHomeContainer = () => {
               </UnstyledButton>
             </div>
 
-            <ReportTable />
+            <ReportTable data={formattedReports?.report_table} />
           </div>
         </div>
       </div>
 
       <CreateReportModal
+        templates={templates || []}
         opened={createReportOpened}
         onClose={closeCreateReport}
       />
