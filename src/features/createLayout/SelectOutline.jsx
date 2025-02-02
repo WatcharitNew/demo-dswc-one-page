@@ -13,9 +13,6 @@ import SaveCompleteModal from "./components/SaveCompleteModal";
 import Layout from "./components/Layout";
 import { BackIcon, NextIcon } from "@/icons";
 import { TemplateComponentModal } from "../template/components";
-import Layout01 from "./components/layout/Layout01";
-import Layout02 from "./components/layout/Layout02";
-import Layout03 from "./components/layout/Layout03";
 
 
 const SelectOutline = () => {
