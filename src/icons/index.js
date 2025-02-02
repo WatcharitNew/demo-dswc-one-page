@@ -34,3 +34,4 @@ export * from "./ForecastIcon";
 export * from "./Back2Icon";
 export * from "./Next2Icon";
 export * from "./PencilIcon";
+export * from "./UploadIcon";

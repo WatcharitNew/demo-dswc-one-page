@@ -3,16 +3,16 @@ import { useContext } from "react";
 import clsx from "clsx";
 import { Flex, Image, Button } from "@mantine/core";
 import { useRouter } from "next/navigation";
-import { BackIcon, NextIcon } from "@/icons";
+
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
+import { BackIcon, NextIcon } from "@/icons";
 import Menu from "./components/Menu";
 import SaveModal from "./components/SaveModal";
 import SaveCompleteModal from "./components/SaveCompleteModal";
-import { CustomComponentModal } from "../template/components";
+import { TemplateComponentModal } from "../template/components";
 
 const SelectOutline = () => {
-  const { selectedTemplate, setSelectedTemplate, openSaveModal } =
-    useContext(CreateLayoutContext);
+  const { selectedTemplate, openSaveModal } = useContext(CreateLayoutContext);
   const router = useRouter();
 
   return (
@@ -30,7 +30,6 @@ const SelectOutline = () => {
             <NextIcon />
           </Flex>
         </Flex>
-
         <Flex
           className={clsx(
             "md:w-[25rem] 2xl:w-[32rem] 2xl:h-[46rem] md:h-[36.5rem] shadow-sm  relative",
@@ -65,7 +64,7 @@ const SelectOutline = () => {
       </div>
       <SaveModal />
       <SaveCompleteModal />
-      <CustomComponentModal />
+      <TemplateComponentModal />
     </Flex>
   );
 };

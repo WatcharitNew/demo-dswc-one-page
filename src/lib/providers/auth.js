@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const userData = getUserData();
+
     try {
       const parsedData = JSON.parse(userData);
       setIsAuth(true);

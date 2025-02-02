@@ -37,7 +37,7 @@ function LoginPage() {
 
   useEffect(() => {
     if (!isLoading && isAuth) {
-      redirectToPage(router, data.role)
+      redirectToPage(router, data.role);
     }
   }, [isAuth, isLoading, router]);
 
@@ -46,10 +46,15 @@ function LoginPage() {
       setError(true);
       return;
     }
-
     setError(false);
-    signIn(JSON.stringify({ province, date, role }));
-    redirectToPage(router, role)
+    signIn(
+      JSON.stringify({
+        province: PROVINCES.find((item) => item.name_th === province),
+        date,
+        role,
+      })
+    );
+    redirectToPage(router, role);
   };
 
   return (
@@ -77,7 +82,7 @@ function LoginPage() {
             render={({ field }) => (
               <Autocomplete
                 {...field}
-                data={PROVINCES}
+                data={PROVINCES?.map((item) => item.name_th)}
                 rightSectionPointerEvents="none"
                 rightSection={iconChevronDown}
                 label="จังหวัด"
@@ -130,7 +135,7 @@ function LoginPage() {
                 data={TYPE_USER}
                 className="w-full h-16"
                 styles={{
-                 //root: {  },
+                  //root: {  },
                   label: { color: "#252525", fontSize: "1.25rem" },
                   dropdown: { color: "#252525", fontSize: "1rem" },
                   input: { height: "2.5rem", marginTop: "0.25rem" },

@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Button, Flex, Loader } from "@mantine/core";
-import { DISASTERS_WITH_OTHER } from "@/constants";
+import { DISASTERS_WITH_OTHER, SPECIAL_TYPE } from "@/constants";
+import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import { Modal } from "@/components";
 import { useGetListComponents } from "@/services";
+import { useSelectTemplateComponent } from "../hook/useSelectTemplateComponent";
 import {
   ComponentCustom,
   ComponentPreview,
@@ -16,13 +18,23 @@ import {
 
 export const TemplateComponentModal = () => {
   const [opened, { open, close }] = useDisclosure(false);
-  const [step, setStep] = useState(1);
-  const { data: componentList, isLoading } = useGetListComponents();
-  const [selectedComponent, setSelectedComponent] = useState();
-  const [disasterIdx, setDisasterIdx] = useState(0);
-  const [option, setOption] = useState();
-  const sliderRef = useRef(null);
   const disasterRefs = useRef([]);
+  const sliderRef = useRef(null);
+  const { data: componentList, isLoading } = useGetListComponents();
+  const { selectedTempComponent, setSelectedTempComponent } =
+    useContext(CreateLayoutContext);
+
+  const {
+    disasterIdx,
+    setDisasterIdx,
+    resetSelected,
+    onCancel,
+    step,
+    onProceed,
+    resetAll,
+    option,
+    setOption,
+  } = useSelectTemplateComponent({ close });
 
   const handleNext = () => {
     const nextIdx = disasterIdx + 1;
@@ -49,6 +61,27 @@ export const TemplateComponentModal = () => {
     });
   };
 
+  const selectedDisaster = useMemo(() => {
+    if (opened) {
+      resetSelected();
+      if (disasterIdx || disasterIdx === 0)
+        return DISASTERS_WITH_OTHER[disasterIdx].value;
+    }
+  }, [disasterIdx, opened]);
+
+  const components = useMemo(() => {
+    if (option) {
+      if (selectedDisaster === "other") {
+        return option
+          ? componentList?.[selectedDisaster]?.[option.value]?.filter(
+              (item) => item.type === option?.custom
+            )
+          : [];
+      }
+      return componentList?.[selectedDisaster]?.[option.value];
+    }
+  }, [option, componentList]);
+
   useEffect(() => {
     disasterRefs.current = disasterRefs.current.slice(
       0,
@@ -56,41 +89,20 @@ export const TemplateComponentModal = () => {
     );
   }, []);
 
-  const resetSelected = () => {
-    setOption(undefined);
-    setSelectedComponent(undefined);
-  };
-
-  const selectedDisaster = useMemo(() => {
-    resetSelected();
-    if (disasterIdx || disasterIdx === 0)
-      return DISASTERS_WITH_OTHER[disasterIdx].value;
-  }, [disasterIdx]);
-
-  const components = useMemo(
-    () => (option ? componentList?.[selectedDisaster]?.[option.value] : []),
-    [option, componentList]
-  );
-
-  const onCancel = () => {
-    if (step === 2) setStep(1);
-  };
-
-  const onProceed = () => {
-    if (step === 2) {
-      /// save selectedComponent to createLayoutContext
-      close();
-      return;
+  // for text and image store data when select the text/image options to get the component_id when call getComponent
+  useEffect(() => {
+    if (
+      selectedDisaster === "other" &&
+      SPECIAL_TYPE.includes(components?.[0]?.type)
+    ) {
+      setSelectedTempComponent({
+        type: components?.[0].type,
+        data: {
+          component_id: components?.[0].component_id,
+        },
+      });
     }
-    setStep((prev) => prev + 1);
-  };
-
-  const resetAll = () => {
-    setStep(1);
-    setDisasterIdx(0);
-    setSelectedComponent(undefined);
-    setOption(undefined);
-  };
+  }, [components, selectedDisaster]);
 
   useEffect(() => {
     if (!opened) {
@@ -108,7 +120,7 @@ export const TemplateComponentModal = () => {
         cancelText={step === 2 ? "เลือกชุดข้อมูลใหม่" : undefined}
         cancelAction={onCancel}
         proceedAction={onProceed}
-        isProceedDisabled={!selectedComponent}
+        isProceedDisabled={!selectedTempComponent}
       >
         <div className="w-full min-w-[78.3125rem] h-[70vh] row gap-6">
           {isLoading ? (
@@ -144,24 +156,27 @@ export const TemplateComponentModal = () => {
                       <DisasterComponentOptions
                         disasterType={selectedDisaster}
                         option={option}
+                        list={componentList?.[selectedDisaster]}
                         onClickOption={setOption}
                       />
                     </div>
                   </div>
                   <DisasterComponentList
-                    text={option?.name}
+                    option={option}
                     components={components}
-                    selectedComponent={selectedComponent}
-                    setSelectedComponent={setSelectedComponent}
                   />
                 </>
               ) : null}
-              {step === 2 && option && selectedComponent ? (
+
+              {step === 2 && option && selectedTempComponent ? (
                 <div className="w-full min-w-[78.3125rem] h-[70vh] flex flex-row gap-20">
                   <div className="w-[54rem]">
                     <ComponentPreview
                       text={`ตัวอย่างข้อมูล${option?.name}`}
-                      image={selectedComponent?.data?.mock_img_url}
+                      image={
+                        selectedTempComponent?.data?.mock_img_url ||
+                        selectedTempComponent?.data?.empty_img_url
+                      }
                     />
                   </div>
                   <ComponentCustom />
