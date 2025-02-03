@@ -1,31 +1,39 @@
 "use client";
 
 import Link from "next/link";
-import { MOCK_REPORT_LIST } from "../constants";
 
 import { Badge, Table, UnstyledButton } from "@mantine/core";
 import { Report } from "@/icons";
 
-const getBadgeStatus = (status) => {
+export const getBadgeStatus = (status) => {
   switch (status) {
-    case "รอการอนุมัติ":
+    case "pending":
       return "yellow";
-    case "ไม่อนุมัติ":
+    case "rejected":
       return "red";
-    case "อนุมัติ":
+    case "approved":
       return "green";
     default:
       return "gray";
   }
 };
 
-export const ReportTable = () => {
-  const rows = MOCK_REPORT_LIST.map((report) => (
-    <Table.Tr key={report.id}>
+export const getStatusText = (status) => {
+  switch (status) {
+    case "pending": return "รอการอนุมัติ"
+    case "rejected": return "ไม่อนุมัติ"
+    case "approved": return "อนุมัติ"
+    default: return status
+  }
+}
+
+export const ReportTable = ({data = []}) => {
+  const rows = data.map((report, idx) => (
+    <Table.Tr key={`${report.template_name}-${idx}`}>
       <Table.Td>{report.date}</Table.Td>
-      <Table.Td>{report.count}</Table.Td>
-      <Table.Td>{report.times}</Table.Td>
-      <Table.Td>{report.name}</Table.Td>
+      <Table.Td>{report.order}</Table.Td>
+      <Table.Td>{report.time}</Table.Td>
+      <Table.Td>{report.template_name}</Table.Td>
       <Table.Td>
         <Badge
           variant="light"
@@ -33,14 +41,14 @@ export const ReportTable = () => {
           size="lg"
           style={{ fontWeight: 400 }}
         >
-          {report.status}
+          {getStatusText(report.status)}
         </Badge>
       </Table.Td>
       <Table.Td>
         <UnstyledButton
           component={Link}
           className="col mx-auto items-center text-xs"
-          href={`#${report.id}`}
+          href={`/reporter/${idx + 1}`}
         >
           <Report className="size-5" />
           ดูรายงาน

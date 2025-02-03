@@ -8,6 +8,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO03",
     status: "รอการอนุมัติ",
+    img: "/template_01.svg"
   },
   {
     id: "2",
@@ -16,6 +17,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO03",
     status: "ไม่อนุมัติ",
+    img: "/template_02.svg"
   },
   {
     id: "3",
@@ -24,6 +26,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO02",
     status: "อนุมัติ",
+    img: "/template_03.svg"
   },
   {
     id: "4",
@@ -32,6 +35,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO01",
     status: "อนุมัติ",
+    img: "/template_04.svg"
   },
 ];
 
@@ -81,20 +85,20 @@ export const DISASTERS_REPORT_SELECT = [
 export const SAMPLE_REPORT = [
   {
     id: 1,
-    src: "https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    src: "https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
   },
   {
     id: 2,
-    src: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Eiffel_Tower_Vertical.JPG"
+    src: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Eiffel_Tower_Vertical.JPG",
   },
   {
     id: 3,
-    src: "https://media.istockphoto.com/id/1193723594/photo/fujiyoshida-japan-at-chureito-pagoda-and-mt-fuji-in-the-spring-with-cherry-blossoms.jpg?s=612x612&w=0&k=20&c=O5Oy6Bxa7rJs6eqVu4h85OxDd-yBnUVfJ_cAyt5P6iY="
+    src: "https://media.istockphoto.com/id/1193723594/photo/fujiyoshida-japan-at-chureito-pagoda-and-mt-fuji-in-the-spring-with-cherry-blossoms.jpg?s=612x612&w=0&k=20&c=O5Oy6Bxa7rJs6eqVu4h85OxDd-yBnUVfJ_cAyt5P6iY=",
   },
   {
     id: 4,
-    src: "https://cdn.pixabay.com/photo/2022/10/09/12/07/plant-7508987_640.jpg"
-  }
+    src: "https://cdn.pixabay.com/photo/2022/10/09/12/07/plant-7508987_640.jpg",
+  },
 ];
 
 export const MOCK_OVERVIEW_STATUS = [
@@ -127,4 +131,21 @@ export const REPORTER_MENUS = [
     icon: Template,
     value: 2,
   },
-]
+];
+
+export const OVERVIEW_STATUS = [
+  "waiting_for_reviewing",
+  "approved",
+  "rejected",
+  "total",
+];
+
+export const INITIAL_OVERVIEW_DATA = {
+  summary_numbers: {
+    waiting_for_reviewing: 0,
+    approved: 0,
+    rejected: 0,
+    total: 0,
+  },
+  report_table: [],
+};

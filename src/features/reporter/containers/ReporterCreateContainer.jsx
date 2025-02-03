@@ -10,14 +10,18 @@ import { SAMPLE_REPORT } from "../constants";
 import { RefreshReportModal } from "../components";
 import { Button, Image } from "@mantine/core";
 import { Refresh, Multiplier1, Multiplier15, Multiplier2 } from "@/icons";
+import { useListTemplates } from "@/features/templater/services";
+import { useAuthContext } from "@/lib/providers/auth";
 
 export const ReporterCreateContainer = () => {
   const { id } = useParams();
+  const { data } = useAuthContext()
+  const { data: templates } = useListTemplates(data?.province)
   const [opened, { open, close }] = useDisclosure(false);
   const { mutate: reload } = useReloadReport();
 
   const imageSrc = useMemo(() => {
-    return SAMPLE_REPORT.find((item) => item.id === Number(id))?.src
+    return templates?.find((item) => item.template_id === Number(id))?.img_url
   }, [id])
 
   return (

@@ -1,12 +1,10 @@
 "use client";
-
 import { useContext } from "react";
 import clsx from "clsx";
 import { Flex, Button } from "@mantine/core";
 import { useRouter } from "next/navigation";
 
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
-
 import Menu from "./components/Menu";
 import SaveModal from "./components/SaveModal";
 import SaveCompleteModal from "./components/SaveCompleteModal";
@@ -14,13 +12,8 @@ import Layout from "./components/Layout";
 import { BackIcon, NextIcon } from "@/icons";
 import { TemplateComponentModal } from "../template/components";
 
-
 const SelectOutline = () => {
-  const {
-    selectedLayout,
-    setSelectedLayout,
-    openSaveModal
-  } = useContext(CreateLayoutContext);
+  const { selectedLayout, openSaveModal } = useContext(CreateLayoutContext);
   const router = useRouter();
 
   return (
@@ -38,7 +31,6 @@ const SelectOutline = () => {
             <NextIcon />
           </Flex>
         </Flex>
-
         <Flex
           className={clsx(
             "md:w-[25rem] 2xl:w-[32rem] 2xl:h-[46rem] md:h-[36.5rem] shadow-sm  relative",
