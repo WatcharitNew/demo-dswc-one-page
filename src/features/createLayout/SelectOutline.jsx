@@ -1,17 +1,29 @@
 "use client";
 import { useContext } from "react";
-import { useRouter } from "next/navigation";
-import { Flex, Image, Button } from "@mantine/core";
 import clsx from "clsx";
+import { Flex, Button } from "@mantine/core";
+import { useRouter } from "next/navigation";
+
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
 import SaveModal from "./components/SaveModal";
 import SaveCompleteModal from "./components/SaveCompleteModal";
+import Layout from "./components/Layout";
 import { BackIcon, NextIcon } from "@/icons";
+import { TemplateComponentModal } from "../template/components";
 
 const SelectOutline = () => {
   const { selectedLayout, openSaveModal } = useContext(CreateLayoutContext);
   const router = useRouter();
+
+  const handleBackButton = () => {
+    if(selectedLayout) {
+      setSelectedLayout(undefined)
+    }
+    else {
+      router.push("/templater")
+    }
+  };
 
   return (
     <Flex className="w-full">
@@ -37,7 +49,9 @@ const SelectOutline = () => {
           )}
         >
           {selectedLayout ? (
-            <Image src={selectedLayout.img} fit="contain" />
+            <Layout
+              data={selectedLayout.bbox}
+            />
           ) : (
             <p className="text-gray-400 m-auto">กรุณาเลือกรูปแบบ</p>
           )}
@@ -46,9 +60,9 @@ const SelectOutline = () => {
           <Button
             variant="outline"
             className="h-10 min-w-40"
-            onClick={() => router.push("/templater")}
+            onClick={handleBackButton}
           >
-            ยกเลิก
+            {selectedLayout ? "ย้อนกลับ" : "ยกเลิก"}
           </Button>
           <Button
             disabled={!selectedLayout}
@@ -60,6 +74,7 @@ const SelectOutline = () => {
           </Button>
         </Flex>
       </div>
+      <TemplateComponentModal />
       <SaveModal />
       <SaveCompleteModal />
     </Flex>

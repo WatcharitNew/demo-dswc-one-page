@@ -901,3 +901,6 @@ export const COMPONENT_CUSTOM_CHECKBOXES = [
 ];
 
 export const SPECIAL_TYPE = ["text", "image"];
+
+export const LAYOUT_TEMPLATE_WIDTH = 413.12399643086314;
+export const LAYOUT_TEMPLATE_HEIGHT = 584;

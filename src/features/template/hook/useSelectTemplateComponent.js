@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { format } from "date-fns";
 import { SPECIAL_TYPE } from "@/constants";
 import { usePostGenComponents } from "@/services";
 import { getUserData } from "@/lib/helpers/cookie";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 
-export const useSelectTemplateComponent = ({ close }) => {
+export const useSelectTemplateComponent = () => {
   const [disasterIdx, setDisasterIdx] = useState(0);
   const [step, setStep] = useState(1);
   const [option, setOption] = useState(); /// type: {name, value, icon, custom} custom for type text and image
@@ -15,6 +15,7 @@ export const useSelectTemplateComponent = ({ close }) => {
     createLayoutData,
     selectedTempComponent,
     setSelectedTempComponent,
+    closeTemplateComponentModal: closeModal,
   } = useContext(CreateLayoutContext);
 
   const getGenComponentPayload = () => {
@@ -89,7 +90,7 @@ export const useSelectTemplateComponent = ({ close }) => {
   const onProceed = async () => {
     if (step === 2) {
       onSaveData();
-      close();
+      closeModal();
       return;
     }
     if (SPECIAL_TYPE.includes(selectedTempComponent?.type)) {
@@ -100,17 +101,17 @@ export const useSelectTemplateComponent = ({ close }) => {
     }
   };
 
-  const resetSelected = () => {
+  const resetSelected = useCallback(() => {
     setSelectedTempComponent(undefined);
     setOption(undefined);
-  };
+  }, []);
 
-  const resetAll = () => {
+  const resetAll = useCallback(() => {
     setStep(1);
     setDisasterIdx(0);
     setSelectedTempComponent(undefined);
     setOption(undefined);
-  };
+  }, []);
 
   return {
     disasterIdx,

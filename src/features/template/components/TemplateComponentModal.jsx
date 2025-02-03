@@ -1,8 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useMemo, useRef } from "react";
-import { useDisclosure } from "@mantine/hooks";
-import { Button, Flex, Loader } from "@mantine/core";
+import { Flex, Loader } from "@mantine/core";
 import { DISASTERS_WITH_OTHER, SPECIAL_TYPE } from "@/constants";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import { Modal } from "@/components";
@@ -17,11 +16,15 @@ import {
 } from ".";
 
 export const TemplateComponentModal = () => {
-  const [opened, { open, close }] = useDisclosure(false);
   const disasterRefs = useRef([]);
   const sliderRef = useRef(null);
   const { data: componentList, isLoading } = useGetListComponents();
-  const { selectedTempComponent, setSelectedTempComponent } =
+  const {
+    selectedTempComponent,
+    setSelectedTempComponent,
+    openedTemplateComponentModal: opened,
+    closeTemplateComponentModal: close,
+  } =
     useContext(CreateLayoutContext);
 
   const {
@@ -34,7 +37,7 @@ export const TemplateComponentModal = () => {
     resetAll,
     option,
     setOption,
-  } = useSelectTemplateComponent({ close });
+  } = useSelectTemplateComponent();
 
   const handleNext = () => {
     const nextIdx = disasterIdx + 1;
@@ -63,7 +66,6 @@ export const TemplateComponentModal = () => {
 
   const selectedDisaster = useMemo(() => {
     if (opened) {
-      resetSelected();
       if (disasterIdx || disasterIdx === 0)
         return DISASTERS_WITH_OTHER[disasterIdx].value;
     }
@@ -105,10 +107,12 @@ export const TemplateComponentModal = () => {
   }, [components, selectedDisaster]);
 
   useEffect(() => {
-    if (!opened) {
+    if (opened) {
+      resetSelected();
+    } else {
       resetAll();
     }
-  }, [opened]);
+  }, [opened, resetSelected, resetAll]);
 
   return (
     <>
@@ -186,9 +190,6 @@ export const TemplateComponentModal = () => {
           )}
         </div>
       </Modal>
-      <Button variant="default" onClick={open}>
-        Component Modal
-      </Button>
     </>
   );
 };
