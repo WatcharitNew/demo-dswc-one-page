@@ -1,8 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useMemo, useRef } from "react";
-import { useDisclosure } from "@mantine/hooks";
-import { Button, Flex, Loader } from "@mantine/core";
+import { Flex, Loader } from "@mantine/core";
 import { DISASTERS_WITH_OTHER, SPECIAL_TYPE } from "@/constants";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import { Modal } from "@/components";
@@ -23,6 +22,8 @@ export const TemplateComponentModal = () => {
   const {
     selectedTempComponent,
     setSelectedTempComponent,
+    openedTemplateComponentModal: opened,
+    closeTemplateComponentModal: close,
   } =
     useContext(CreateLayoutContext);
 
@@ -36,8 +37,6 @@ export const TemplateComponentModal = () => {
     resetAll,
     option,
     setOption,
-    openedModal: opened,
-    closeModal: close,
   } = useSelectTemplateComponent();
 
   const handleNext = () => {
@@ -67,7 +66,6 @@ export const TemplateComponentModal = () => {
 
   const selectedDisaster = useMemo(() => {
     if (opened) {
-      resetSelected();
       if (disasterIdx || disasterIdx === 0)
         return DISASTERS_WITH_OTHER[disasterIdx].value;
     }
@@ -109,10 +107,12 @@ export const TemplateComponentModal = () => {
   }, [components, selectedDisaster]);
 
   useEffect(() => {
-    if (!opened) {
+    if (opened) {
+      resetSelected();
+    } else {
       resetAll();
     }
-  }, [opened]);
+  }, [opened, resetSelected, resetAll]);
 
   return (
     <>
