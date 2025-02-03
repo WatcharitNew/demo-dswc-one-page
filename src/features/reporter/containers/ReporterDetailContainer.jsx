@@ -14,7 +14,7 @@ import {
   UnstyledButton,
 } from "@mantine/core";
 
-import { useAuthContext } from '@/lib/providers/auth';
+import { useAuthContext } from "@/lib/providers/auth";
 import { useListReports } from "../services";
 import { getBadgeStatus, getStatusText } from "../components";
 
@@ -36,19 +36,19 @@ const items = [
 ));
 
 export const ReporterDetailContainer = () => {
-  const { id } = useParams()
-  const { data } = useAuthContext()
-  const { data: reports } = useListReports(data?.province)
+  const { id } = useParams();
+  const { data } = useAuthContext();
+  const { data: reports } = useListReports(data?.province);
 
   const report = useMemo(() => {
-    return reports?.report_table?.find((_, idx) => idx + 1 === Number(id))
-  }, [reports, id])
+    return reports?.report_table?.find((_, idx) => idx + 1 === Number(id));
+  }, [reports, id]);
 
   return (
-    <div className="h-full col gap-6 p-6">
+    <div className="col gap-6 p-6">
       <Breadcrumbs>{items}</Breadcrumbs>
       <div className="grow row gap-6">
-        <div className="min-w-[53rem] rounded-lg bg-white shadow-report p-6 col gap-6">
+        <div className="w-[53rem] rounded-lg bg-white shadow-report p-6 col gap-6">
           <div className="col gap-2">
             <p className="text-2xl font-medium">
               ข้อมูลรายงานสาธารณภัยประจำวัน
@@ -76,11 +76,11 @@ export const ReporterDetailContainer = () => {
             </div>
           </div>
           <Flex className="h-full justify-center">
-            <Image src={report?.img_url} fit="contain" />
+            <Image className="w-1/2" src={report?.img_url} fit="contain" />
           </Flex>
         </div>
 
-        <div className="min-w-[23rem] rounded-lg bg-white shadow-report col gap-6">
+        <div className="w-[23rem] rounded-lg bg-white shadow-report col gap-6">
           <div className="p-6 col gap-6">
             <p className="text-2xl font-medium">ดำเนินการ</p>
             <div className="col gap-4">

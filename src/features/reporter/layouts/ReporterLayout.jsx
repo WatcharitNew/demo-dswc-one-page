@@ -31,7 +31,7 @@ export const ReporterLayout = ({ children, step }) => {
           );
         })}
       </div>
-      <div className="grow">{children}</div>
+      <div className="grow overflow-auto">{children}</div>
     </div>
   );
 };
