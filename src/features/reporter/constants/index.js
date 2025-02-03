@@ -8,6 +8,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO03",
     status: "รอการอนุมัติ",
+    img: "/template_01.svg"
   },
   {
     id: "2",
@@ -16,6 +17,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO03",
     status: "ไม่อนุมัติ",
+    img: "/template_02.svg"
   },
   {
     id: "3",
@@ -24,6 +26,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO02",
     status: "อนุมัติ",
+    img: "/template_03.svg"
   },
   {
     id: "4",
@@ -32,6 +35,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO01",
     status: "อนุมัติ",
+    img: "/template_04.svg"
   },
 ];
 
