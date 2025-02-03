@@ -1,15 +1,18 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from "@tanstack/react-query";
 
-export const reloadReport = async () => {
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve("")
-    }, 5000)
-  })
-}
+import { fetchAPI } from "@/lib/api";
+
+export const reloadReport = async (data) => {
+  const res = await fetchAPI({
+    path: "/genReport",
+    method: "POST",
+    data: data,
+  });
+  return res;
+};
 
 export const useReloadReport = () => {
   return useMutation({
-    mutationFn: reloadReport,
-  })
-}
+    mutationFn: (data) => reloadReport(data),
+  });
+};
