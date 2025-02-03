@@ -68,7 +68,7 @@ export const ReporterHomeContainer = () => {
           <div className="col gap-4">
             <div className="row items-center justify-between">
               <p className="text-xl font-medium">
-                ประวัติการจัดทำรายงานสาธารณภัยประจำวัน จังหวัด{data?.province}
+                ประวัติการจัดทำรายงานสาธารณภัยประจำวัน จังหวัด{data?.province?.name_th}
               </p>
               <UnstyledButton className="row items-center text-sm gap-2 text-gray-900">
                 <Sort className="size-6 text-gray-600" />
