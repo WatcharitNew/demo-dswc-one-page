@@ -1,12 +1,11 @@
+"use client";
 
-'use client'
-
-import { createTheme, Button, Input, Table } from "@mantine/core";
+import { createTheme, Button, Input, Table, Textarea } from "@mantine/core";
 import buttonClass from "./Button.module.css";
 import colors from "./colors";
 
 export default createTheme({
-  fontFamily: 'Kanit',
+  fontFamily: "Kanit",
   components: {
     Button: Button.extend({
       classNames: buttonClass,
@@ -14,11 +13,11 @@ export default createTheme({
     Input: Input.extend({
       styles: {
         input: {
-          fontSize: '1rem',
+          fontSize: "1rem",
           borderRadius: "0.5rem",
           height: "2.75rem",
-        }
-      }
+        },
+      },
     }),
     Table: Table.extend({
       styles: {
@@ -31,15 +30,23 @@ export default createTheme({
         },
         th: {
           fontWeight: 500,
-          textAlign: 'center'
+          textAlign: "center",
         },
         tr: {
-          height: "4rem"
+          height: "4rem",
         },
         td: {
-          textAlign: 'center'
-        }
+          textAlign: "center",
+        },
       },
-    })
+    }),
+    Textarea: Textarea.extend({
+      styles: {
+        input: {
+          borderRadius: 0,
+          border: "none",
+        },
+      },
+    }),
   },
 });
