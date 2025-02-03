@@ -76,11 +76,9 @@ export const useSelectTemplateComponent = ({ close }) => {
     );
 
     if (existIndex > -1) {
-      console.log("exist", createLayoutData);
       createLayoutData.component[existIndex] = formatData;
       setCreateLayoutData(createLayoutData);
     } else {
-      console.log("new");
       setCreateLayoutData({
         ...createLayoutData,
         component: (createLayoutData.component ?? []).concat(formatData),
