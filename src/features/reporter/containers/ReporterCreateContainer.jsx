@@ -99,13 +99,13 @@ export const ReporterCreateContainer = () => {
               <div
                 key={`${component_id}-${idx}`}
                 onClick={() => console.log('click box')}
-                className={`
-                  bg-black absolute cursor-pointer
-                  h-[calc((${box.bottom}-${box.top})*${TEMPLATE_HEIGHT}px)]
-                  w-[calc((${box.right}-${box.left})*${TEMPLATE_WIDTH}px)]
-                  top-[calc(${box.top}*${TEMPLATE_HEIGHT}px)]
-                  left-[calc(${box.left}*${TEMPLATE_WIDTH}px)]
-                `}
+                className="bg-gray-500 absolute cursor-pointer"
+                style={{
+                  height: `calc(${box.bottom-box.top}*${TEMPLATE_HEIGHT}px)`,
+                  width: `calc(${box.right-box.left}*${TEMPLATE_WIDTH}px)`,
+                  top: `calc(${box.top}*${TEMPLATE_HEIGHT}px)`,
+                  left: `calc(${box.left}*${TEMPLATE_WIDTH}px)`
+                }}
               ></div>
             ))}
           </div>
