@@ -16,6 +16,8 @@ export const useSelectTemplateComponent = () => {
     selectedTempComponent,
     setSelectedTempComponent,
     closeTemplateComponentModal: closeModal,
+    currentBoxId,
+    setCurrentBoxId
   } = useContext(CreateLayoutContext);
 
   const getGenComponentPayload = () => {
@@ -62,7 +64,7 @@ export const useSelectTemplateComponent = () => {
 
   const onSaveData = () => {
     const formatData = {
-      box_id: 3,
+      box_id: currentBoxId,
       component_id: selectedTempComponent?.data.component_id,
       img_url:
         selectedTempComponent?.data?.mock_img_url ||
@@ -91,6 +93,7 @@ export const useSelectTemplateComponent = () => {
     if (step === 2) {
       onSaveData();
       closeModal();
+      setCurrentBoxId()
       return;
     }
     if (SPECIAL_TYPE.includes(selectedTempComponent?.type)) {

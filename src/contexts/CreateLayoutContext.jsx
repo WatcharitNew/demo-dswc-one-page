@@ -10,10 +10,11 @@ const CreateLayoutContextProvider = ({ children }) => {
   const [templateName, setTemplateName] = useState("");
   const [
     openedTemplateComponentModal,
-    { open: openTemplateComponentModal, close: closeTemplateComponentModal }
+    { open: openTemplateComponentModal, close: closeTemplateComponentModal },
   ] = useDisclosure(false);
   const [createLayoutData, setCreateLayoutData] = useState(); // รวม data ที่จะส่งไปสำหรับ create layout
   const [selectedTempComponent, setSelectedTempComponent] = useState(); // selecte data in templated component before save in createLayoutData
+  const [currentBoxId, setCurrentBoxId] = useState();
   const [openedSaveModal, { open: openSaveModal, close: closeSaveModal }] =
     useDisclosure(false);
   const [
@@ -49,6 +50,8 @@ const CreateLayoutContextProvider = ({ children }) => {
     setCreateLayoutData,
     selectedTempComponent,
     setSelectedTempComponent,
+    currentBoxId,
+    setCurrentBoxId,
   };
   return (
     <CreateLayoutContext.Provider value={contextValue}>
