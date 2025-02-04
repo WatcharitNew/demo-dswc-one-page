@@ -1,60 +1,95 @@
 "use client";
 
-import { DISASTERS } from "@/constants";
-import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
-import { Button, Modal, MultiSelect, TextInput } from "@mantine/core";
 import { useContext } from "react";
+import { Button, Modal, MultiSelect, TextInput } from "@mantine/core";
+
+import { useCreateTemplate } from "../services";
+import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
+import { DISASTERS } from "@/constants";
 
 const transformToTag = (value) => {
   switch (value) {
-    case "flood": return "อุทกภัย"
-    case "drought": return "ภัยแล้ง"
-    case "storm": return "วาตภัย"
-    case "mudslide": return "ดินโคลนถล่ม"
-    case "earthquake-tsunami": return "แผ่นดินไหว"
-    case "pm25": return "pm2.5"
-    case "forest-fire": return "ไฟป่า"
-    default: return value
+    case "flood":
+      return "อุทกภัย";
+    case "drought":
+      return "ภัยแล้ง";
+    case "storm":
+      return "วาตภัย";
+    case "mudslide":
+      return "ดินโคลนถล่ม";
+    case "earthquake-tsunami":
+      return "แผ่นดินไหว";
+    case "pm25":
+      return "pm2.5";
+    case "forest-fire":
+      return "ไฟป่า";
+    default:
+      return value;
   }
-}
+};
 
 const SaveModal = () => {
   const {
+    selectedLayout,
+    templateName,
     setTemplateName,
     openedSaveModal: opened,
     closeSaveModal: close,
     openSaveCompleteModal,
-    setTags
+    createLayoutData,
+    tags,
+    setTags,
   } = useContext(CreateLayoutContext);
+  const { mutate: createTemplate, isPending } = useCreateTemplate();
 
   const disasterMultiSelectData = DISASTERS.map((disaster) => ({
     value: disaster.value,
-    label: disaster.text
+    label: disaster.text,
   }));
 
   const handleComplete = () => {
-    // TODO: call API
-    close();
-    openSaveCompleteModal(true);
-  }
+    createTemplate(
+      {
+        ...createLayoutData,
+        layout_id: selectedLayout?.layout_id,
+        name: templateName,
+        status: "submitted",
+        tags,
+      },
+      {
+        onSettled() {
+          close();
+        },
+        onSuccess() {
+          openSaveCompleteModal(true);
+        },
+      }
+    );
+  };
 
   return (
     <Modal
       opened={opened}
       centered
-      title={<span className="text-gray-900 font-medium text-xl">ตั้งชื่อรูปแบบรายงาน</span>}
+      title={
+        <span className="text-gray-900 font-medium text-xl">
+          ตั้งชื่อรูปแบบรายงาน
+        </span>
+      }
       withCloseButton={false}
       onClose={close}
       className="bg-white rounded-2xl text-center"
       classNames={{
-        header: 'px-8 pt-8 pb-2',
-        title: 'w-full',
-        body: 'px-8',
-        content: 'rounded-2xl'
+        header: "px-8 pt-8 pb-2",
+        title: "w-full",
+        body: "px-8",
+        content: "rounded-2xl",
       }}
     >
       <div>
-        <span className="text-gray-600">กรุณาตั้งชื่อรูปแบบรายงาน เพื่อทำการส่ง</span>
+        <span className="text-gray-600">
+          กรุณาตั้งชื่อรูปแบบรายงาน เพื่อทำการส่ง
+        </span>
       </div>
       <TextInput
         size="md"
@@ -70,7 +105,7 @@ const SaveModal = () => {
         onChange={(value) => setTags(value.map(transformToTag))}
         className="mt-4 mb-8"
         classNames={{
-          option: 'text-gray-900'
+          option: "text-gray-900",
         }}
       />
       <div>
@@ -83,6 +118,7 @@ const SaveModal = () => {
           ยกเลิก
         </Button>
         <Button
+          disabled={isPending}
           radius="md"
           className="font-medium min-w-[8rem]"
           onClick={handleComplete}
@@ -92,6 +128,6 @@ const SaveModal = () => {
       </div>
     </Modal>
   );
-}
+};
 
 export default SaveModal;
