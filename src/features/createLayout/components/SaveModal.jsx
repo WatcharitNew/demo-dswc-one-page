@@ -5,12 +5,26 @@ import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import { Button, Modal, MultiSelect, TextInput } from "@mantine/core";
 import { useContext } from "react";
 
+const transformToTag = (value) => {
+  switch (value) {
+    case "flood": return "อุทกภัย"
+    case "drought": return "ภัยแล้ง"
+    case "storm": return "วาตภัย"
+    case "mudslide": return "ดินโคลนถล่ม"
+    case "earthquake-tsunami": return "แผ่นดินไหว"
+    case "pm25": return "pm2.5"
+    case "forest-fire": return "ไฟป่า"
+    default: return value
+  }
+}
+
 const SaveModal = () => {
   const {
     setTemplateName,
     openedSaveModal: opened,
     closeSaveModal: close,
-    openSaveCompleteModal
+    openSaveCompleteModal,
+    setTags
   } = useContext(CreateLayoutContext);
 
   const disasterMultiSelectData = DISASTERS.map((disaster) => ({
@@ -53,6 +67,7 @@ const SaveModal = () => {
         placeholder="ประเภทภัย"
         size="md"
         data={disasterMultiSelectData}
+        onChange={(value) => setTags(value.map(transformToTag))}
         className="mt-4 mb-8"
         classNames={{
           option: 'text-gray-900'
