@@ -17,7 +17,8 @@ export const useSelectTemplateComponent = () => {
     setSelectedTempComponent,
     closeTemplateComponentModal: closeModal,
     currentBoxId,
-    setCurrentBoxId
+    setCurrentBoxId,
+    selectedLayout
   } = useContext(CreateLayoutContext);
 
   const getGenComponentPayload = () => {
@@ -26,8 +27,8 @@ export const useSelectTemplateComponent = () => {
       component_id: selectedTempComponent?.data.component_id,
       province_id: userData?.province.id,
       date: format(userData?.date, "yyyy-mm-dd"),
-      box_id: 1, // mock
-      layout_id: 1, //mock
+      box_id: currentBoxId,
+      layout_id: selectedLayout?.layout_id,
       content:
         selectedTempComponent?.type === "text"
           ? selectedTempComponent?.data?.content
