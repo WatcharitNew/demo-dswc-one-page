@@ -1,50 +1,24 @@
 "use client";
 import { useContext } from "react";
 import clsx from "clsx";
-import { Flex, Button } from "@mantine/core";
+import { Flex, Button, Image } from "@mantine/core";
 import { useRouter } from "next/navigation";
 
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
-import Layout from "./components/Layout";
 import { BackIcon, NextIcon } from "@/icons";
-import { TemplateComponentModal } from "../template/components";
-import { SaveModal } from "@/components/SaveModal";
-import { SaveCompleteModal } from "@/components/SaveCompleteModal";
 
 const SelectOutline = () => {
-  const {
-    selectedLayout,
-    setSelectedLayout,
-    openSaveModal,
-    openedSaveModal,
-    closeSaveModal,
-    openSaveCompleteModal,
-    openedSaveCompleteModal,
-    closeSaveCompleteModal,
-    templateName,
-    setTemplateName
-  } = useContext(CreateLayoutContext);
+  const { selectedLayout, setSelectedLayout } = useContext(CreateLayoutContext);
   const router = useRouter();
 
   const handleBackButton = () => {
-    if(selectedLayout) {
-      setSelectedLayout(undefined)
-    }
-    else {
-      router.push("/templater")
+    if (selectedLayout) {
+      setSelectedLayout(undefined);
+    } else {
+      router.push("/templater");
     }
   };
-
-  const handleSave = () => {
-    closeSaveModal();
-    openSaveCompleteModal();
-  }
-
-  const handleCloseSaveCompleteModal = () => {
-    closeSaveCompleteModal();
-    router.push("/templater");
-  }
 
   return (
     <Flex className="w-full">
@@ -70,9 +44,7 @@ const SelectOutline = () => {
           )}
         >
           {selectedLayout ? (
-            <Layout
-              data={selectedLayout.bbox}
-            />
+            <Image src={selectedLayout.img} fit="contain" />
           ) : (
             <p className="text-gray-400 m-auto">กรุณาเลือกรูปแบบ</p>
           )}
@@ -89,25 +61,14 @@ const SelectOutline = () => {
             disabled={!selectedLayout}
             variant="primary"
             className="h-10 min-w-40"
-            onClick={openSaveModal}
+            onClick={() =>
+              router.push(`/create-layout/outline/${selectedLayout?.layout_id}`)
+            }
           >
             ดำเนินการต่อ
           </Button>
         </Flex>
       </div>
-      <TemplateComponentModal />
-      <SaveModal
-        opened={openedSaveModal}
-        close={closeSaveModal}
-        setTemplateName={setTemplateName}
-        onSave={handleSave}
-        showTags
-      />
-      <SaveCompleteModal
-        opened={openedSaveCompleteModal}
-        close={closeSaveCompleteModal}
-        templateName={templateName}
-      />
     </Flex>
   );
 };
