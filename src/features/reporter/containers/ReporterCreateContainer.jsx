@@ -116,7 +116,9 @@ export const ReporterCreateContainer = () => {
         params: {
           img_url: reloadedReport?.data?.img_url,
           template_id: 1,
-          date: data?.date
+          date: data?.date,
+          province_id: data?.province.id,
+          name: templateName,
         }
       },
       {
