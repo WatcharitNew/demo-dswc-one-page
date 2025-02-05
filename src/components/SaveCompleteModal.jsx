@@ -1,31 +1,21 @@
 "use client";
 
-import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import { Button, Modal } from "@mantine/core";
-import { useRouter } from "next/navigation";
-import { useContext } from "react";
 
-const SaveCompleteModal = () => {
-  const {
+export const SaveCompleteModal = (
+  {
     templateName,
-    openedSaveCompleteModal: opened,
-    closeSaveCompleteModal: close
-  } = useContext(CreateLayoutContext);
-
-  const router = useRouter();
-
-  const handleClose = () => {
-    close();
-    router.push('/templater')
+    opened,
+    close
   }
-
+) => {
   return (
     <Modal
       opened={opened}
       centered
       title={<span className="text-gray-900 font-medium text-xl">บันทึกและดำเนินการส่งเรียบร้อย</span>}
       withCloseButton={false}
-      onClose={handleClose}
+      onClose={close}
       className="bg-white rounded-2xl text-center"
       classNames={{
         header: 'px-8 pt-24 pb-2',
@@ -40,7 +30,7 @@ const SaveCompleteModal = () => {
           radius="md"
           variant="default"
           className="font-medium mt-6 mb-4 min-w-[8rem]"
-          onClick={handleClose}
+          onClick={close}
         >
           ปิด
         </Button>
@@ -48,5 +38,3 @@ const SaveCompleteModal = () => {
     </Modal>
   );
 }
-
-export default SaveCompleteModal;

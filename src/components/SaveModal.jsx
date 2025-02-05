@@ -1,28 +1,21 @@
 "use client";
 
 import { DISASTERS } from "@/constants";
-import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import { Button, Modal, MultiSelect, TextInput } from "@mantine/core";
-import { useContext } from "react";
 
-const SaveModal = () => {
-  const {
+export const SaveModal = (
+  {
+    opened,
+    close,
     setTemplateName,
-    openedSaveModal: opened,
-    closeSaveModal: close,
-    openSaveCompleteModal
-  } = useContext(CreateLayoutContext);
-
+    onSave,
+    showTags = false
+  }
+) => {
   const disasterMultiSelectData = DISASTERS.map((disaster) => ({
     value: disaster.value,
     label: disaster.text
   }));
-
-  const handleComplete = () => {
-    // TODO: call API
-    close();
-    openSaveCompleteModal(true);
-  }
 
   return (
     <Modal
@@ -49,16 +42,16 @@ const SaveModal = () => {
         onChange={(e) => setTemplateName(e.target.value)}
         required
       />
-      <MultiSelect
+      {showTags && <MultiSelect
         placeholder="ประเภทภัย"
         size="md"
         data={disasterMultiSelectData}
-        className="mt-4 mb-8"
+        className="mt-4"
         classNames={{
           option: 'text-gray-900'
         }}
-      />
-      <div>
+      />}
+      <div className='mt-8'>
         <Button
           radius="md"
           variant="default"
@@ -70,7 +63,7 @@ const SaveModal = () => {
         <Button
           radius="md"
           className="font-medium min-w-[8rem]"
-          onClick={handleComplete}
+          onClick={onSave}
         >
           บันทึก และทำการส่ง
         </Button>
@@ -78,5 +71,3 @@ const SaveModal = () => {
     </Modal>
   );
 }
-
-export default SaveModal;

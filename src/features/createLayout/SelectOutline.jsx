@@ -6,14 +6,24 @@ import { useRouter } from "next/navigation";
 
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import Menu from "./components/Menu";
-import SaveModal from "./components/SaveModal";
-import SaveCompleteModal from "./components/SaveCompleteModal";
 import Layout from "./components/Layout";
 import { BackIcon, NextIcon } from "@/icons";
 import { TemplateComponentModal } from "../template/components";
+import { SaveModal } from "@/components/SaveModal";
+import { SaveCompleteModal } from "@/components/SaveCompleteModal";
 
 const SelectOutline = () => {
-  const { selectedLayout, openSaveModal } = useContext(CreateLayoutContext);
+  const {
+    selectedLayout,
+    openSaveModal,
+    openedSaveModal,
+    closeSaveModal,
+    openSaveCompleteModal,
+    openedSaveCompleteModal,
+    closeSaveCompleteModal,
+    templateName,
+    setTemplateName
+  } = useContext(CreateLayoutContext);
   const router = useRouter();
 
   const handleBackButton = () => {
@@ -24,6 +34,16 @@ const SelectOutline = () => {
       router.push("/templater")
     }
   };
+
+  const handleSave = () => {
+    closeSaveModal();
+    openSaveCompleteModal();
+  }
+
+  const handleCloseSaveCompleteModal = () => {
+    closeSaveCompleteModal();
+    router.push("/templater");
+  }
 
   return (
     <Flex className="w-full">
@@ -75,8 +95,18 @@ const SelectOutline = () => {
         </Flex>
       </div>
       <TemplateComponentModal />
-      <SaveModal />
-      <SaveCompleteModal />
+      <SaveModal
+        opened={openedSaveModal}
+        close={closeSaveModal}
+        setTemplateName={setTemplateName}
+        onSave={handleSave}
+        showTags
+      />
+      <SaveCompleteModal
+        opened={openedSaveCompleteModal}
+        close={closeSaveCompleteModal}
+        templateName={templateName}
+      />
     </Flex>
   );
 };

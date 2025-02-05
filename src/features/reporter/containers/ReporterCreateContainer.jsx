@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useDisclosure } from "@mantine/hooks";
 
 import { useReloadReport } from "../services";
@@ -13,6 +13,8 @@ import { useAuthContext } from "@/lib/providers/auth";
 import { ReporterCustomizableComponent } from "../components/ReporterCustomizableComponent";
 import { usePostGenComponents } from "@/services";
 import dayjs from "dayjs";
+import { SaveModal } from "@/components/SaveModal";
+import { SaveCompleteModal } from "@/components/SaveCompleteModal";
 
 const getInitialReloadParams = (id, data) => {
   return {
@@ -31,6 +33,15 @@ export const ReporterCreateContainer = () => {
   const [customComponents, setCustomComponents] = useState(undefined);
   const [component, setComponent] = useState(undefined);
   const [content, setContent] = useState();
+  const [templateName, setTemplateName] = useState("");
+  const [
+    openedSaveModal,
+    { open: openSaveModal, close: closeSaveModal },
+  ] = useDisclosure(false);
+  const [
+    openedSaveCompleteModal,
+    { open: openSaveCompleteModal, close: closeSaveCompleteModal },
+  ] = useDisclosure(false);
 
   const [
     openedCustomModal,
@@ -41,6 +52,8 @@ export const ReporterCreateContainer = () => {
   const imageSrc = useMemo(() => {
     return reloadedReport?.data?.img_url;
   }, [reloadedReport?.data]);
+
+  const router = useRouter();
 
   const reloadReport = (options = {}) => {
     open();
@@ -94,6 +107,16 @@ export const ReporterCreateContainer = () => {
       onError: () => {},
     });
   };
+
+  const handleSave = () => {
+    closeSaveModal();
+    openSaveCompleteModal();
+  }
+
+  const handleCloseSaveCompleteModal = () => {
+    closeSaveCompleteModal();
+    router.push("/reporter");
+  }
 
   useEffect(() => {
     if (id && data?.province) {
@@ -170,7 +193,16 @@ export const ReporterCreateContainer = () => {
             <Button className="h-10 min-w-40" variant="outline">
               แก้ไข
             </Button>
-            <Button className="h-10 min-w-40" variant="primary">
+            <Button
+              disabled={
+                // TODO: Implement this
+                // layout?.bbox?.length !== createLayoutData?.component?.length
+                false
+              }
+              variant="primary"
+              className="h-10 min-w-40"
+              onClick={openSaveModal}
+            >
               ส่งอนุมัติ
             </Button>
           </div>
@@ -184,6 +216,18 @@ export const ReporterCreateContainer = () => {
           onProcess={postGenComponentApi}
           content={content}
           setContent={setContent}
+        />
+        <SaveModal
+          opened={openedSaveModal}
+          close={closeSaveModal}
+          setTemplateName={setTemplateName}
+          onSave={handleSave}
+          showTags={false}
+        />
+        <SaveCompleteModal
+          templateName={templateName}
+          opened={openedSaveCompleteModal}
+          close={handleCloseSaveCompleteModal}
         />
       </div>
     </>
