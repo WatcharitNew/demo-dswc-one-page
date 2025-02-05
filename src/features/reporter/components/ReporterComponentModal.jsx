@@ -1,4 +1,4 @@
-import { UploadFile } from "@/components";
+import { TextEditorBar, UploadFile } from "@/components";
 import { Button, Image, Modal, Textarea } from "@mantine/core";
 
 export const ReporterComponentModal = ({
@@ -17,11 +17,10 @@ export const ReporterComponentModal = ({
         setContent(undefined);
       }}
       title={type === "text" ? "ข้อความ" : "รูปภาพ"}
-      size="auto"
       centered
+      size="55rem"
       styles={{
         header: {
-          width: "78.3125rem",
           paddingTop: "1.5rem",
           paddingLeft: "1.5rem",
           paddingRight: "1.5rem",
@@ -37,15 +36,10 @@ export const ReporterComponentModal = ({
         },
       }}
     >
-      <div className="w-full h-[40.625rem] p-6 bg-gray-100">
+      <div className="w-full h-[34rem] p-6 bg-gray-100">
         {type === "text" ? (
           <div className="w-full">
-            <Image
-              src="/text-editor.svg"
-              width="auto"
-              h={40}
-              className="mb-4 max-w-[46rem]"
-            />
+            <TextEditorBar />
             <Textarea
               className="border-0 rounded-none"
               autosize
@@ -58,7 +52,7 @@ export const ReporterComponentModal = ({
           <UploadFile onChange={(file) => setContent(file)} file={content} />
         )}
       </div>
-      <div className="min-w-[78.3125rem] h-[5.5rem] bg-white sticky flex z-50 bottom-0 shadow-xl">
+      <div className="min-w-[55rem] h-[5.5rem] bg-white sticky flex z-50 bottom-0 shadow-xl">
         <div className="flex flex-row gap-4 ml-auto my-auto mr-6">
           <Button
             variant="filled"

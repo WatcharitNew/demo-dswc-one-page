@@ -3,7 +3,7 @@ import { useContext } from "react";
 import clsx from "clsx";
 import { Flex, Image, Textarea } from "@mantine/core";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
-import { UploadFile } from "@/components";
+import { TextEditorBar, UploadFile } from "@/components";
 import { SPECIAL_TYPE } from "@/constants";
 
 export const DisasterComponentList = ({ option, components }) => {
@@ -19,12 +19,7 @@ export const DisasterComponentList = ({ option, components }) => {
             <>
               <p className="text-sm text-gray-400">ข้อความ</p>
               <div className="w-full">
-                <Image
-                  src="/text-editor.svg"
-                  width="auto"
-                  h={40}
-                  className="mb-2"
-                />
+                <TextEditorBar />
                 <Textarea
                   className="border-0 rounded-none"
                   autosize
