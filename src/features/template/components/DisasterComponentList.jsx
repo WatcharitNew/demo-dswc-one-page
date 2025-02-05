@@ -1,10 +1,46 @@
 "use client";
 import { useContext } from "react";
 import clsx from "clsx";
-import { Flex, Image, Textarea } from "@mantine/core";
+import { Button, Flex, Image, Textarea } from "@mantine/core";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import { TextEditorBar, UploadFile } from "@/components";
 import { SPECIAL_TYPE } from "@/constants";
+
+import {
+  IconBold,
+  IconItalic,
+  IconUnderline,
+  IconStrikethrough,
+  IconSubscript,
+  IconSuperscript,
+  IconAlignLeft,
+  IconAlignCenter,
+  IconAlignRight,
+  IconAlignJustified,
+  IconIndentIncrease,
+  IconIndentDecrease,
+  IconList,
+  IconListNumbers,
+} from "@tabler/icons-react";
+
+const EditorIcons = {
+  editor: [
+    <IconBold />,
+    <IconItalic />,
+    <IconUnderline />,
+    <IconStrikethrough />,
+    <IconSubscript />,
+    <IconSuperscript />,
+  ],
+  align: [
+    <IconAlignLeft />,
+    <IconAlignCenter />,
+    <IconAlignRight />,
+    <IconAlignJustified />,
+  ],
+  indent: [<IconIndentIncrease />, <IconIndentDecrease />],
+  list: [<IconList />, <IconListNumbers />],
+};
 
 export const DisasterComponentList = ({ option, components }) => {
   const text = option?.value;
@@ -19,7 +55,21 @@ export const DisasterComponentList = ({ option, components }) => {
             <>
               <p className="text-sm text-gray-400">ข้อความ</p>
               <div className="w-full">
-                <TextEditorBar />
+                <div className="row gap-4 mb-4">
+                  {Object.keys(EditorIcons).map((key) => (
+                    <Button.Group key={key}>
+                      {EditorIcons[key].map((icon, idx) => (
+                        <Button
+                          key={idx}
+                          className="!rounded-none px-3"
+                          variant="default"
+                        >
+                          {icon}
+                        </Button>
+                      ))}
+                    </Button.Group>
+                  ))}
+                </div>
                 <Textarea
                   className="border-0 rounded-none"
                   autosize
@@ -76,7 +126,7 @@ export const DisasterComponentList = ({ option, components }) => {
                     }
                   >
                     <Image
-                      src={item.empty_data_img_url}
+                      src={item.mock_img_url}
                       alt={item.name}
                       width="auto"
                     />

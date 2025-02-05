@@ -3,12 +3,14 @@ import {
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
 import { QueryProvider } from "@/lib/providers";
 
 import { Kanit } from "next/font/google";
 import theme from "@/styles/theme";
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import "./globals.css";
 import { AuthProvider } from "@/lib/providers/auth";
 
@@ -34,6 +36,7 @@ export default function RootLayout({ children }) {
         <QueryProvider>
           <MantineProvider theme={theme}>
             <AuthProvider>{children}</AuthProvider>
+            <Notifications />
           </MantineProvider>
         </QueryProvider>
       </body>
