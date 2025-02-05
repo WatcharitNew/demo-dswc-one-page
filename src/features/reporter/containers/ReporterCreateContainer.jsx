@@ -210,11 +210,7 @@ export const ReporterCreateContainer = () => {
               แก้ไข
             </Button>
             <Button
-              disabled={
-                // TODO: Implement this
-                // layout?.bbox?.length !== createLayoutData?.component?.length
-                false
-              }
+              disabled={!customComponents?.every((comp) => comp.imgUrl)}
               variant="primary"
               className="h-10 min-w-40"
               onClick={openSaveModal}
