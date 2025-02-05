@@ -101,7 +101,7 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
                 },
               }}
             >
-              <disaster.icon />
+              {disaster.icon}
               {disaster.text}
             </Tabs.Tab>
           ))}
