@@ -23,13 +23,21 @@ const getInitialReloadParams = (id, data) => {
   };
 };
 
+const translateComponentId = (componentId) => {
+  switch (componentId) {
+    case 18: return 3
+    case 19: return 2
+    default: return componentId
+  }
+}
+
 export const ReporterCreateContainer = () => {
   const { id } = useParams();
   const { data } = useAuthContext();
   const [opened, { open, close }] = useDisclosure(false);
   const { mutate: reload, data: reloadedReport } = useReloadReport();
   const [customComponents, setCustomComponents] = useState(undefined);
-  const [component, setComponent] = useState(undefined);
+  const [componentIdx, setComponentIdx] = useState(undefined);
   const [content, setContent] = useState();
 
   const [
@@ -56,16 +64,16 @@ export const ReporterCreateContainer = () => {
 
   const getGenComponentPayload = () => {
     const params = {
-      component_id: component?.component_id,
+      component_id: translateComponentId(customComponents?.[componentIdx]?.component_id),
       province_id: data?.province.id,
       date: data?.date ? dayjs(data?.date).format("YYYY-MM-DD") : undefined,
-      box_id: component?.box?.box_id,
+      box_id: customComponents?.[componentIdx]?.box?.box_id,
       layout_id: reloadedReport?.data?.layout?.layout_id,
-      content: component?.customization_type === "text" ? content : undefined,
+      content: customComponents?.[componentIdx]?.customization_type === "text" ? content : undefined,
     };
 
     let formFile;
-    if (component?.customization_type === "image" && content) {
+    if (customComponents?.[componentIdx]?.customization_type === "image" && content) {
       formFile = new FormData();
       formFile.append("file_content", content[0]);
     }
@@ -79,12 +87,9 @@ export const ReporterCreateContainer = () => {
   const postGenComponentApi = () => {
     postGenComponents(getGenComponentPayload(), {
       onSuccess: (response) => {
-        const componentIdx = customComponents.findIndex((comp) => {
-          return comp.component_id === component.component_id;
-        });
         setCustomComponents([
           ...customComponents.slice(0, componentIdx),
-          { ...customComponents[componentIdx], imgUrl: response.img_url },
+          { ...customComponents?.[componentIdx], imgUrl: response.img_url },
           ...customComponents.slice(componentIdx + 1),
         ]);
 
@@ -157,7 +162,7 @@ export const ReporterCreateContainer = () => {
                   box={comp.box}
                   imgUrl={comp.imgUrl}
                   onClick={() => {
-                    setComponent(comp);
+                    setComponentIdx(idx);
                     openCustomModal();
                   }}
                 />
@@ -178,7 +183,7 @@ export const ReporterCreateContainer = () => {
 
         <RefreshReportModal opened={opened} />
         <ReporterComponentModal
-          type={component?.customization_type}
+          type={customComponents?.[componentIdx]?.customization_type}
           opened={openedCustomModal}
           onClose={closeCustomModal}
           onProcess={postGenComponentApi}
