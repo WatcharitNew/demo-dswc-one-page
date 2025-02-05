@@ -118,6 +118,7 @@ const SaveModal = () => {
           ยกเลิก
         </Button>
         <Button
+          loading={isPending}
           disabled={isPending}
           radius="md"
           className="font-medium min-w-[8rem]"
