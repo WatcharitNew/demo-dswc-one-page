@@ -192,7 +192,6 @@ export const ReporterCreateContainer = () => {
             </div>
             <div className="relative">
               <Image
-                alt="report-by-id-image"
                 src={imageSrc}
                 className="w-full"
                 fit="contain"
