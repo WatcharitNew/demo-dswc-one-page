@@ -15,6 +15,7 @@ import { usePostGenComponents } from "@/services";
 import dayjs from "dayjs";
 import { SaveModal } from "@/components/SaveModal";
 import { SaveCompleteModal } from "@/components/SaveCompleteModal";
+import { usePostCreateReport } from "@/services/postCreateReport";
 
 const getInitialReloadParams = (id, data) => {
   return {
@@ -48,6 +49,7 @@ export const ReporterCreateContainer = () => {
     { open: openCustomModal, close: closeCustomModal },
   ] = useDisclosure(false);
   const { mutate: postGenComponents } = usePostGenComponents();
+  const { mutate: postCreateReport } = usePostCreateReport();
 
   const imageSrc = useMemo(() => {
     return reloadedReport?.data?.img_url;
@@ -108,10 +110,24 @@ export const ReporterCreateContainer = () => {
     });
   };
 
-  const handleSave = () => {
-    closeSaveModal();
-    openSaveCompleteModal();
-  }
+  const postCreateReportApi = () => {
+    postCreateReport(
+      {
+        params: {
+          img_url: reloadedReport?.data?.img_url,
+          template_id: 1,
+          date: data?.date
+        }
+      },
+      {
+        onSuccess: () => {
+          closeSaveModal();
+          openSaveCompleteModal();
+        },
+        onError: () => {},
+      }
+    );
+  };
 
   const handleCloseSaveCompleteModal = () => {
     closeSaveCompleteModal();
@@ -221,7 +237,7 @@ export const ReporterCreateContainer = () => {
           opened={openedSaveModal}
           close={closeSaveModal}
           setTemplateName={setTemplateName}
-          onSave={handleSave}
+          onSave={postCreateReportApi}
           showTags={false}
         />
         <SaveCompleteModal
