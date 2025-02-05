@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useMemo, useRef } from "react";
+import { useContext, useEffect, useMemo, useRef, useCallback } from "react";
 import { Flex, Loader } from "@mantine/core";
 import { DISASTERS_WITH_OTHER, SPECIAL_TYPE } from "@/constants";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
@@ -23,6 +23,7 @@ export const TemplateComponentModal = () => {
     setSelectedTempComponent,
     openedTemplateComponentModal: opened,
     closeTemplateComponentModal: close,
+    setCurrentBoxId
   } =
     useContext(CreateLayoutContext);
 
@@ -36,6 +37,7 @@ export const TemplateComponentModal = () => {
     resetAll,
     option,
     setOption,
+    generating
   } = useSelectTemplateComponent();
 
   const handleNext = () => {
@@ -83,6 +85,11 @@ export const TemplateComponentModal = () => {
     }
   }, [option, componentList]);
 
+  const onModalClose = useCallback(() => {
+    close()
+    setCurrentBoxId()
+  }, [close, setCurrentBoxId])
+
   useEffect(() => {
     disasterRefs.current = disasterRefs.current.slice(
       0,
@@ -117,13 +124,14 @@ export const TemplateComponentModal = () => {
     <>
       <Modal
         opened={opened}
-        close={close}
+        close={onModalClose}
         title="ส่วนประกอบข้อมูล"
         proceedText={step === 1 ? "ดำเนินการต่อ" : "นำไปใช้"}
         cancelText={step === 2 ? "เลือกชุดข้อมูลใหม่" : undefined}
         cancelAction={onCancel}
         proceedAction={onProceed}
-        isProceedDisabled={!selectedTempComponent}
+        isProceedDisabled={!selectedTempComponent || generating}
+        submitLoading={generating}
       >
         <div className="w-full min-w-[78.3125rem] h-[70vh] row gap-6">
           {isLoading ? (

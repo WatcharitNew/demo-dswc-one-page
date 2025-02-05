@@ -1,6 +1,5 @@
 import { useCallback, useContext, useState } from "react";
 import { format } from "date-fns";
-import { SPECIAL_TYPE } from "@/constants";
 import { usePostGenComponents } from "@/services";
 import { getUserData } from "@/lib/helpers/cookie";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
@@ -9,13 +8,17 @@ export const useSelectTemplateComponent = () => {
   const [disasterIdx, setDisasterIdx] = useState(0);
   const [step, setStep] = useState(1);
   const [option, setOption] = useState(); /// type: {name, value, icon, custom} custom for type text and image
-  const { mutate: postGenComponents } = usePostGenComponents();
+  const { mutate: postGenComponents, isPending: generating } =
+    usePostGenComponents();
   const {
     setCreateLayoutData,
     createLayoutData,
     selectedTempComponent,
     setSelectedTempComponent,
     closeTemplateComponentModal: closeModal,
+    currentBoxId,
+    setCurrentBoxId,
+    selectedLayout,
   } = useContext(CreateLayoutContext);
 
   const getGenComponentPayload = () => {
@@ -24,8 +27,8 @@ export const useSelectTemplateComponent = () => {
       component_id: selectedTempComponent?.data.component_id,
       province_id: userData?.province.id,
       date: format(userData?.date, "yyyy-mm-dd"),
-      box_id: 1, // mock
-      layout_id: 1, //mock
+      box_id: currentBoxId,
+      layout_id: selectedLayout?.layout_id,
       content:
         selectedTempComponent?.type === "text"
           ? selectedTempComponent?.data?.content
@@ -44,9 +47,20 @@ export const useSelectTemplateComponent = () => {
   const postGenComponentApi = () => {
     postGenComponents(getGenComponentPayload(), {
       onSuccess: (response) => {
-        setSelectedTempComponent({
-          ...selectedTempComponent,
-          data: { ...selectedTempComponent?.data, ...response },
+        setSelectedTempComponent((prev) => {
+          const {
+            mock_img_url: _not_use_1,
+            empty_data_img_url: not_use_2,
+            ...rest
+          } = prev?.data;
+
+          return {
+            ...prev,
+            data: {
+              ...rest,
+              ...response,
+            },
+          };
         });
         setStep((prev) => prev + 1);
       },
@@ -62,14 +76,10 @@ export const useSelectTemplateComponent = () => {
 
   const onSaveData = () => {
     const formatData = {
-      box_id: 3,
+      box_id: currentBoxId,
       component_id: selectedTempComponent?.data.component_id,
-      img_url:
-        selectedTempComponent?.data?.mock_img_url ||
-        selectedTempComponent?.data?.img_url,
-      empty_url:
-        selectedTempComponent?.data?.empty_data_img_url ||
-        selectedTempComponent?.data?.empty_img_url,
+      img_url: selectedTempComponent?.data?.img_url,
+      empty_url: selectedTempComponent?.data?.empty_img_url,
     };
 
     const existIndex = createLayoutData?.component?.findIndex(
@@ -91,9 +101,10 @@ export const useSelectTemplateComponent = () => {
     if (step === 2) {
       onSaveData();
       closeModal();
+      setCurrentBoxId();
       return;
     }
-    if (SPECIAL_TYPE.includes(selectedTempComponent?.type)) {
+    if (selectedTempComponent) {
       postGenComponentApi();
       return;
     } else {
@@ -123,5 +134,6 @@ export const useSelectTemplateComponent = () => {
     resetAll,
     option,
     setOption,
+    generating,
   };
 };

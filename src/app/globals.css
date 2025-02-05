@@ -24,11 +24,41 @@
   }
 
   .report-card-container {
-    @apply w-[13.6rem] h-[19.375rem] rounded-md p-4 shadow-report cursor-pointer select-none
+    @apply min-w-[14.575rem] min-h-[20.151rem] rounded-md p-4 shadow-report cursor-pointer select-none
   }
 
   .report-card-inner-container {
     @apply flex flex-col h-full gap-[0.625rem]
+  }
+
+  .button-in-layout {
+    @apply absolute bg-white hover:bg-white !text-blue-400 !border-blue-400 font-normal z-30
+  }
+}
+
+@layer utilities {
+  .box-parent-add .box-button-add {
+    visibility: hidden;
+  }
+
+  .box-parent-edit .box-button-add {
+    visibility: hidden;
+  }
+
+  .box-parent-add:hover .box-button-add {
+    visibility: visible;
+  }
+
+  .box-parent-edit .box-button-edit {
+    visibility: hidden;
+  }
+
+  .box-parent-add .box-button-edit {
+    visibility: hidden;
+  }
+
+  .box-parent-edit:hover .box-button-edit {
+    visibility: visible;
   }
 }
 

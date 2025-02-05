@@ -10,6 +10,7 @@ export const Modal = ({
   cancelAction,
   proceedAction,
   isProceedDisabled,
+  submitLoading,
 }) => {
   return (
     <>
@@ -51,6 +52,7 @@ export const Modal = ({
             )}
             {proceedText && (
               <Button
+                loading={submitLoading}
                 variant="filled"
                 className="h-10 w-40"
                 onClick={(e) => proceedAction?.(e)}
