@@ -21,6 +21,7 @@ export const ReporterComponentModal = ({
       size="55rem"
       styles={{
         header: {
+          minWidth: "55rem",
           paddingTop: "1.5rem",
           paddingLeft: "1.5rem",
           paddingRight: "1.5rem",
@@ -36,7 +37,7 @@ export const ReporterComponentModal = ({
         },
       }}
     >
-      <div className="w-full h-[34rem] p-6 bg-gray-100">
+      <div className="w-full  min-w-[55rem] h-[34rem] p-6 bg-gray-100">
         {type === "text" ? (
           <div className="w-full">
             <TextEditorBar />
