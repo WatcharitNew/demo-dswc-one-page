@@ -49,7 +49,7 @@ export const ReporterCreateContainer = () => {
     { open: openCustomModal, close: closeCustomModal },
   ] = useDisclosure(false);
   const { mutate: postGenComponents } = usePostGenComponents();
-  const { mutate: postCreateReport } = usePostCreateReport();
+  const { mutate: postCreateReport, isPending } = usePostCreateReport();
 
   const imageSrc = useMemo(() => {
     return reloadedReport?.data?.img_url;
@@ -235,13 +235,13 @@ export const ReporterCreateContainer = () => {
           opened={openedSaveModal}
           close={closeSaveModal}
           setTemplateName={setTemplateName}
-          onSave={postCreateReportApi}
-          showTags={false}
+          isPending={isPending}
+          handleComplete={postCreateReportApi}
         />
         <SaveCompleteModal
-          templateName={templateName}
           opened={openedSaveCompleteModal}
           close={handleCloseSaveCompleteModal}
+          templateName={templateName}
         />
       </div>
     </>
