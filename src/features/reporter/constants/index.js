@@ -1,4 +1,6 @@
-import { Search, Home, Template } from "@/icons";
+import { Home, Template } from "@/icons";
+import { Image } from "@mantine/core";
+import { IconHomeFilled } from "@tabler/icons-react";
 
 export const MOCK_REPORT_LIST = [
   {
@@ -8,7 +10,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO03",
     status: "รอการอนุมัติ",
-    img: "/template_01.svg"
+    img: "/template_01.svg",
   },
   {
     id: "2",
@@ -17,7 +19,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO03",
     status: "ไม่อนุมัติ",
-    img: "/template_02.svg"
+    img: "/template_02.svg",
   },
   {
     id: "3",
@@ -26,7 +28,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO02",
     status: "อนุมัติ",
-    img: "/template_03.svg"
+    img: "/template_03.svg",
   },
   {
     id: "4",
@@ -35,7 +37,7 @@ export const MOCK_REPORT_LIST = [
     times: "8:10น.",
     name: "SUP_OP_PO01",
     status: "อนุมัติ",
-    img: "/template_04.svg"
+    img: "/template_04.svg",
   },
 ];
 
@@ -43,42 +45,42 @@ export const DISASTERS_REPORT_SELECT = [
   {
     text: "ทั้งหมด",
     value: "all",
-    icon: Search,
+    icon: <IconHomeFilled size={24} />,
   },
   {
     text: "อุทกภัย",
     value: "flood",
-    icon: Search,
+    icon: <Image src="/sea-level.png" className="w-6" />,
   },
   {
     text: "ภัยแล้ง",
     value: "drought",
-    icon: Search,
+    icon: <Image src="/drought.png" className="w-6" />,
   },
   {
     text: "วาตภัย/พายุ",
     value: "storm",
-    icon: Search,
+    icon: <Image src="/storm.png" className="w-6" />,
   },
   {
     text: "ดินโคลนถล่ม",
     value: "mudslide",
-    icon: Search,
+    icon: <Image src="/landslide.png" className="w-6" />,
   },
   {
     text: "แผ่นดินไหว/สึนามิ",
     value: "earthquake-tsunami",
-    icon: Search,
+    icon: <Image src="/flood.png" className="w-6" />,
   },
   {
     text: "หมอกควัน/PM2.5",
     value: "pm25",
-    icon: Search,
+    icon: <Image src="/pm-25.png" className="w-6" />,
   },
   {
     text: "ไฟป่า",
     value: "forest-fire",
-    icon: Search,
+    icon: <Image src="/wildfire.png" className="w-6" />,
   },
 ];
 
