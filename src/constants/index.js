@@ -107,12 +107,12 @@ export const CREATE_LAYOUT_MENU = [
 export const MOCK_REPORT = [
   {
     title: "รอตรวจสอบ (1)",
-    src: "https://placehold.co/200x400?text=Placeholder003",
+    src: "/template_03.svg",
     name: "TEM_DDPM_003",
   },
   {
     title: "ฉบับร่าง (1)",
-    src: "https://placehold.co/200x400?text=PlaceholderDraft",
+    src: "/template_01.svg",
     name: "V01_Draft",
   },
 ];
