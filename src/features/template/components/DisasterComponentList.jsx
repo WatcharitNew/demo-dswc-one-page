@@ -126,7 +126,7 @@ export const DisasterComponentList = ({ option, components }) => {
                     }
                   >
                     <Image
-                      src={item.empty_data_img_url}
+                      src={item.mock_img_url}
                       alt={item.name}
                       width="auto"
                     />

@@ -37,6 +37,7 @@ export const TemplateComponentModal = () => {
     resetAll,
     option,
     setOption,
+    generating
   } = useSelectTemplateComponent();
 
   const handleNext = () => {
@@ -129,7 +130,8 @@ export const TemplateComponentModal = () => {
         cancelText={step === 2 ? "เลือกชุดข้อมูลใหม่" : undefined}
         cancelAction={onCancel}
         proceedAction={onProceed}
-        isProceedDisabled={!selectedTempComponent}
+        isProceedDisabled={!selectedTempComponent || generating}
+        submitLoading={generating}
       >
         <div className="w-full min-w-[78.3125rem] h-[70vh] row gap-6">
           {isLoading ? (
