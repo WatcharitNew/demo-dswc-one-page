@@ -13,7 +13,7 @@ import { BackIcon, NextIcon } from "@/icons";
 import { TemplateComponentModal } from "../template/components";
 
 const SelectOutline = () => {
-  const { selectedLayout, openSaveModal } = useContext(CreateLayoutContext);
+  const { selectedLayout, setSelectedLayout, openSaveModal } = useContext(CreateLayoutContext);
   const router = useRouter();
 
   const handleBackButton = () => {

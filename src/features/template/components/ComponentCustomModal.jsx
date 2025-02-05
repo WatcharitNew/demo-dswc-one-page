@@ -1,36 +1,42 @@
 "use client";
 
-import { Button } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-
 import { ComponentPreview } from "./ComponentPreview";
 import { ComponentCustom } from "./ComponentCustom";
 import { Modal } from "@/components";
+import { DISASTERS } from "@/constants";
 
-export const CustomComponentModal = ({
-  disaster = "อุทกภัย",
-  type = "table",
+export const ComponentCustomModal = ({
+  disaster = "flood",
+  isTable,
+  componentData,
+  opened,
+  close,
+  proceedAction
 }) => {
-  const [opened, { open, close }] = useDisclosure(false);
+  const disasterText = DISASTERS.find((d) => d.value === disaster)?.text;
 
   return (
     <>
       <Modal
         opened={opened}
         close={close}
-        title={`ส่วนประกอบข้อมูลกลุ่ม${disaster}`}
+        title={`ส่วนประกอบข้อมูลกลุ่ม${disasterText}`}
         cancelText="เลือกชุดข้อมูลใหม่"
+        cancelAction={close}
         proceedText="นำไปใช้"
+        proceedAction={proceedAction}
       >
         <div className="w-full min-w-[78.3125rem] h-[70vh] flex flex-row gap-20">
-          <ComponentPreview text={disaster} image="mock-component-1.svg" />
-          {type === "table" && <ComponentCustom />}
+          <ComponentPreview
+            text={disasterText}
+            image={
+              componentData?.mock_img_url ||
+              componentData?.empty_img_url
+            }
+          />
+          {isTable && <ComponentCustom />}
         </div>
       </Modal>
-
-      <Button variant="default" onClick={open}>
-        Component Modal
-      </Button>
     </>
   );
 };
