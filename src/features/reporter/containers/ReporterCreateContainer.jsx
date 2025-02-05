@@ -23,6 +23,14 @@ const getInitialReloadParams = (id, data) => {
   };
 };
 
+const translateComponentId = (componentId) => {
+  switch (componentId) {
+    case 18: return 3
+    case 19: return 2
+    default: return componentId
+  }
+}
+
 export const ReporterCreateContainer = () => {
   const { id } = useParams();
   const { data } = useAuthContext();
@@ -56,7 +64,7 @@ export const ReporterCreateContainer = () => {
 
   const getGenComponentPayload = () => {
     const params = {
-      component_id: customComponents?.[componentIdx]?.component_id,
+      component_id: translateComponentId(customComponents?.[componentIdx]?.component_id),
       province_id: data?.province.id,
       date: data?.date ? dayjs(data?.date).format("YYYY-MM-DD") : undefined,
       box_id: customComponents?.[componentIdx]?.box?.box_id,
