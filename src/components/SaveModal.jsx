@@ -1,11 +1,7 @@
 "use client";
 
-import { useContext } from "react";
-import { Button, Modal, MultiSelect, TextInput } from "@mantine/core";
-
-import { useCreateTemplate } from "../services";
-import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 import { DISASTERS } from "@/constants";
+import { Button, Modal, MultiSelect, TextInput } from "@mantine/core";
 
 const transformToTag = (value) => {
   switch (value) {
@@ -28,44 +24,19 @@ const transformToTag = (value) => {
   }
 };
 
-const SaveModal = () => {
-  const {
-    selectedLayout,
-    templateName,
+export const SaveModal = ({
     setTemplateName,
-    openedSaveModal: opened,
-    closeSaveModal: close,
-    openSaveCompleteModal,
-    createLayoutData,
-    tags,
+    opened,
+    close,
     setTags,
-  } = useContext(CreateLayoutContext);
-  const { mutate: createTemplate, isPending } = useCreateTemplate();
+    isPending,
+    handleComplete
+  }) => {
 
   const disasterMultiSelectData = DISASTERS.map((disaster) => ({
     value: disaster.value,
     label: disaster.text,
   }));
-
-  const handleComplete = () => {
-    createTemplate(
-      {
-        ...createLayoutData,
-        layout_id: selectedLayout?.layout_id,
-        name: templateName,
-        status: "submitted",
-        tags,
-      },
-      {
-        onSettled() {
-          close();
-        },
-        onSuccess() {
-          openSaveCompleteModal(true);
-        },
-      }
-    );
-  };
 
   return (
     <Modal
@@ -98,17 +69,17 @@ const SaveModal = () => {
         onChange={(e) => setTemplateName(e.target.value)}
         required
       />
-      <MultiSelect
+      {setTags && <MultiSelect
         placeholder="ประเภทภัย"
         size="md"
         data={disasterMultiSelectData}
         onChange={(value) => setTags(value.map(transformToTag))}
-        className="mt-4 mb-8"
+        className="mt-4"
         classNames={{
           option: "text-gray-900",
         }}
-      />
-      <div>
+      />}
+      <div className='mt-8'>
         <Button
           radius="md"
           variant="default"
@@ -129,6 +100,4 @@ const SaveModal = () => {
       </div>
     </Modal>
   );
-};
-
-export default SaveModal;
+}

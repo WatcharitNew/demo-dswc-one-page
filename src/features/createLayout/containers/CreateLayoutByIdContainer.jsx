@@ -3,26 +3,66 @@
 import { useContext } from "react";
 import { clsx } from "clsx";
 import { useMemo } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
-import { useListLayouts } from "../services";
+import { useCreateTemplate, useListLayouts } from "../services";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
 
 import { Button, Flex } from "@mantine/core";
 import { BackIcon, NextIcon } from "@/icons";
 import Layout from "../components/Layout";
-import SaveModal from "../components/SaveModal";
-import SaveCompleteModal from "../components/SaveCompleteModal";
 import { TemplateComponentModal } from "@/features/template/components";
+import { SaveModal } from "@/components/SaveModal";
+import { SaveCompleteModal } from "@/components/SaveCompleteModal";
 
 export const CreateLayoutByIdContainer = () => {
   const { id } = useParams();
   const { data } = useListLayouts();
-  const { openSaveModal, createLayoutData } = useContext(CreateLayoutContext);
+  const {
+    selectedLayout,
+    createLayoutData,
+    openSaveModal,
+    openedSaveModal,
+    closeSaveModal,
+    openSaveCompleteModal,
+    openedSaveCompleteModal,
+    closeSaveCompleteModal,
+    templateName,
+    setTemplateName,
+    tags,
+    setTags,
+  } = useContext(CreateLayoutContext);
+  const { mutate: createTemplate, isPending } = useCreateTemplate();
+  const router = useRouter();
 
   const layout = useMemo(() => {
     return data?.find((item) => item.layout_id === Number(id));
   }, [data, id]);
+
+  const handleSaveComplete = () => {
+    createTemplate(
+      {
+        ...createLayoutData,
+        layout_id: selectedLayout?.layout_id,
+        name: templateName,
+        status: "submitted",
+        tags,
+      },
+      {
+        onSettled() {
+          close();
+        },
+        onSuccess() {
+          openSaveCompleteModal(true);
+        },
+      }
+    );
+  }
+
+  const handleCloseSaveCompleteModal = () => {
+    closeSaveCompleteModal();
+    router.push("/templater");
+  }
 
   return (
     <Flex className="w-full h-full">
@@ -69,8 +109,19 @@ export const CreateLayoutByIdContainer = () => {
         </Flex>
       </div>
       <TemplateComponentModal />
-      <SaveModal />
-      <SaveCompleteModal />
+      <SaveModal
+        opened={openedSaveModal}
+        close={closeSaveModal}
+        setTemplateName={setTemplateName}
+        setTags={setTags}
+        isPending={isPending}
+        handleComplete={handleSaveComplete}
+      />
+      <SaveCompleteModal
+        opened={openedSaveCompleteModal}
+        close={handleCloseSaveCompleteModal}
+        templateName={templateName}
+      />
     </Flex>
   );
 };
