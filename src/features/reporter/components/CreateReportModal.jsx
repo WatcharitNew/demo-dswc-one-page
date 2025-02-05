@@ -114,7 +114,7 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
         </Tabs.List>
 
         <SimpleGrid
-          className="w-full px-4 pt-1 overflow-y-auto"
+          className="w-full px-4 py-1 overflow-y-auto"
           cols={3}
           spacing="xl"
         >
@@ -124,7 +124,7 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
             return (
               <div
                 key={idx}
-                className={clsx("h-60 cursor-pointer", {
+                className={clsx("h-64 cursor-pointer", {
                   "outline outline-offset-2 outline-2 outline-blue-400":
                     isSelected,
                 })}
