@@ -15,6 +15,7 @@ import { SaveCompleteModal } from "@/components/SaveCompleteModal";
 const SelectOutline = () => {
   const {
     selectedLayout,
+    setSelectedLayout,
     openSaveModal,
     openedSaveModal,
     closeSaveModal,

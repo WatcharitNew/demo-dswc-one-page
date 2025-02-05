@@ -8,8 +8,7 @@ import { Modal } from "@/components";
 import { useGetListComponents } from "@/services";
 import { useSelectTemplateComponent } from "../hook/useSelectTemplateComponent";
 import {
-  ComponentCustom,
-  ComponentPreview,
+  ComponentCustomModal,
   DisasterComponentList,
   DisasterComponentOptions,
   DisasterTypeBoxList,
@@ -173,18 +172,14 @@ export const TemplateComponentModal = () => {
               ) : null}
 
               {step === 2 && option && selectedTempComponent ? (
-                <div className="w-full min-w-[78.3125rem] h-[70vh] flex flex-row gap-20">
-                  <div className="w-[54rem]">
-                    <ComponentPreview
-                      text={`ตัวอย่างข้อมูล${option?.name}`}
-                      image={
-                        selectedTempComponent?.data?.mock_img_url ||
-                        selectedTempComponent?.data?.empty_img_url
-                      }
-                    />
-                  </div>
-                  <ComponentCustom />
-                </div>
+                <ComponentCustomModal
+                  disaster={selectedDisaster}
+                  opened={true}
+                  close={onCancel}
+                  proceedAction={onProceed}
+                  isTable={selectedTempComponent?.data?.name?.includes('ตาราง')}
+                  componentData={selectedTempComponent?.data}
+                />
               ) : null}
             </>
           )}
