@@ -16,7 +16,7 @@ import {
 
 import { useAuthContext } from "@/lib/providers/auth";
 import { useListReports } from "../services";
-import downloadJpg from "@/lib/helpers/downloadJpg";
+import { downloadJpg, downloadPng } from "@/lib/helpers/downloadJpg";
 import { getBadgeStatus, getStatusText } from "../components";
 
 import { History, Pdf, Jpg, Png, Sent } from "@/icons";
@@ -111,7 +111,7 @@ export const ReporterDetailContainer = () => {
                   className={clsx({
                     "opacity-30": report?.status === "pending",
                   })}
-                  onClick={() => window.open(report?.img_url, "_blank")}
+                  onClick={() => downloadPng(report?.img_url)}
                 >
                   <Png />
                 </UnstyledButton>

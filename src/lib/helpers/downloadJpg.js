@@ -1,7 +1,7 @@
 import { notifications } from "@mantine/notifications";
 import { IconX } from "@tabler/icons-react";
 
-export default async function downloadJpg(pngUrl) {
+export async function downloadJpg(pngUrl) {
   try {
     const img = await loadImage(pngUrl);
 
@@ -28,6 +28,14 @@ export default async function downloadJpg(pngUrl) {
       icon: <IconX />,
     });
   }
+}
+
+export function downloadPng(url) {
+  const link = document.createElement("a");
+  link.download = true;
+  link.href = url;
+  link.click();
+  link.remove();
 }
 
 async function loadImage(src) {
