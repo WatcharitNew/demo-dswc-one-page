@@ -107,6 +107,7 @@ export const ReporterDetailContainer = () => {
                   className={clsx({
                     "opacity-30": report?.status === "pending",
                   })}
+                  onClick={() => window.open(report?.img_url, '_blank')}
                 >
                   <Png />
                 </UnstyledButton>
