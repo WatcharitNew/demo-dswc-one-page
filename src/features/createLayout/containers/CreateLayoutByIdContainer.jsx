@@ -31,6 +31,7 @@ export const CreateLayoutByIdContainer = () => {
     setTemplateName,
     tags,
     setTags,
+    setCreateLayoutData,
   } = useContext(CreateLayoutContext);
   const { mutate: createTemplate, isPending } = useCreateTemplate();
   const router = useRouter();
@@ -64,6 +65,11 @@ export const CreateLayoutByIdContainer = () => {
     router.push("/templater");
   }
 
+  const handleBackButton = () => {
+    setCreateLayoutData({ ...createLayoutData, component: [] })
+    router.push("/create-layout/outline");
+  };
+
   return (
     <Flex className="w-full h-full">
       <div className="m-auto">
@@ -93,6 +99,13 @@ export const CreateLayoutByIdContainer = () => {
           )}
         </Flex>
         <Flex className="md:w-[25rem] 2xl:w-[32rem] h-fit row gap-2 absolute bottom-3 items-end z-10 justify-end">
+          <Button
+            variant="outline"
+            className="h-10 min-w-20 mr-auto"
+            onClick={handleBackButton}
+          >
+            ย้อนกลับ
+          </Button>
           <Button variant="outline" className="h-10 min-w-40">
             บันทึกฉบับร่าง
           </Button>
