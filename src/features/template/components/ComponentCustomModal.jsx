@@ -3,7 +3,7 @@
 import { ComponentPreview } from "./ComponentPreview";
 import { ComponentCustom } from "./ComponentCustom";
 import { Modal } from "@/components";
-import { DISASTERS } from "@/constants";
+import { DISASTERS_WITH_OTHER } from "@/constants";
 
 export const ComponentCustomModal = ({
   disaster = "flood",
@@ -13,7 +13,7 @@ export const ComponentCustomModal = ({
   close,
   proceedAction
 }) => {
-  const disasterText = DISASTERS.find((d) => d.value === disaster)?.text;
+  const disasterText = DISASTERS_WITH_OTHER.find((d) => d.value === disaster)?.text;
 
   return (
     <>
