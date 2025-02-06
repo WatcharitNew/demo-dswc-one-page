@@ -16,7 +16,7 @@ import {
 
 import { useAuthContext } from "@/lib/providers/auth";
 import { useListReports } from "../services";
-import { downloadJpg, downloadPng } from "@/lib/helpers/downloadJpg";
+import { downloadJpg, downloadPng } from "@/lib/helpers/downloadImage";
 import { getBadgeStatus, getStatusText } from "../components";
 
 import { History, Pdf, Jpg, Png, Sent } from "@/icons";
