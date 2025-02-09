@@ -6,11 +6,10 @@ import { useDisclosure } from "@mantine/hooks";
 
 import { useReloadReport } from "../services";
 
-import { RefreshReportModal, ReporterComponentModal } from "../components";
+import { RefreshReportModal, ReporterComponentModal, ReporterCustomizableComponent, CustomVisualizeComponentModal } from "../components";
 import { Button, Image } from "@mantine/core";
 import { Refresh, Multiplier1, Multiplier15, Multiplier2 } from "@/icons";
 import { useAuthContext } from "@/lib/providers/auth";
-import { ReporterCustomizableComponent } from "../components/ReporterCustomizableComponent";
 import { usePostGenComponents } from "@/services";
 import dayjs from "dayjs";
 import { SaveModal } from "@/components/SaveModal";
@@ -28,11 +27,14 @@ const getInitialReloadParams = (id, data) => {
 
 const translateComponentId = (componentId) => {
   switch (componentId) {
-    case 18: return 3
-    case 19: return 2
-    default: return componentId
+    case 18:
+      return 3;
+    case 19:
+      return 2;
+    default:
+      return componentId;
   }
-}
+};
 
 export const ReporterCreateContainer = () => {
   const { id } = useParams();
@@ -40,13 +42,14 @@ export const ReporterCreateContainer = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const { mutate: reload, data: reloadedReport } = useReloadReport();
   const [customComponents, setCustomComponents] = useState(undefined);
+  const [editableComponents, setEditableComponents] = useState(undefined);
   const [componentIdx, setComponentIdx] = useState(undefined);
   const [content, setContent] = useState();
+  const [isEdit, setIsEdit] = useState(false);
+  const [editedComponent, setEditedComponent] = useState(undefined);
   const [templateName, setTemplateName] = useState("");
-  const [
-    openedSaveModal,
-    { open: openSaveModal, close: closeSaveModal },
-  ] = useDisclosure(false);
+  const [openedSaveModal, { open: openSaveModal, close: closeSaveModal }] =
+    useDisclosure(false);
   const [
     openedSaveCompleteModal,
     { open: openSaveCompleteModal, close: closeSaveCompleteModal },
@@ -79,16 +82,24 @@ export const ReporterCreateContainer = () => {
 
   const getGenComponentPayload = () => {
     const params = {
-      component_id: translateComponentId(customComponents?.[componentIdx]?.component_id),
+      component_id: translateComponentId(
+        customComponents?.[componentIdx]?.component_id
+      ),
       province_id: data?.province.id,
       date: data?.date ? dayjs(data?.date).format("YYYY-MM-DD") : undefined,
       box_id: customComponents?.[componentIdx]?.box?.box_id,
       layout_id: reloadedReport?.data?.layout?.layout_id,
-      content: customComponents?.[componentIdx]?.customization_type === "text" ? content : undefined,
+      content:
+        customComponents?.[componentIdx]?.customization_type === "text"
+          ? content
+          : undefined,
     };
 
     let formFile;
-    if (customComponents?.[componentIdx]?.customization_type === "image" && content) {
+    if (
+      customComponents?.[componentIdx]?.customization_type === "image" &&
+      content
+    ) {
       formFile = new FormData();
       formFile.append("file_content", content[0]);
     }
@@ -124,7 +135,7 @@ export const ReporterCreateContainer = () => {
           date: data?.date,
           province_id: data?.province.id,
           name: templateName,
-        }
+        },
       },
       {
         onSuccess: () => {
@@ -139,7 +150,7 @@ export const ReporterCreateContainer = () => {
   const handleCloseSaveCompleteModal = () => {
     closeSaveCompleteModal();
     router.push("/reporter");
-  }
+  };
 
   useEffect(() => {
     if (id && data?.province) {
@@ -150,6 +161,9 @@ export const ReporterCreateContainer = () => {
   useEffect(() => {
     if (customComponents === undefined) {
       setCustomComponents(reloadedReport?.data?.customizable_component);
+    }
+    if (editableComponents === undefined) {
+      setEditableComponents(reloadedReport?.data?.editable_component);
     }
   }, [reloadedReport?.data]);
 
@@ -191,11 +205,7 @@ export const ReporterCreateContainer = () => {
               </Button.Group>
             </div>
             <div className="relative">
-              <Image
-                src={imageSrc}
-                className="w-full"
-                fit="contain"
-              />
+              <Image src={imageSrc} className="w-full" fit="contain" />
               {customComponents?.map((comp, idx) => (
                 <ReporterCustomizableComponent
                   key={`${comp.component_id}-${idx}`}
@@ -207,13 +217,28 @@ export const ReporterCreateContainer = () => {
                   }}
                 />
               ))}
+              {isEdit &&
+                editableComponents?.map((comp, idx) => (
+                  <ReporterCustomizableComponent
+                    key={`${comp.component_id}-${idx}`}
+                    box={comp.box}
+                    imgUrl={comp.img_url}
+                    onClick={() => {
+                      setEditedComponent(comp);
+                    }}
+                  />
+                ))}
             </div>
           </div>
         </div>
         <div className="bg-white h-16 p-3 row items-center justify-center">
           <div className="row items-center justify-end gap-4 w-full max-w-[34rem]">
-            <Button className="h-10 min-w-40" variant="outline">
-              แก้ไข
+            <Button
+              onClick={() => setIsEdit(!isEdit)}
+              className="h-10 min-w-40"
+              variant="outline"
+            >
+              {isEdit ? "ยกเลิก" : "แก้ไข"}
             </Button>
             <Button
               disabled={!customComponents?.every((comp) => comp.imgUrl)}
@@ -246,6 +271,11 @@ export const ReporterCreateContainer = () => {
           opened={openedSaveCompleteModal}
           close={handleCloseSaveCompleteModal}
           templateName={templateName}
+        />
+        <CustomVisualizeComponentModal
+          opened={!!editedComponent}
+          close={() => setEditedComponent(undefined)}
+          imgUrl={editedComponent?.img_url}
         />
       </div>
     </>
