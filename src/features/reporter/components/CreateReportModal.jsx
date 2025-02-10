@@ -75,7 +75,7 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
       centered
     >
       <Flex className="items-center justify-between">
-        <p className="text-2xl font-medium">รูปแบบรายงานสาธารณะภัย</p>
+        <p className="text-2xl font-medium">รูปแบบรายงานสาธารณภัย</p>
         <CloseButton onClick={onClose} />
       </Flex>
 
