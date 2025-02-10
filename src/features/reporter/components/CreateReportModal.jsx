@@ -39,11 +39,13 @@ const transformValue = (value) => {
   }
 };
 
-export const CreateReportModal = ({ templates = [], opened, onClose }) => {
+export const CreateReportModal = ({ templates = [], stack }) => {
   const router = useRouter();
+  const reportSelectStack = stack.register("report_select");
   const [selectedImage, setSelectedImage] = useState(null);
   const [rootRef, setRootRef] = useState(null);
   const [value, setValue] = useState(["all"]);
+  const [previewImg, setPreviewImg] = useState("");
   const [controlsRefs, setControlsRefs] = useState({});
   const setControlRef = (val) => (node) => {
     controlsRefs[val] = node;
@@ -51,11 +53,12 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
   };
 
   useEffect(() => {
-    if (!opened) {
+    if (!reportSelectStack.opened) {
       setSelectedImage(null);
+      setPreviewImg("");
       setValue(["all"]);
     }
-  }, [opened]);
+  }, [reportSelectStack.opened]);
 
   const filteredTemplate = useMemo(() => {
     return templates.filter(
@@ -94,120 +97,147 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
   };
 
   return (
-    <Modal
-      opened={opened}
-      onClose={onClose}
-      withCloseButton={false}
-      overlayProps={{
-        backgroundOpacity: 0.55,
-        blur: 1,
-      }}
-      radius="md"
-      styles={{
-        content: {
-          maxWidth: "64rem",
-        },
-        body: {
-          padding: "2rem",
-        },
-      }}
-      size="70%"
-      centered
-    >
-      <Flex className="items-center justify-between">
-        <p className="text-2xl font-medium">รูปแบบรายงานสาธารณภัย</p>
-        <CloseButton onClick={onClose} />
-      </Flex>
-
-      <Tabs
-        variant="none"
-        orientation="vertical"
-        className="mt-6 max-h-[22rem]"
-        value={value}
-        onChange={handleFilterValue}
+    <Modal.Stack>
+      <Modal
+        {...reportSelectStack}
+        withCloseButton={false}
+        overlayProps={{
+          backgroundOpacity: 0.55,
+          blur: 1,
+        }}
+        radius="md"
+        styles={{
+          content: {
+            maxWidth: "64rem",
+          },
+          body: {
+            padding: "2rem",
+          },
+        }}
+        size="70%"
+        centered
       >
-        <Tabs.List ref={setRootRef} className={classes.list}>
-          {DISASTERS_REPORT_SELECT.map((disaster) => (
-            <Tabs.Tab
-              key={disaster.value}
-              value={disaster.value}
-              ref={setControlRef(disaster.value)}
-              className={classes.tab}
-              styles={{
-                tabLabel: {
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "1rem",
-                },
-              }}
-            >
-              {disaster.icon}
-              {disaster.text}
-            </Tabs.Tab>
-          ))}
+        <Flex className="items-center justify-between">
+          <p className="text-2xl font-medium">รูปแบบรายงานสาธารณะภัย</p>
+          <CloseButton onClick={() => stack.close("report_select")} />
+        </Flex>
 
-          {value.map((val) => (
-            <FloatingIndicator
-              key={val}
-              target={val ? controlsRefs[val] : null}
-              parent={rootRef}
-              className={classes.indicator}
-            />
-          ))}
-        </Tabs.List>
-
-        <SimpleGrid
-          className="w-full px-4 py-2 overflow-y-auto"
-          cols={3}
-          spacing="xl"
+        <Tabs
+          variant="none"
+          orientation="vertical"
+          className="mt-6 max-h-[22rem]"
+          value={value}
+          onChange={handleFilterValue}
         >
-          {filteredTemplate.map((template, idx) => {
-            const isSelected =
-              selectedImage?.template_id === template.template_id;
-
-            return (
-              <div
-                key={idx}
-                className={clsx(
-                  "zoom-parent relative h-64 cursor-pointer hover:outline hover:outline-offset-2 hover:outline-4 hover:outline-blue-300",
-                  {
-                    "outline outline-offset-2 outline-4 outline-blue-400 hover:!outline-blue-400":
-                      isSelected,
-                  }
-                )}
-                onClick={() => setSelectedImage(template)}
+          <Tabs.List ref={setRootRef} className={classes.list}>
+            {DISASTERS_REPORT_SELECT.map((disaster) => (
+              <Tabs.Tab
+                key={disaster.value}
+                value={disaster.value}
+                ref={setControlRef(disaster.value)}
+                className={classes.tab}
+                styles={{
+                  tabLabel: {
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "1rem",
+                  },
+                }}
               >
-                <Button
-                  className="zoom-button absolute top-1 right-1 !size-10 !p-0 !border-blue-400 bg-white !text-blue-400 hover:!bg-blue-100"
-                  variant="outline"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    alert("test");
-                  }}
-                >
-                  <IconZoom />
-                </Button>
-                <Image
-                  alt="report-image"
-                  className="h-full"
-                  src={template.img_url}
-                />
-              </div>
-            );
-          })}
-        </SimpleGrid>
-      </Tabs>
+                {disaster.icon}
+                {disaster.text}
+              </Tabs.Tab>
+            ))}
 
-      <Button
-        className="block h-11 mt-8 ml-auto"
-        disabled={!selectedImage}
-        variant="primary"
-        onClick={() =>
-          router.push(`/reporter/create/${selectedImage?.template_id}`)
-        }
+            {value.map((val) => (
+              <FloatingIndicator
+                key={val}
+                target={val ? controlsRefs[val] : null}
+                parent={rootRef}
+                className={classes.indicator}
+              />
+            ))}
+          </Tabs.List>
+
+          <SimpleGrid
+            className="w-full px-4 py-2 overflow-y-auto"
+            cols={3}
+            spacing="xl"
+          >
+            {filteredTemplate.map((template, idx) => {
+              const isSelected =
+                selectedImage?.template_id === template.template_id;
+
+              return (
+                <div
+                  key={idx}
+                  className={clsx(
+                    "zoom-parent relative h-64 cursor-pointer hover:outline hover:outline-offset-2 hover:outline-4 hover:outline-blue-300",
+                    {
+                      "outline outline-offset-2 outline-4 outline-blue-400 hover:!outline-blue-400":
+                        isSelected,
+                    }
+                  )}
+                  onClick={() => setSelectedImage(template)}
+                >
+                  <Button
+                    className="zoom-button absolute top-1 right-1 !size-10 !p-0 !border-blue-400 bg-white !text-blue-400 hover:!bg-blue-100"
+                    variant="outline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPreviewImg(template?.img_url);
+                      stack.open("preview_template");
+                    }}
+                  >
+                    <IconZoom />
+                  </Button>
+                  <Image
+                    alt="report-image"
+                    className="h-full"
+                    src={template.img_url}
+                  />
+                </div>
+              );
+            })}
+          </SimpleGrid>
+        </Tabs>
+
+        <Button
+          className="block h-11 mt-8 ml-auto"
+          disabled={!selectedImage}
+          variant="primary"
+          onClick={() =>
+            router.push(`/reporter/create/${selectedImage?.template_id}`)
+          }
+        >
+          ดำเนินการต่อ
+        </Button>
+      </Modal>
+
+      <Modal
+        {...stack.register("preview_template")}
+        withCloseButton={false}
+        overlayProps={{
+          backgroundOpacity: 0.55,
+          blur: 1,
+        }}
+        radius="md"
+        styles={{
+          body: {
+            padding: "2rem",
+          },
+        }}
+        size="lg"
+        centered
       >
-        ดำเนินการต่อ
-      </Button>
-    </Modal>
+        <div className="col items-center justify-center w-full h-[70vh] bg-gray-100">
+          <Image
+            className="w-[24rem]"
+            alt="report-preview-image"
+            src={previewImg}
+          />
+        </div>
+      </Modal>
+    </Modal.Stack>
   );
 };
