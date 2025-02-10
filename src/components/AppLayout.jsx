@@ -6,7 +6,7 @@ import { Image, Menu } from "@mantine/core";
 import { IconChevronDown, IconSettings, IconLogout } from "@tabler/icons-react";
 
 export function AppLayout({ children }) {
-  const { signOut } = useAuthContext()
+  const { signOut } = useAuthContext();
 
   return (
     <div>
@@ -33,7 +33,12 @@ export function AppLayout({ children }) {
         <div className="flex-none">
           <div className="flex flex-row gap-4 items-center">
             <Image alt="bell" className="size-7" src="/bell.svg" />
-            <Menu shadow="md" trigger="click-hover" width={200}>
+            <Menu
+              shadow="md"
+              trigger="click-hover"
+              width={200}
+              transitionProps={{ transition: "scale-y" }}
+            >
               <Menu.Target>
                 <div className="row items-center gap-4 hover:cursor-pointer">
                   <Image alt="profile" className="size-10" src="/profile.svg" />
@@ -49,7 +54,11 @@ export function AppLayout({ children }) {
                 <Menu.Item leftSection={<IconSettings size={14} />}>
                   ตั้งค่า
                 </Menu.Item>
-                <Menu.Item color="red" leftSection={<IconLogout size={14}/>} onClick={signOut}>
+                <Menu.Item
+                  color="red"
+                  leftSection={<IconLogout size={14} />}
+                  onClick={signOut}
+                >
                   ออกจากระบบ
                 </Menu.Item>
               </Menu.Dropdown>
