@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { clsx } from "clsx";
+import { IconZoom } from "@tabler/icons-react";
 
 import { DISASTERS_REPORT_SELECT } from "../constants";
 
@@ -156,7 +157,7 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
         </Tabs.List>
 
         <SimpleGrid
-          className="w-full px-4 py-1 overflow-y-auto"
+          className="w-full px-4 py-2 overflow-y-auto"
           cols={3}
           spacing="xl"
         >
@@ -167,12 +168,25 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
             return (
               <div
                 key={idx}
-                className={clsx("h-64 cursor-pointer", {
-                  "outline outline-offset-2 outline-2 outline-blue-400":
-                    isSelected,
-                })}
+                className={clsx(
+                  "zoom-parent relative h-64 cursor-pointer hover:outline hover:outline-offset-2 hover:outline-4 hover:outline-blue-300",
+                  {
+                    "outline outline-offset-2 outline-4 outline-blue-400 hover:!outline-blue-400":
+                      isSelected,
+                  }
+                )}
                 onClick={() => setSelectedImage(template)}
               >
+                <Button
+                  className="zoom-button absolute top-1 right-1 !size-10 !p-0 !border-blue-400 bg-white !text-blue-400 hover:!bg-blue-100"
+                  variant="outline"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    alert("test");
+                  }}
+                >
+                  <IconZoom />
+                </Button>
                 <Image
                   alt="report-image"
                   className="h-full"
