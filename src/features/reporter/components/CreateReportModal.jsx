@@ -118,7 +118,7 @@ export const CreateReportModal = ({ templates = [], stack }) => {
         centered
       >
         <Flex className="items-center justify-between">
-          <p className="text-2xl font-medium">รูปแบบรายงานสาธารณะภัย</p>
+          <p className="text-2xl font-medium">รูปแบบรายงานสาธารณภัย</p>
           <CloseButton onClick={() => stack.close("report_select")} />
         </Flex>
 
