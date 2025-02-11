@@ -20,22 +20,29 @@ import {
 import classes from "./tab.module.css";
 
 const transformValue = (value) => {
-  switch(value) {
-    case "flood": return "อุทกภัย"
-    case "drought": return "ภัยแล้ง"
-    case "storm": return "วาตภัย"
-    case "mudslide": return "ดินโคลนถล่ม"
-    case "earthquake-tsunami": return "แผ่นดินไหว"
-    case "pm25": return "pm2.5"
-    case "forest-fire": return "ไฟป่า"
+  switch (value) {
+    case "flood":
+      return "อุทกภัย";
+    case "drought":
+      return "ภัยแล้ง";
+    case "storm":
+      return "วาตภัย";
+    case "mudslide":
+      return "ดินโคลนถล่ม";
+    case "earthquake-tsunami":
+      return "แผ่นดินไหว";
+    case "pm25":
+      return "pm2.5";
+    case "forest-fire":
+      return "ไฟป่า";
   }
-}
+};
 
 export const CreateReportModal = ({ templates = [], opened, onClose }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(null);
   const [rootRef, setRootRef] = useState(null);
-  const [value, setValue] = useState("all");
+  const [value, setValue] = useState(["all"]);
   const [controlsRefs, setControlsRefs] = useState({});
   const setControlRef = (val) => (node) => {
     controlsRefs[val] = node;
@@ -44,14 +51,46 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
 
   useEffect(() => {
     if (!opened) {
-      setSelectedImage(null)
-      setValue("all")
+      setSelectedImage(null);
+      setValue(["all"]);
     }
-  }, [opened])
+  }, [opened]);
 
   const filteredTemplate = useMemo(() => {
-    return templates.filter((template) => value === 'all' || template?.tags?.includes(transformValue(value)))
-  }, [templates, value])
+    return templates.filter(
+      (template) =>
+        value[0] === "all" ||
+        template?.tags?.sort()?.toString() ===
+          value
+            .map((val) => transformValue(val))
+            .sort()
+            .toString()
+    );
+  }, [templates, value]);
+
+  const handleFilterValue = (val) => {
+    if (val === "all") {
+      setValue(["all"]);
+    } else {
+      const idxAll = value.indexOf("all");
+      let newValue =
+        idxAll > -1
+          ? [...value.slice(0, idxAll), ...value.slice(idxAll + 1)]
+          : value;
+
+      const idxValue = newValue.indexOf(val);
+      if (idxValue > -1) {
+        newValue = [
+          ...newValue.slice(0, idxValue),
+          ...newValue.slice(idxValue + 1),
+        ];
+      } else {
+        newValue = [...newValue, val];
+      }
+
+      setValue(newValue.length === 0 ? ["all"] : newValue);
+    }
+  };
 
   return (
     <Modal
@@ -65,7 +104,7 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
       radius="md"
       styles={{
         content: {
-          maxWidth: "64rem"
+          maxWidth: "64rem",
         },
         body: {
           padding: "2rem",
@@ -84,7 +123,7 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
         orientation="vertical"
         className="mt-6 max-h-[22rem]"
         value={value}
-        onChange={setValue}
+        onChange={handleFilterValue}
       >
         <Tabs.List ref={setRootRef} className={classes.list}>
           {DISASTERS_REPORT_SELECT.map((disaster) => (
@@ -106,11 +145,14 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
             </Tabs.Tab>
           ))}
 
-          <FloatingIndicator
-            target={value ? controlsRefs[value] : null}
-            parent={rootRef}
-            className={classes.indicator}
-          />
+          {value.map((val) => (
+            <FloatingIndicator
+              key={val}
+              target={val ? controlsRefs[val] : null}
+              parent={rootRef}
+              className={classes.indicator}
+            />
+          ))}
         </Tabs.List>
 
         <SimpleGrid
@@ -119,7 +161,8 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
           spacing="xl"
         >
           {filteredTemplate.map((template, idx) => {
-            const isSelected = selectedImage?.template_id === template.template_id;
+            const isSelected =
+              selectedImage?.template_id === template.template_id;
 
             return (
               <div
@@ -130,7 +173,11 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
                 })}
                 onClick={() => setSelectedImage(template)}
               >
-                <Image alt="report-image" className="h-full" src={template.img_url} />
+                <Image
+                  alt="report-image"
+                  className="h-full"
+                  src={template.img_url}
+                />
               </div>
             );
           })}
@@ -141,7 +188,9 @@ export const CreateReportModal = ({ templates = [], opened, onClose }) => {
         className="block h-11 mt-8 ml-auto"
         disabled={!selectedImage}
         variant="primary"
-        onClick={() => router.push(`/reporter/create/${selectedImage?.template_id}`)}
+        onClick={() =>
+          router.push(`/reporter/create/${selectedImage?.template_id}`)
+        }
       >
         ดำเนินการต่อ
       </Button>
