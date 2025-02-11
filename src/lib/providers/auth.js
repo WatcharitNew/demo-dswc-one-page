@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { createCtx } from "../helpers/createCtx";
-import { getUserData, setUserData } from "../helpers/cookie";
+import { getUserData, setUserData, deleteUserData } from "../helpers/cookie";
 
 const authContext = createCtx();
 const [, Provider] = authContext;
@@ -18,6 +18,11 @@ export const AuthProvider = ({ children }) => {
   // Example Data -> { province: "กรุงเทพมหานคร", date: new Date(), role: "ผู้รับผิดชอบรูปแบบรายงาน" }
   const [data, setData] = useState({});
   const signIn = useCallback((token) => setUserData(token), []);
+  const signOut = useCallback(() => {
+    deleteUserData()
+    setIsAuth(false)
+    setData({})
+  }, [])
 
   useEffect(() => {
     const userData = getUserData();
@@ -38,6 +43,7 @@ export const AuthProvider = ({ children }) => {
     isLoading,
     data,
     signIn,
+    signOut
   };
 
   return <Provider value={authContextValue}>{children}</Provider>;
