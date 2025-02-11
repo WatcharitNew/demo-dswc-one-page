@@ -60,6 +60,14 @@
   .box-parent-edit:hover .box-button-edit {
     visibility: visible;
   }
+
+  .zoom-parent .zoom-button {
+    visibility: hidden;
+  }
+
+  .zoom-parent:hover .zoom-button {
+    visibility: visible;
+  }
 }
 
 body {

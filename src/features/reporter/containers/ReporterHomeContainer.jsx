@@ -1,13 +1,12 @@
 "use client";
 
-import { useDisclosure } from "@mantine/hooks";
-import { Button, Input, UnstyledButton } from "@mantine/core";
+import { Button, Input, UnstyledButton, useModalsStack } from "@mantine/core";
 
-import dayjs from '@/lib/helpers/dayjs'
-import { useAuthContext } from '@/lib/providers/auth';
+import dayjs from "@/lib/helpers/dayjs";
+import { useAuthContext } from "@/lib/providers/auth";
 import { INITIAL_OVERVIEW_DATA, OVERVIEW_STATUS } from "../constants";
 
-import { OverviewStatusCard } from '@/components';
+import { OverviewStatusCard } from "@/components";
 import { CreateReportModal, ReportTable } from "../components";
 import { AddIcon, Filter, Search, Sort } from "@/icons";
 import { useListReports } from "../services";
@@ -15,17 +14,14 @@ import { useMemo } from "react";
 import { useListTemplates } from "@/features/templater/services";
 
 export const ReporterHomeContainer = () => {
-  const { data } = useAuthContext()
-  const { data: reports } = useListReports(data?.province)
-  const { data: templates } = useListTemplates(data?.province)
-  const [
-    createReportOpened,
-    { open: openCreateReport, close: closeCreateReport },
-  ] = useDisclosure(false);
+  const modalStack = useModalsStack(["report_select", "preview_template"]);
+  const { data } = useAuthContext();
+  const { data: reports } = useListReports(data?.province);
+  const { data: templates } = useListTemplates(data?.province);
 
   const formattedReports = useMemo(() => {
-    return reports || INITIAL_OVERVIEW_DATA
-  }, [reports])
+    return reports || INITIAL_OVERVIEW_DATA;
+  }, [reports]);
 
   return (
     <div className="max-w-[78.875rem] mx-auto">
@@ -37,7 +33,11 @@ export const ReporterHomeContainer = () => {
           </p>
           <div className="flex flex-row gap-5 mx-auto">
             {OVERVIEW_STATUS.map((status) => (
-              <OverviewStatusCard key={status} total={formattedReports?.summary_numbers?.[status]} status={status} />
+              <OverviewStatusCard
+                key={status}
+                total={formattedReports?.summary_numbers?.[status]}
+                status={status}
+              />
             ))}
           </div>
         </div>
@@ -60,7 +60,7 @@ export const ReporterHomeContainer = () => {
               className="h-11 ml-auto"
               variant="primary"
               leftSection={<AddIcon />}
-              onClick={openCreateReport}
+              onClick={() => modalStack.open("report_select")}
             >
               สร้างรายงานประจำวัน
             </Button>
@@ -68,7 +68,8 @@ export const ReporterHomeContainer = () => {
           <div className="col gap-4">
             <div className="row items-center justify-between">
               <p className="text-xl font-medium">
-                ประวัติการจัดทำรายงานสาธารณภัยประจำวัน จังหวัด{data?.province?.name_th}
+                ประวัติการจัดทำรายงานสาธารณภัยประจำวัน จังหวัด
+                {data?.province?.name_th}
               </p>
               <UnstyledButton className="row items-center text-sm gap-2 text-gray-900">
                 <Sort className="size-6 text-gray-600" />
@@ -81,11 +82,7 @@ export const ReporterHomeContainer = () => {
         </div>
       </div>
 
-      <CreateReportModal
-        templates={templates || []}
-        opened={createReportOpened}
-        onClose={closeCreateReport}
-      />
+      <CreateReportModal templates={templates || []} stack={modalStack} />
     </div>
   );
 };
