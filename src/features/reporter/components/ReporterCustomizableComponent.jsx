@@ -10,7 +10,7 @@ export const ReporterCustomizableComponent = ({ box, onClick, imgUrl }) => {
     <div
       onClick={onClick}
       className={clsx(
-        "absolute flex items-center justify-center hover:outline hover:outline-blue-500 cursor-pointer bg-gray-200 hover:bg-white",
+        "absolute flex items-center justify-center hover:outline hover:outline-blue-500 cursor-pointer hover:bg-white",
         imgUrl ? "box-parent-edit" : "box-parent-add"
       )}
       style={{
@@ -20,10 +20,8 @@ export const ReporterCustomizableComponent = ({ box, onClick, imgUrl }) => {
         left: `calc(${box.left}*${TEMPLATE_WIDTH}px)`,
       }}
     >
-      {imgUrl ? (
+      {imgUrl && (
         <Image className="w-full h-full" src={imgUrl} fit="contain" />
-      ) : (
-        "+"
       )}
       <Button className="box-button-add button-in-layout" variant="outline">
         + เพิ่ม
