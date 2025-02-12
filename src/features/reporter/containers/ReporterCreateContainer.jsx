@@ -6,7 +6,12 @@ import { useDisclosure } from "@mantine/hooks";
 
 import { useReloadReport } from "../services";
 
-import { RefreshReportModal, ReporterComponentModal, ReporterCustomizableComponent, CustomVisualizeComponentModal } from "../components";
+import {
+  RefreshReportModal,
+  ReporterComponentModal,
+  ReporterCustomizableComponent,
+  CustomVisualizeComponentModal,
+} from "../components";
 import { Button, Image } from "@mantine/core";
 import { Refresh, Multiplier1, Multiplier15, Multiplier2 } from "@/icons";
 import { useAuthContext } from "@/lib/providers/auth";
@@ -131,10 +136,14 @@ export const ReporterCreateContainer = () => {
       {
         params: {
           img_url: reloadedReport?.data?.img_url,
-          template_id: 1,
-          date: data?.date,
+          template_id: id,
+          date: data?.date ? dayjs(data?.date).format("YYYY-MM-DD") : undefined,
           province_id: data?.province.id,
           name: templateName,
+          customizable_component: customComponents?.map((comp) => ({
+            box_id: comp?.box?.box_id,
+            img_url: comp?.imgUrl,
+          })) || [],
         },
       },
       {
