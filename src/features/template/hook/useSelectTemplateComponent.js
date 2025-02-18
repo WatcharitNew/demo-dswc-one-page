@@ -1,8 +1,8 @@
 import { useCallback, useContext, useState } from "react";
-import { format } from "date-fns";
 import { usePostGenComponents } from "@/services";
 import { getUserData } from "@/lib/helpers/cookie";
 import { CreateLayoutContext } from "@/contexts/CreateLayoutContext";
+import dayjs from "dayjs";
 
 export const useSelectTemplateComponent = () => {
   const [disasterIdx, setDisasterIdx] = useState(0);
