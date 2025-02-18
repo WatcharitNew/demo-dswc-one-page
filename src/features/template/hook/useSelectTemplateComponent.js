@@ -26,7 +26,9 @@ export const useSelectTemplateComponent = () => {
     const params = {
       component_id: selectedTempComponent?.data.component_id,
       province_id: userData?.province.id,
-      date: format(userData?.date, "yyyy-mm-dd"),
+      date: userData?.date
+        ? dayjs(userData?.date).format("YYYY-MM-DD")
+        : undefined,
       box_id: currentBoxId,
       layout_id: selectedLayout?.layout_id,
       content:
